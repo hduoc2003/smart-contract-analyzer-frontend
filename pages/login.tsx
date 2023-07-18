@@ -25,9 +25,9 @@ const login: React.FC = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <div className="submit-white flex h-screen bg-white duration-500">
+      <div className="flex h-screen duration-500 bg-white submit-white">
         <div
-          className="m-2 hidden w-full rounded-3xl bg-slate-950 duration-500 lg:block"
+          className="hidden w-full m-2 duration-500 rounded-3xl bg-slate-950 lg:block"
           style={{
             position: "relative",
             width: "100%",
@@ -41,40 +41,40 @@ const login: React.FC = () => {
             className="rounded-3xl"
           ></Image>
         </div>
-        <div className="m-10 flex w-full justify-center bg-white duration-500">
-          <div className="flex h-full w-full items-center justify-center bg-white object-none object-center p-20 px-40 duration-500">
+        <div className="flex justify-center w-full m-4 duration-500 bg-white md:m-8 lg-m-10">
+          <div className="flex items-center justify-center object-none object-center w-full h-full duration-500 bg-white xl:py-20 xl:px-24 2xl:px-36 md:p-20 sm:py-20 sm:px-10">
             <div className="w-full">
-              <h2 className="mb-8 self-center text-start text-2xl font-bold text-slate-950 duration-500">
+              <h2 className="self-center mb-8 text-2xl font-bold duration-500 text-start text-slate-950">
                 Sign in to Tool
               </h2>
               <div>
                 <button
-                  className="mb-8 flex w-full items-center justify-center gap-2 rounded-md border border-slate-950 px-4 py-2 font-bold text-slate-950 hover:shadow-sm focus:outline-none"
+                  className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold border rounded-md border-slate-950 text-slate-950 hover:shadow-sm focus:outline-none"
                   type="button"
                 >
                   <BiLogoGithub />
                   Sign in with Github
                 </button>
               </div>
-              <hr className="my-8 h-px border-0 bg-gray-400"></hr>
+              <hr className="h-px my-8 bg-gray-400 border-0"></hr>
               <div>
-                <form className="mb-4 bg-white pt-6">
+                <form className="pt-6 mb-4 bg-white">
                   <div className="mb-4">
-                    <label className="text-md mb-2 block font-bold text-gray-700">
+                    <label className="block mb-2 font-bold text-gray-700 text-md">
                       Username
                     </label>
                     <input
-                      className="focus:shadow-outline w-full appearance-none rounded-md border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                      className="w-full px-3 py-2 leading-tight text-gray-700 border rounded-md shadow appearance-none focus:shadow-outline focus:outline-none"
                       id="username"
                       type="text"
                       placeholder="Username"
                     />
                   </div>
                   <div className="mb-6">
-                    <label className="text-md mb-2 block font-bold text-gray-700">
+                    <label className="block mb-2 font-bold text-gray-700 text-md">
                       Password
                       <p
-                        className="text-xs font-normal italic text-blue-400"
+                        className="text-xs italic font-normal text-blue-400"
                         style={{
                           position: "relative",
                           top: "6px",
@@ -85,7 +85,7 @@ const login: React.FC = () => {
                       </p>
                     </label>
                     <input
-                      className="focus:shadow-outline mb-2 w-full appearance-none rounded-md border border-red-500 px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                      className="w-full px-3 py-2 mb-2 leading-tight text-gray-700 border border-red-500 rounded-md shadow appearance-none focus:shadow-outline focus:outline-none"
                       id="password"
                       type="password"
                       placeholder="******************"
@@ -93,7 +93,7 @@ const login: React.FC = () => {
                   </div>
                   <div className="flex flex-col items-center justify-between">
                     <button
-                      className="focus:shadow-outline mb-4 w-full rounded-md bg-slate-950 px-8 py-4 font-bold text-white hover:bg-slate-700 focus:outline-none"
+                      className="w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-slate-950 hover:bg-slate-700 focus:outline-none"
                       type="button"
                     >
                       Sign In
@@ -101,7 +101,7 @@ const login: React.FC = () => {
                     <p>
                       Don't have a account?{" "}
                       <a
-                        className="inline-block align-baseline text-sm text-blue-400 underline hover:text-slate-900"
+                        className="inline-block text-sm text-blue-400 underline align-baseline hover:text-slate-900"
                         href="#"
                       >
                         Sign up
