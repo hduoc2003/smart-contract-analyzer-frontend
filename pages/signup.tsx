@@ -8,7 +8,7 @@ import { BiLogoGithub } from "react-icons/bi";
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
-const onChange = (e: CheckboxChangeEvent) => {
+const onCheckboxChange = (e: CheckboxChangeEvent) => {
   console.log(`checked = ${e.target.checked}`);
 };
 
@@ -103,7 +103,7 @@ const signup = () => {
                 </div>
                 <div className="flex flex-col items-center justify-between">
                   <div className="w-full mb-6">
-                  <Checkbox onChange={onChange}>
+                  <Checkbox onChange={onCheckboxChange}>
                     <p className="text-xs">
                       By creating an account you agree with our{" "}
                       <Link className="inline-block text-xs underline align-baseline hover:text-slate-900" href="">Terms of Service</Link>

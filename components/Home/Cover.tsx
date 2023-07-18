@@ -5,10 +5,10 @@ import CoverImg from "../../assets/images/3.jpg";
 
 const Cover: React.FC = () => {
   return (
-    <div className="relative z-10 grid h-screen grid-cols-1 bg-slate-950 text-white duration-300 md:grid-cols-2">
-      <div className="flex h-screen w-full px-4 py-20 duration-300 md:mt-0 md:px-10 xl:px-40">
+    <section className="relative z-10 grid h-screen grid-cols-1 text-white duration-300 bg-slate-950 md:grid-cols-2">
+      <div className="flex w-full h-screen px-4 py-20 duration-300 md:mt-0 md:px-10 xl:px-40">
         <div className="self-center">
-          <h1 className="pb-5 text-3xl duration-300">TOOL</h1>
+          <h1 className="pb-5 text-5xl font-bold duration-300">TOOL</h1>
           <p className="pb-10 duration-300">
             Introducing a cutting-edge smart contract checking tool,
             revolutionizing the verification process. Our tool utilizes advanced
@@ -19,7 +19,7 @@ const Cover: React.FC = () => {
             confidence.
           </p>
           <div className="grid md:grid-cols-2">
-            <button className="block border border-white bg-slate-950 px-6 py-4 duration-300 hover:bg-white hover:text-slate-950">
+            <button className="block px-6 py-4 duration-300 border border-white bg-slate-950 hover:bg-white hover:text-slate-950">
               <Link href="./login">Get Started</Link>
             </button>
             <div className="pt-2 align-bottom duration-300 md:self-end md:pl-4 md:pt-0">
@@ -31,14 +31,14 @@ const Cover: React.FC = () => {
         </div>
       </div>
 
-      <div className="hidden h-full w-full content-center justify-center bg-slate-950 duration-300 md:flex">
+      <div className="content-center justify-center hidden w-full h-full duration-300 bg-slate-950 md:flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="h-60 w-60 items-center self-center duration-300"
+          className="items-center self-center duration-300 h-60 w-60"
         >
           <path
             strokeLinecap="round"
@@ -47,7 +47,7 @@ const Cover: React.FC = () => {
           />
         </svg>
       </div>
-    </div>
+    </section>
   );
 };
 

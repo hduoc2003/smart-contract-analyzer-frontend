@@ -1,21 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 
 import LoginImg from "../assets/images/2.jpg";
 import { BiLogoGithub } from "react-icons/bi";
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 
 interface LoginFormState {
   username: string;
   password: string;
 }
+type InputFormState = () => void;
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-const login: React.FC = () => {
-  const [formState, setFormState] = useState<LoginFormState>({
-    username: "",
-    password: "",
-  });
+const login: React.FC<InputFormState> = () => {
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [formInfo, setFormInfo] = useState<LoginFormState>({ username: '', password: '' })
+
+  useEffect(() => {
+    setUsername(username);
+    setFormInfo({...formInfo, 'username':username})
+  }, [username]);
+  useEffect(() => {
+    setPassword(password);
+    setFormInfo({...formInfo, 'password':password})
+  }, [password]);
+
+const handleSubmitForm: InputFormState = () => {
+  // Perform form submission logic here
+  setLoading(true);
+  console.log('Submitting form with username:', username);
+  console.log('Submitting form with password:', password);
+  
+  // Example: Send form data to an API
+  // fetch('/api/login', {
+  //   method: 'POST',
+  //   body: JSON.stringify({ username, password }),
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     // Handle response from the server
+  //     console.log('Form submission response:', data);
+  //   })
+  //   .catch(error => {
+  //     // Handle any errors that occurred during form submission
+  //     console.error('Form submission error:', error);
+  //   });
+  setTimeout(() => {
+    setLoading(false);
+  }, 500);
+};
 
   return (
     <>
@@ -38,7 +79,7 @@ const login: React.FC = () => {
             alt="Description of the image"
             layout="fill"
             objectFit="cover"
-            className="rounded-3xl"
+            className="duration-200 rounded-3xl"
           ></Image>
         </div>
         <div className="flex justify-center w-full m-4 duration-500 bg-white md:m-8 lg-m-10">
@@ -69,6 +110,7 @@ const login: React.FC = () => {
                       id="username"
                       type="text"
                       placeholder="Username"
+                      onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
                   <div className="mb-6">
@@ -90,14 +132,17 @@ const login: React.FC = () => {
                       id="password"
                       type="password"
                       placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div className="flex flex-col items-center justify-between">
+                    
                     <button
                       className="w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-slate-950 hover:bg-slate-700 focus:outline-none"
                       type="button"
+                      onClick={handleSubmitForm}
                     >
-                      Sign In
+                      {loading ? <Spin indicator={antIcon} /> : 'Sign In'}
                     </button>
                     <p>
                       Don't have a account?{" "}
