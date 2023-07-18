@@ -20,7 +20,7 @@ const login: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Tool | Login</title>
+        <title>Tool | Sign in</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
@@ -56,7 +56,8 @@ const login: React.FC = () => {
                   Sign in with Github
                 </button>
               </div>
-              <hr className="h-px my-8 bg-gray-400 border-0"></hr>
+              <hr className="h-px my-8 bg-gray-400 border-0">
+              </hr>
               <div>
                 <form className="pt-6 mb-4 bg-white">
                   <div className="mb-4">
@@ -64,7 +65,7 @@ const login: React.FC = () => {
                       Username
                     </label>
                     <input
-                      className="w-full px-3 py-2 leading-tight text-gray-700 border rounded-md shadow appearance-none focus:shadow-outline focus:outline-none"
+                      className="w-full px-3 py-2 leading-8 text-gray-700 border border-gray-300 rounded appearance-none focus:outline-none focus:shadow-outline"
                       id="username"
                       type="text"
                       placeholder="Username"
@@ -74,7 +75,7 @@ const login: React.FC = () => {
                     <label className="block mb-2 font-bold text-gray-700 text-md">
                       Password
                       <p
-                        className="text-xs italic font-normal text-blue-400"
+                        className="text-xs italic font-normal"
                         style={{
                           position: "relative",
                           top: "6px",
@@ -85,10 +86,10 @@ const login: React.FC = () => {
                       </p>
                     </label>
                     <input
-                      className="w-full px-3 py-2 mb-2 leading-tight text-gray-700 border border-red-500 rounded-md shadow appearance-none focus:shadow-outline focus:outline-none"
+                      className="w-full px-3 py-2 mb-2 leading-8 text-gray-700 border border-gray-300 rounded-md appearance-none focus:shadow-outline focus:outline-none"
                       id="password"
                       type="password"
-                      placeholder="******************"
+                      placeholder="Password"
                     />
                   </div>
                   <div className="flex flex-col items-center justify-between">
@@ -100,12 +101,7 @@ const login: React.FC = () => {
                     </button>
                     <p>
                       Don't have a account?{" "}
-                      <a
-                        className="inline-block text-sm text-blue-400 underline align-baseline hover:text-slate-900"
-                        href="#"
-                      >
-                        Sign up
-                      </a>
+                        <Link className="inline-block text-sm underline align-baseline hover:text-slate-900" href="./signup">Sign up</Link>
                     </p>
                   </div>
                 </form>
