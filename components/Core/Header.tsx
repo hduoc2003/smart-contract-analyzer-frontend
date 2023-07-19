@@ -71,16 +71,16 @@ const Header: React.FC = () => {
             </li>
             <li>
               <Link
-                href="./contact"
+                href="./coverage"
                 className={`block py-2 pl-3 pr-4 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
-                Services
+                Coverage
               </Link>
             </li>
             <li>
               <Link
-                href="./contact"
+                href="./pricing"
                 className={`block py-2 pl-3 pr-4 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
             </li>
             <li>
               <Link
-                href="./contact"
+                href="./tool"
                 className={`block py-2 pl-3 pr-4 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
