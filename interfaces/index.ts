@@ -8,3 +8,8 @@ export type User = {
   id: number
   name: string
 }
+
+export interface LoginFormState {
+  username: string;
+  password: string;
+}

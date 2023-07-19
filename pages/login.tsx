@@ -5,21 +5,22 @@ import Head from "next/head";
 
 import LoginImg from "../assets/images/2.jpg";
 import { BiLogoGithub } from "react-icons/bi";
-import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import { LoadingOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { Button, Input, Spin } from 'antd';
+import { LoginFormState } from "../interfaces";
 
-interface LoginFormState {
-  username: string;
-  password: string;
-}
 type InputFormState = () => void;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const login: React.FC<InputFormState> = () => {
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [formInfo, setFormInfo] = useState<LoginFormState>({ username: '', password: '' })
+
+  const [usernameErr, setUsernameErr] = useState<boolean>(false);
+  const [passwordErr, setPasswordErr] = useState<boolean>(false);
 
   useEffect(() => {
     setUsername(username);
@@ -30,33 +31,37 @@ const login: React.FC<InputFormState> = () => {
     setFormInfo({...formInfo, 'password':password})
   }, [password]);
 
-const handleSubmitForm: InputFormState = () => {
-  // Perform form submission logic here
-  setLoading(true);
-  console.log('Submitting form with username:', username);
-  console.log('Submitting form with password:', password);
+  const handleUsernameCheck = (username : string) => {
+    if(username  === "") return false;
+    return true;
+  }
+  const handlePasswordCheck = (password : string) => {
+    if(password  === "") return false;
+    return true;
+  }
+
+  const handleSubmitForm: InputFormState = () => {
+    // Perform form submission logic here
+    if(!handleUsernameCheck(username)) setUsernameErr(true);
+    if(!handlePasswordCheck(password)) setPasswordErr(true);
+    
+    if(handleUsernameCheck(username) && handlePasswordCheck(username)){
+      setLoading(true);
+      console.log('Submitting form with username:', username);
+      console.log('Submitting form with password:', password);
   
-  // Example: Send form data to an API
-  // fetch('/api/login', {
-  //   method: 'POST',
-  //   body: JSON.stringify({ username, password }),
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   }
-  // })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     // Handle response from the server
-  //     console.log('Form submission response:', data);
-  //   })
-  //   .catch(error => {
-  //     // Handle any errors that occurred during form submission
-  //     console.error('Form submission error:', error);
-  //   });
-  setTimeout(() => {
-    setLoading(false);
-  }, 500);
-};
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+  };
+
+  const handleUsernameFocus = () => {
+    setUsernameErr(false);
+  }
+  const handlePasswordFocus = () => {
+    setPasswordErr(false);
+  }
 
   return (
     <>
@@ -90,7 +95,7 @@ const handleSubmitForm: InputFormState = () => {
               </h2>
               <div>
                 <button
-                  className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold border rounded-md border-slate-950 text-slate-950 hover:shadow-sm focus:outline-none"
+                  className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold duration-500 border rounded-md border-slate-950 text-slate-950 hover:bg-slate-950 hover:text-white focus:outline-none"
                   type="button"
                 >
                   <BiLogoGithub />
@@ -103,13 +108,13 @@ const handleSubmitForm: InputFormState = () => {
                 <form className="pt-6 mb-4 bg-white">
                   <div className="mb-4">
                     <label className="block mb-2 font-bold text-gray-700 text-md">
-                      Username
+                      Username or email
                     </label>
-                    <input
-                      className="w-full px-3 py-2 leading-8 text-gray-700 border border-gray-300 rounded appearance-none focus:outline-none focus:shadow-outline"
-                      id="username"
-                      type="text"
-                      placeholder="Username"
+                    <Input
+                      status={usernameErr ? "error" : ""}
+                      onFocus={handleUsernameFocus}
+                      className="w-full px-3 py-2"
+                      placeholder="Enter your username" 
                       onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
@@ -127,22 +132,23 @@ const handleSubmitForm: InputFormState = () => {
                         <Link href="./signup">Forgot?</Link>
                       </p>
                     </label>
-                    <input
-                      className="w-full px-3 py-2 mb-2 leading-8 text-gray-700 border border-gray-300 rounded-md appearance-none focus:shadow-outline focus:outline-none"
-                      id="password"
-                      type="password"
-                      placeholder="Password"
+                    <Input.Password
+                      status={passwordErr ? "error" : ""}
+                      onFocus={handlePasswordFocus}
+                      className="w-full px-3 py-2 mb-2 hover:border-slate-950"
+                      placeholder="Enter your password"
                       onChange={(e) => setPassword(e.target.value)}
+                      visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
                     />
                   </div>
                   <div className="flex flex-col items-center justify-between">
                     
                     <button
-                      className="w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-slate-950 hover:bg-slate-700 focus:outline-none"
+                      className="w-full px-12 py-6 mb-4 font-bold text-white rounded-lg focus:shadow-outline bg-slate-950 hover:bg-slate-700 focus:outline-none"
                       type="button"
                       onClick={handleSubmitForm}
                     >
-                      {loading ? <Spin indicator={antIcon} /> : 'Sign In'}
+                      {loading ? <Spin indicator={antIcon} className="text-white" /> : 'Sign In'}
                     </button>
                     <p>
                       Don't have a account?{" "}

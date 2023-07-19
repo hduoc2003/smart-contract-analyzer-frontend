@@ -103,7 +103,7 @@ const signup = () => {
                 </div>
                 <div className="flex flex-col items-center justify-between">
                   <div className="w-full mb-6">
-                  <Checkbox onChange={onCheckboxChange}>
+                  <Checkbox onChange={onCheckboxChange} className="bg-slate-950">
                     <p className="text-xs">
                       By creating an account you agree with our{" "}
                       <Link className="inline-block text-xs underline align-baseline hover:text-slate-900" href="">Terms of Service</Link>
