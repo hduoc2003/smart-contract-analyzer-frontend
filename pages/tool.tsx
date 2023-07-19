@@ -2,35 +2,19 @@ import React, {useState} from "react";
 import Layout from "../components/Layout";
 
 import { InboxOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
+import type { UploadProps, UploadFile } from 'antd';
 import { message, Upload } from 'antd';
 const { Dragger } = Upload;
 
-const props: UploadProps = {
-  name: 'file',
-  multiple: true,
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log('Dropped files', e.dataTransfer.files);
-  },
-};
-
 const tool: React.FC = () => { 
   const [messageApi, contextHolder] = message.useMessage();
-  const [submitDisable, setSubmitDisable] = useState<boolean>(false);
+  const [submitDisable, setSubmitDisable] = useState<boolean>(true);
+  const [submittedFiles, setSubmittedFiles] = useState<UploadFile[]>([]);
+
   const handleSubmit = () => {
     setSubmitDisable(true);
+    console.log("Các files đã submit thành công: ", submittedFiles);
+    setSubmittedFiles([]);
     messageApi
       .open({
         type: 'loading',
@@ -44,11 +28,36 @@ const tool: React.FC = () => {
       setSubmitDisable(false);
     }, 2500)
   }
+
+  const props: UploadProps = {
+    name: 'file',
+    multiple: true,
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log("Trạng thái upload:", info)
+        console.log("Các file đã upload:", info.fileList);
+      }
+  
+      if (status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully.`);
+        setSubmittedFiles([...submittedFiles, info.file]);
+        setSubmitDisable(false);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+    onDrop(e) {
+      console.log('Dropped files', e.dataTransfer.files);
+    },
+  };
+  
   
   return (
     <Layout title="Tool | Tool">
       <div className="h-auto p-10 bg-white ">
-        <div className="h-auto p-8 m-40 border border-gray-200 rounded shadow-md">
+        <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:m-40">
           <div className="h-auto min-w-full">
             <Dragger {...props}>
               <p className="ant-upload-drag-icon ">
