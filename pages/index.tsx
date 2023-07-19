@@ -5,6 +5,7 @@ import Cover from "../components/Home/Cover";
 import Coverage from "../components/Home/Coverage";
 import Feedback from "../components/Home/Feedback";
 import Partners from "../components/Home/Partners";
+import GetStarted from "../components/Home/GetStarted";
 
 const IndexPage: React.FC = () => (
   <Layout title="Home | Tool">
@@ -12,10 +13,7 @@ const IndexPage: React.FC = () => (
     <Coverage />
     <Feedback />
     <Partners />
-
-    <div className="h-screen bg-orange-300">
-      <h1>1111111111111111111</h1>
-    </div>
+    <GetStarted />
   </Layout>
 );
 

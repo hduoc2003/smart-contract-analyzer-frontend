@@ -3,20 +3,11 @@ import Link from "next/link";
 
 const Header: React.FC = () => {
   const [scroll, setScroll] = useState<Boolean>(false);
-  const [isNavOpen, setNavOpen] = useState<Boolean>(false);
-
-  // Function to open the navigation menu
-  const openNav = () => {
-    setNavOpen(true);
-  };
-
-  // Function to close the navigation menu
-  const closeNav = () => {
-    setNavOpen(false);
-  };
+  const [isNavOpen, setNavOpen] = useState<Boolean>(true);
 
   // Function to toggle the navigation menu
   const toggleNav = () => {
+    console.log("nav toggled");
     setNavOpen(!isNavOpen);
   };
 
@@ -37,7 +28,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`duration-500 flex flex-wrap lg:flex-nowrap items-center justify-between pl-15 sticky top-0 z-20 px-4 py-4 text-white shadow-xl duration-500 md:px-10 xl:px-40 ${
+      className={`flex flex-wrap lg:flex-nowrap items-center justify-between pl-15 sticky top-0 z-20 px-4 py-4 text-white shadow-xl duration-500 md:px-10 xl:px-40 ${
         scroll ? "bg-white" : "bg-slate-950"
       }`}
     >
@@ -53,8 +44,8 @@ const Header: React.FC = () => {
         </div>
         <button
         onClick={toggleNav}
-          className={`duration-500 inline-flex items-center justify-center w-10 h-10 p-2 duration-500 lg:hidden ${
-            scroll ? "text-slate-950" : "text-white"
+          className={`inline-flex items-center justify-center w-10 h-10 p-2 duration-500 lg:hidden 
+            ${scroll ? "text-slate-950" : "text-white"
           }`}
         >
           <svg
@@ -73,7 +64,11 @@ const Header: React.FC = () => {
           </svg>
         </button>
         <div className="w-full duration-500 xk:ml-60 lg:ml-40 md:justify-center md:content-center lg:grid">
-          <ul className={`duration-500 flex flex-col p-4 mt-4 font-medium lg:mt-0 lg:flex-row lg:space-x-8 lg:border-0 lg:p-0 lg:dark:bg-gray-900 ${isNavOpen ? "hidden" : "flex" }`}>
+          <ul className={`duration-500 flex flex-col p-4 mt-4 font-medium lg:mt-0 lg:flex-row lg:space-x-8 lg:border-0 lg:p-0 lg:dark:bg-gray-900 ${isNavOpen ? "flex" : "hidden" }`}>
+            <li className={`lg:hidden ${scroll ? "text-slate-950" : "text-white"}
+                `}>
+              <hr />
+            </li>
             <li>
               <Link
                 href="./contact"
@@ -107,9 +102,33 @@ const Header: React.FC = () => {
                 className={`block py-2 pl-3 pr-4 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
+                Tool
+              </Link>
+            </li>
+
+            <li className={`my-2 lg:hidden ${scroll ? "text-slate-950" : "text-white"}
+                `}>
+              <hr />
+            </li>
+            <li className="lg:hidden">
+              <Link
+                href="./contact"
+                className={`block py-2 pl-3 pr-4 rounded
+                ${scroll ? "text-slate-950" : "text-white"}
+                `}>
                 Login
               </Link>
             </li>
+            <li className="lg:hidden">
+              <Link
+                href="./contact"
+                className={`block py-2 pl-3 pr-4 rounded
+                ${scroll ? "text-slate-950" : "text-white"}
+                `}>
+                Sign up
+              </Link>
+            </li>
+            
           </ul>
         </div>
         <div className="flex-col-reverse items-end hidden duration-500 w-96 lg:flex">

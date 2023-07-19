@@ -4,9 +4,9 @@ import { BiSolidQuoteAltLeft, BiSolidQuoteAltRight } from "react-icons/bi";
 const Feedback: React.FC = () => {
     return (
         <section className="h-screen p-8 bg-white">
-            <h2 className="mb-16 text-5xl font-bold">What our Customers Say</h2>
+            <h2 className="mb-16 text-2xl font-bold md:text-5xl sm:text-3xl">What our Customers Say</h2>
             <div className="w-full mb-6 h-80 rounded-xl bg-slate-950 ">
-                <div className="flex px-4 py-2 mb-4 md:mb-0 lg:mb-12 md:p-8">
+                <div className="flex px-4 py-2 mb-4 sm:py-6 md:mb-0 lg:mb-12 md:p-8">
                     <div className="flex items-start">
                         <BiSolidQuoteAltLeft className="w-12 text-lg text-white md:text-3xl"></BiSolidQuoteAltLeft>
                     </div>
@@ -25,7 +25,7 @@ const Feedback: React.FC = () => {
                 </div>
             </div>
             <div className="w-full mb-6 h-80 rounded-xl bg-slate-950 ">
-                <div className="flex px-4 py-2 mb-4 md:mb-0 lg:mb-12 md:p-8">
+                <div className="flex px-4 py-2 mb-4 sm:py-6 md:mb-0 lg:mb-12 md:p-8">
                     <div className="flex items-start">
                         <BiSolidQuoteAltLeft className="w-12 text-lg text-white md:text-3xl"></BiSolidQuoteAltLeft>
                     </div>

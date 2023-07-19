@@ -1,14 +1,27 @@
 import React from "react";
 import Link from "next/link";
+
 import Image from "next/image";
 import CoverImg from "../../assets/images/3.jpg";
+import Typewriter from 'typewriter-effect';
 
 const Cover: React.FC = () => {
   return (
     <section className="relative z-10 grid h-screen grid-cols-1 text-white duration-300 bg-slate-950 md:grid-cols-2">
       <div className="flex w-full h-screen px-4 py-20 duration-300 md:mt-0 md:px-10 xl:px-40">
         <div className="self-center">
-          <h1 className="pb-5 text-5xl font-bold duration-300">TOOL</h1>
+          <div className="flex items-center gap-8">
+            <h1 className="pb-5 text-5xl font-bold duration-300">TOOL</h1>
+            <div className='text-2xl italic font-extralight'>
+              <Typewriter
+                  options={{
+                      strings: ['Efficent', 'Secure', 'Reliable'],
+                      autoStart: true,
+                      loop: true,
+                  }}
+              />
+            </div>
+          </div>
           <p className="pb-10 duration-300">
             Introducing a cutting-edge smart contract checking tool,
             revolutionizing the verification process. Our tool utilizes advanced

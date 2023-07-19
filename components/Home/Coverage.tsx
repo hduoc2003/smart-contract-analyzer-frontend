@@ -5,9 +5,9 @@ const Coverage: React.FC = () => {
     return (
         <section className="h-screen p-8 bg-white">
             <div className="w-full mb-8 md:mb-12 lg:w-1/2">
-                <h2 className="mb-6 text-5xl font-bold">See our current coverage</h2>
+                <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">See our current coverage</h2>
                 <p>
-                    The <Link href="https://swcregistry.io" className="inline-block underline align-baseline text-md hover:text-slate-900">SWC Registry</Link> is Link community catalog of known smart contract vulnerabilities with detailed descriptions, code samples, and remediations. MythX uses the SWC Registry as its database when scanning smart contracts for security issues.
+                    The <Link href="https://swcregistry.io" className="align-baseline inline-blockunderline text-md hover:text-slate-900">SWC Registry</Link> is Link community catalog of known smart contract vulnerabilities with detailed descriptions, code samples, and remediations. MythX uses the SWC Registry as its database when scanning smart contracts for security issues.
                 </p>
             </div>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
@@ -84,7 +84,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
             </div>
-            <div className="flex justify-center mt-8 md:mt-16">
+            <div className="flex justify-center mt-8 sm:mt-12 md:mt-16">
                 <Link className="flex items-center p-2 duration-500 border rounded-lg md:p-4 border-slate-950 hover:bg-slate-950 hover:text-white" href="/detectors">
                     See our current coverage
                 </Link>
