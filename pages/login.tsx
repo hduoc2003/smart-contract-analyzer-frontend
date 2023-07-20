@@ -8,6 +8,7 @@ import { BiLogoGithub } from "react-icons/bi";
 import { LoadingOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, Input, Spin } from 'antd';
 import { LoginFormState } from "../interfaces";
+import { handleUsernameCheck, handlePasswordCheck} from "../utils/InputCheck";
 
 type InputFormState = () => void;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -31,21 +32,12 @@ const login: React.FC<InputFormState> = () => {
     setFormInfo({...formInfo, 'password':password})
   }, [password]);
 
-  const handleUsernameCheck = (username : string) => {
-    if(username  === "") return false;
-    return true;
-  }
-  const handlePasswordCheck = (password : string) => {
-    if(password  === "") return false;
-    return true;
-  }
-
   const handleSubmitForm: InputFormState = () => {
     // Perform form submission logic here
     if(!handleUsernameCheck(username)) setUsernameErr(true);
     if(!handlePasswordCheck(password)) setPasswordErr(true);
     
-    if(handleUsernameCheck(username) && handlePasswordCheck(username)){
+    if(handleUsernameCheck(username) && handlePasswordCheck(password)){
       setLoading(true);
       console.log('Submitting form with username:', username);
       console.log('Submitting form with password:', password);

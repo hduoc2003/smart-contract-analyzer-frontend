@@ -1,18 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 
+
 import SignupImg from "../assets/images/1.jpg";
 import { BiLogoGithub } from "react-icons/bi";
+import { LoadingOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { Button, Input, Spin, message } from 'antd';
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { SignupFormState } from "../interfaces";
+import { handlePasswordCheck, handleEmailCheck, handleUsernameCheck } from "../utils/InputCheck";
 
-const onCheckboxChange = (e: CheckboxChangeEvent) => {
-  console.log(`checked = ${e.target.checked}`);
-};
+type InputFormState = () => void;
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-const signup = () => {
+
+const signup: React.FC<SignupFormState> = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [name, setName] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [repassword, setRepassword] = useState<string>('');
+  const [checked, setChecked] = useState<boolean>(false);
+  const [formInfo, setFormInfo] = useState<SignupFormState>({name: '', username: '', password: '', email: ''})
+
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [repasswordVisible, setRepasswordVisible] = useState<boolean>(false);
+
+  const [nameErr, setNameErr] = useState<boolean>(false);
+  const [usernameErr, setUsernameErr] = useState<boolean>(false);
+  const [emailErr, setEmailErr] = useState<boolean>(false);
+  const [passwordErr, setPasswordErr] = useState<boolean>(false);
+  const [repasswordErr, setRepasswordErr] = useState<boolean>(false);
+
+  const handleNameFocus = () => { setNameErr(false); }
+  const handleUsernameFocus = () => { setUsernameErr(false); }
+  const handleEmailFocus = () => { setEmailErr(false); }
+  const handlePasswordFocus = () => { setPasswordErr(false); }
+  const handleRepasswordFocus = () => { setRepasswordErr(false); }
+  const handleCheckboxChange = (e: CheckboxChangeEvent) => { setChecked(e.target.checked); };
+
+  const handleSubmitForm: InputFormState = () => {
+    // Perform form submission logic here
+    if (!name) setNameErr(true);
+    if (!handleUsernameCheck(username)) setUsernameErr(true);
+    if (!handleEmailCheck(email)) setEmailErr(true);
+    if (!handlePasswordCheck(password)) setPasswordErr(true);
+    if (repassword !== password || repassword === "") setRepasswordErr(true);
+    if (!checked){
+      message.info("Please accept our Terms & Conditions");
+    }
+    
+    if(handleUsernameCheck(username) && handlePasswordCheck(password) && repassword === password && repassword !== "" && checked){
+      setLoading(true);
+      
+      setTimeout(() => {
+        setFormInfo({name: name, username: username, password: password, email: email});
+        console.log('Form submitted: ', formInfo);
+        message.success("Submitted!");
+        setLoading(false);
+      }, 1000);
+    }
+    else {
+      message.error("Please fill all the form");
+    }
+  };
+
+
   return (
     <>
     <Head>
@@ -60,67 +117,86 @@ const signup = () => {
                     <label className="block mb-2 font-bold text-gray-700 text-md">
                       Name
                     </label>
-                    <input
-                      className="w-full px-3 py-2 leading-8 text-gray-700 border border-gray-300 rounded appearance-none focus:outline-none focus:shadow-outline"
-                      id="username"
-                      type="text"
-                      placeholder="Username"
+                    <Input
+                      status={nameErr ? "error" : ""}
+                      onFocus={handleNameFocus}
+                      className="w-full px-3 py-2"
+                      placeholder="Enter your username" 
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
                     <label className="block mb-2 font-bold text-gray-700 text-md">
                       Username
                     </label>
-                    <input
-                      className="w-full px-3 py-2 leading-8 text-gray-700 border border-gray-300 rounded appearance-none focus:outline-none focus:shadow-outline"
-                      id="username"
-                      type="text"
-                      placeholder="Username"
+                    <Input
+                      status={usernameErr ? "error" : ""}
+                      onFocus={handleUsernameFocus}
+                      className="w-full px-3 py-2"
+                      placeholder="Enter your username" 
+                      onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
                 </div>
                 <div className="mb-4">
                   <label className="block mb-2 font-bold text-gray-700 text-md">
-                    Username or email
+                    Email
                   </label>
-                  <input
-                    className="w-full px-3 py-2 leading-8 text-gray-700 border border-gray-300 rounded appearance-none focus:outline-none focus:shadow-outline"
-                    id="username"
-                    type="text"
-                    placeholder="Username"
-                  />
+                  <Input
+                      status={emailErr ? "error" : ""}
+                      onFocus={handleEmailFocus}
+                      className="w-full px-3 py-2"
+                      placeholder="Enter your username" 
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
                 <div className="mb-2">
                   <label className="block mb-2 font-bold text-gray-700 text-md">
                     Password
                   </label>
-                  <input
-                    className="w-full px-3 py-2 leading-8 text-gray-700 border border-gray-300 rounded-md appearance-none focus:shadow-outline focus:outline-none"
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                  />
+                  <Input.Password
+                      status={passwordErr ? "error" : ""}
+                      onFocus={handlePasswordFocus}
+                      className="w-full px-3 py-2 mb-2 hover:border-slate-950"
+                      placeholder="Enter your password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
+                    />
+                </div>
+                <div className="mb-2">
+                  <label className="block mb-2 font-bold text-gray-700 text-md">
+                    Re-enter password
+                  </label>
+                  <Input.Password
+                      status={repasswordErr ? "error" : ""}
+                      onFocus={handleRepasswordFocus}
+                      className="w-full px-3 py-2 mb-2 hover:border-slate-950"
+                      placeholder="Enter your password"
+                      onChange={(e) => setRepassword(e.target.value)}
+                      visibilityToggle={{ visible: repasswordVisible, onVisibleChange: setRepasswordVisible }}
+                    />
                 </div>
                 <div className="flex flex-col items-center justify-between">
                   <div className="w-full mb-6">
-                  <Checkbox onChange={onCheckboxChange} className="bg-slate-950">
-                    <p className="text-xs">
-                      By creating an account you agree with our{" "}
-                      <Link className="inline-block text-xs underline align-baseline hover:text-slate-900" href="">Terms of Service</Link>
-                      ,{" "}
-                      <Link className="inline-block text-xs underline align-baseline hover:text-slate-900" href="">Privacy Policy</Link>
-                      ,
-                      and out default{" "}
-                      <Link className="inline-block text-xs underline align-baseline hover:text-slate-900" href="">Notification Settings</Link>
-                      ,{" "}
-                    </p>
-                  </Checkbox>
+                    <Checkbox onChange={handleCheckboxChange}>
+                      <p className="text-xs">
+                        By creating an account you agree with our{" "}
+                        <Link className="inline-block text-xs underline align-baseline hover:text-slate-900" href="">Terms of Service</Link>
+                        ,{" "}
+                        <Link className="inline-block text-xs underline align-baseline hover:text-slate-900" href="">Privacy Policy</Link>
+                        ,
+                        and out default{" "}
+                        <Link className="inline-block text-xs underline align-baseline hover:text-slate-900" href="">Notification Settings</Link>
+                        ,{" "}
+                      </p>
+                    </Checkbox>
                   </div>
                   <button
                     className="w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-slate-950 hover:bg-slate-700 focus:outline-none"
                     type="button"
+                    onClick={handleSubmitForm}
                   >
-                    Sign Up
+                    {loading ? <Spin indicator={antIcon} className="text-white" /> : 'Sign Up'}
                   </button>
                   <p className="mt-4">
                     Already have an account?{" "}

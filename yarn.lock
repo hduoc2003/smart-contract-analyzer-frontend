@@ -1411,6 +1411,11 @@
   dependencies:
     "brace-expansion" "^2.0.1"
 
+"moment@^2.29.4", "moment@>= 2.x":
+  "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
+  "version" "2.29.4"
+
 "mz@^2.7.0":
   "integrity" "sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q=="
   "resolved" "https://registry.npmjs.org/mz/-/mz-2.7.0.tgz"

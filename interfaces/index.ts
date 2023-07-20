@@ -13,3 +13,10 @@ export interface LoginFormState {
   username: string;
   password: string;
 }
+
+export interface SignupFormState {
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+}
