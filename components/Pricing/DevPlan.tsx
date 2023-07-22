@@ -5,7 +5,7 @@ const DevPlan: React.FC = () => {
     const [plan, setPlan] = useState<string>("month");
 
     return (
-        <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-2xl shadow-cyan-500/50 sm:p-8 ">
+        <div className="w-full max-w-lg xl:max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-2xl shadow-cyan-500/50 sm:p-8 ">
             <h5 className="mb-4 text-xl font-medium text-gray-500 ">Developer plan</h5>
             <div className="flex items-baseline text-gray-900">
                 <span className="text-3xl font-semibold">$</span>
