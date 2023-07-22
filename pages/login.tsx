@@ -34,10 +34,10 @@ const login: React.FC<InputFormState> = () => {
 
   const handleSubmitForm: InputFormState = () => {
     // Perform form submission logic here
-    if(!handleUsernameCheck(username)) setUsernameErr(true);
-    if(!handlePasswordCheck(password)) setPasswordErr(true);
+    if (!handleUsernameCheck(username)) setUsernameErr(true);
+    if (!handlePasswordCheck(password)) setPasswordErr(true);
     
-    if(handleUsernameCheck(username) && handlePasswordCheck(password)){
+    if (handleUsernameCheck(username) && handlePasswordCheck(password)){
       setLoading(true);
       console.log('Submitting form with username:', username);
       console.log('Submitting form with password:', password);

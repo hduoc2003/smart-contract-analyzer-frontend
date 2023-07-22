@@ -51,7 +51,7 @@ const Cover: React.FC = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="items-center self-center duration-300 h-60 w-60"
+          className="items-center self-center duration-300 h-3/6 w-3/6"
         >
           <path
             strokeLinecap="round"
