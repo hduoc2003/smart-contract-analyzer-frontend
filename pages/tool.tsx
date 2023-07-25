@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useRouter } from 'next/dist/client/router';
 import Layout from "../components/Layout";
 
 import { InboxOutlined } from '@ant-design/icons';
@@ -7,6 +8,7 @@ import { message, Upload } from 'antd';
 const { Dragger } = Upload;
 
 const tool: React.FC = () => { 
+  const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
   const [submitDisable, setSubmitDisable] = useState<boolean>(true);
   const [submittedFiles, setSubmittedFiles] = useState<UploadFile[]>([]);
@@ -14,24 +16,30 @@ const tool: React.FC = () => {
   const handleSubmit = () => {
     setSubmitDisable(true);
     console.log("Các files đã submit thành công: ", submittedFiles);
-    setSubmittedFiles([]);
     messageApi
       .open({
         type: 'loading',
-        content: 'TEST SCANNING..',
+        content: 'Processing your file...',
         duration: 2.5,
       })
-      .then(() => message.success('Loading finished', 2.5))
-      .then(() => message.error('Loading finished', 2.5))
-      .then(() => message.info('Loading finished', 2.5));
+      .then(() => message.success('Loading finished', 0.5))
     setTimeout(() => {
       setSubmitDisable(false);
-    }, 2500)
+      router.push({
+        pathname: '/result/[path]',
+        query: {
+          path: submittedFiles[0].name,
+          filename: submittedFiles[0].name,
+          ref: 'Tung',
+        }
+      });
+      setSubmittedFiles([]);
+    }, 3000)
   }
 
   const props: UploadProps = {
     name: 'file',
-    multiple: true,
+    multiple: false,
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     onChange(info) {
       const { status } = info.file;
@@ -56,7 +64,7 @@ const tool: React.FC = () => {
   
   return (
     <Layout title="Tool | Tool">
-      <div className="h-auto p-10 bg-white ">
+      <div className="h-auto min-h-screen p-10 bg-white ">
         <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:m-40">
           <div className="h-auto min-w-full">
             <Dragger {...props}>

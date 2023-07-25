@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     >
         <div className="flex items-center duration-500">
           <Link
-            href="./"
+            href="../"
             className={`text-bold text-2xl ${
               scroll ? "text-slate-950" : "text-white"
             }`}
@@ -71,7 +71,7 @@ const Header: React.FC = () => {
             </li>
             <li>
               <Link
-                href="./coverage"
+                href="../coverage"
                 className={`block py-2 pl-3 pr-4 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
@@ -80,7 +80,7 @@ const Header: React.FC = () => {
             </li>
             <li>
               <Link
-                href="./pricing"
+                href="../pricing"
                 className={`block py-2 pl-3 pr-4 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
@@ -89,16 +89,16 @@ const Header: React.FC = () => {
             </li>
             <li>
               <Link
-                href="./contact"
+                href="../about"
                 className={`block py-2 pl-3 pr-4 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
-                Contact
+                About
               </Link>
             </li>
             <li>
               <Link
-                href="./tool"
+                href="../tool"
                 className={`block py-2 pl-3 pr-4 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
@@ -112,7 +112,7 @@ const Header: React.FC = () => {
             </li>
             <li className="lg:hidden">
               <Link
-                href="./contact"
+                href="../login"
                 className={`block py-2 pl-3 pr-4 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
@@ -121,7 +121,7 @@ const Header: React.FC = () => {
             </li>
             <li className="lg:hidden">
               <Link
-                href="./contact"
+                href="../signup"
                 className={`block py-2 pl-3 pr-4 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
                 `}>
@@ -140,7 +140,7 @@ const Header: React.FC = () => {
                   : "border-white hover:bg-white hover:text-slate-950"
               }`}
             >
-              <Link href="./login">Login</Link>
+              <Link href="../login">Login</Link>
             </button>
             <button
               className={`border px-6 py-1 duration-500 ${
@@ -149,7 +149,7 @@ const Header: React.FC = () => {
                   : "bg-white text-slate-950 hover:bg-slate-950 hover:text-white"
               }`}
             >
-              <Link href="./signup">Sign up</Link>
+              <Link href="../signup">Sign up</Link>
             </button>
           </div>
         </div>

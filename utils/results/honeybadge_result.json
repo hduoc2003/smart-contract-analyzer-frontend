@@ -1,0 +1,14 @@
+{
+    "contract": "reentrance",
+    "tool": "honeybadger",
+    "start": 1640178155.2535565,
+    "end": 1640178158.4116018,
+    "duration": 3.1580452919006348,
+    "analysis": [
+        {
+            "errors": [],
+            "file": "/data/demo_analysis/source_code/reentrance.sol",
+            "name": "Reentrance"
+        }
+    ]
+}

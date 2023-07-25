@@ -1,0 +1,130 @@
+{
+    "contract": "reentrance",
+    "sourceLanguage": "Solidity",
+    "analysis": {
+        "14": [
+            {
+                "level": "warning",
+                "tool": [
+                    "mythril",
+                    "oyente"
+                ],
+                "snippet": {
+                    "text": "balances[_to] += msg.value"
+                },
+                "fullDescription": "A possible integer overflow exists in the function `fallback`.\nThe addition or multiplication may result in a value higher than the maximum representable integer.",
+                "name": "ArithmeticVulnerability"
+            }
+        ],
+        "24": [
+            {
+                "level": "warning",
+                "tool": [
+                    "mythril",
+                    "oyente"
+                ],
+                "snippet": {
+                    "text": "msg.sender.call.value(_amount)()"
+                },
+                "fullDescription": "This contract executes a message call to the address of the transaction sender. Generally, it is not recommended to call user-supplied addresses using Solidity's call() construct. Note that attackers might leverage reentrancy attacks to exploit race conditions or manipulate this contract's state.",
+                "name": "ReentrancyVulnerability"
+            },
+            {
+                "level": "note",
+                "tool": [
+                    "mythril"
+                ],
+                "fullDescription": "The return value of an external call is not checked. Note that execution continue even if the called contract throws.",
+                "name": "UncheckedLowCallsVulnerability"
+            },
+            {
+                "level": "warning",
+                "tool": [
+                    "oyente"
+                ],
+                "name": "DenialServiceVulnerability"
+            }
+        ],
+        "27": [
+            {
+                "level": "warning",
+                "tool": [
+                    "mythril"
+                ],
+                "snippet": {
+                    "text": "balances[msg.sender] -= _amount"
+                },
+                "fullDescription": "The contract account state is changed after an external call. Consider that the called contract could re-enter the function before this state change takes place. This can lead to business logic vulnerabilities.",
+                "name": "ReentrancyVulnerability"
+            }
+        ]
+    },
+    "listLine": [
+        14,
+        24,
+        27
+    ],
+    "rules": [
+        {
+            "id": "Arithmetic_4",
+            "fullDescription": {
+                "text": "A possible integer overflow exists in the function `fallback`.\nThe addition or multiplication may result in a value higher than the maximum representable integer."
+            },
+            "name": "ArithmeticVulnerability",
+            "shortDescription": {
+                "text": "Integer Overflow"
+            }
+        },
+        {
+            "id": "Reentrancy_3",
+            "fullDescription": {
+                "text": "This contract executes a message call to the address of the transaction sender. Generally, it is not recommended to call user-supplied addresses using Solidity's call() construct. Note that attackers might leverage reentrancy attacks to exploit race conditions or manipulate this contract's state."
+            },
+            "name": "ReentrancyVulnerability",
+            "shortDescription": {
+                "text": "Message call to external contract"
+            }
+        },
+        {
+            "id": "UncheckedLowCalls_3",
+            "fullDescription": {
+                "text": "The return value of an external call is not checked. Note that execution continue even if the called contract throws."
+            },
+            "name": "UncheckedLowCallsVulnerability",
+            "shortDescription": {
+                "text": "Unchecked CALL return value"
+            }
+        },
+        {
+            "id": "Reentrancy_4",
+            "fullDescription": {
+                "text": "The contract account state is changed after an external call. Consider that the called contract could re-enter the function before this state change takes place. This can lead to business logic vulnerabilities."
+            },
+            "name": "ReentrancyVulnerability",
+            "shortDescription": {
+                "text": "State change after external call"
+            }
+        },
+        {
+            "id": "Arithmetic_11",
+            "name": "ArithmeticVulnerability",
+            "shortDescription": {
+                "text": "Integer Overflow."
+            }
+        },
+        {
+            "id": "DenialService_2",
+            "name": "DenialServiceVulnerability",
+            "shortDescription": {
+                "text": "Callstack Depth Attack Vulnerability."
+            }
+        },
+        {
+            "id": "Reentrancy_6",
+            "name": "ReentrancyVulnerability",
+            "shortDescription": {
+                "text": "Re-Entrancy Vulnerability."
+            }
+        }
+    ]
+}

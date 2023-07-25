@@ -8,7 +8,7 @@ import Typewriter from 'typewriter-effect';
 const Cover: React.FC = () => {
   return (
     <section className="relative z-10 grid h-screen grid-cols-1 text-white duration-300 bg-slate-950 md:grid-cols-2">
-      <div className="flex w-full h-screen px-4 py-20 duration-300 md:mt-0 md:px-10 xl:px-40">
+      <div className="flex w-full h-screen px-4 py-20 duration-300 md:mt-0 md:px-10 xl:px-40 animate__fadeInUp animate_animated">
         <div className="self-center">
           <div className="flex items-center gap-8">
             <h1 className="pb-5 text-5xl font-bold duration-300">TOOL</h1>
@@ -51,7 +51,7 @@ const Cover: React.FC = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="items-center self-center duration-300 h-3/6 w-3/6"
+          className="items-center self-center w-3/6 duration-300 h-3/6"
         >
           <path
             strokeLinecap="round"
