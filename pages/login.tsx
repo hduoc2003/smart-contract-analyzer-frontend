@@ -79,7 +79,7 @@ const login: React.FC<InputFormState> = () => {
             className="duration-200 rounded-3xl"
           ></Image>
         </div>
-        <div className="flex justify-center w-full m-4 duration-500 bg-white md:m-8 lg-m-10">
+        <div className="flex justify-center w-full m-4 duration-500 bg-white md:m-8 lg-m-10 animate__animated animate__fadeIn">
           <div className="flex items-center justify-center object-none object-center w-full h-full duration-500 bg-white xl:py-20 xl:px-24 2xl:px-36 md:p-20 sm:py-20 sm:px-10">
             <div className="w-full">
               <h2 className="self-center mb-8 text-2xl font-bold duration-500 text-start text-slate-950">

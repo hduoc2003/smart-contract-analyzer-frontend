@@ -32,10 +32,10 @@ const Cover: React.FC = () => {
             confidence.
           </p>
           <div className="grid md:grid-cols-2">
-            <button className="block px-6 py-4 duration-300 border border-white  animate__animated animate__fadeInUp animate__delay-fast bg-slate-950 hover:bg-white hover:text-slate-950">
+            <button className="block px-6 py-4 duration-300 border border-white animate__animated animate__fadeInUp animate__delay-fast bg-slate-950 hover:bg-white hover:text-slate-950">
               <Link href="./login">Get Started</Link>
             </button>
-            <div className="pt-2 align-bottom duration-300  animate__animated animate__fadeInUp animate__delay-1s md:self-end md:pl-4 md:pt-0">
+            <div className="pt-2 align-bottom duration-300 animate__animated animate__fadeInUp animate__delay-1s md:self-end md:pl-4 md:pt-0">
               <Link className="underline" href="./about">
                 Read about us
               </Link>

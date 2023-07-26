@@ -5,12 +5,12 @@ const StandardPlan: React.FC = () => {
     const [plan, setPlan] = useState<string>("month");
 
     return (
-        <div className="w-full max-w-lg xl:max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
+        <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow xl:max-w-sm sm:p-8 animate__animated animate__fadeIn">
             <h5 className="mb-4 text-xl font-medium text-gray-500 ">Standard plan</h5>
             <div className="flex items-baseline text-gray-900">
                     <span className="text-3xl font-semibold">$</span>
-                    <span className="duration-500 text-5xl font-extrabold tracking-tight">{plan==="month" ? "49" : "499"}</span>
-                    <span className="duration-500 ml-1 text-xl font-normal text-gray-500 ">/{plan}</span>
+                    <span className="text-5xl font-extrabold tracking-tight duration-500">{plan==="month" ? "49" : "499"}</span>
+                    <span className="ml-1 text-xl font-normal text-gray-500 duration-500 ">/{plan}</span>
                 </div>
             <ul role="list" className="space-y-5 my-7">
                 <li className="flex items-center space-x-3">
