@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Coverage: React.FC = () => {
     return (
-        <section className="h-screen p-8 bg-white">
+        <section className="h-screen p-8 bg-white lg:px-32">
             <div className="w-full mb-8 md:mb-12 lg:w-1/2">
                 <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">See our current coverage</h2>
                 <p>

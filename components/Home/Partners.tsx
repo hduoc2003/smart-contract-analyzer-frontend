@@ -6,7 +6,7 @@ import AnchainLogo from "../../assets/images/logo_anchain.png"
 
 const Partners: React.FC = () => {
   return (
-    <section className="h-screen p-8 bg-white">
+    <section className="h-screen p-8 bg-white lg:px-32">
       <div className="w-full mb-8 md:mb-12 lg:w-3/4">
         <h2 className="mb-6 text-2xl font-bold duration-500 sm:text-3xl md:text-5xl">A Rich Ecosystem of Partners, Integrators, and Service Providers</h2>
       </div>
