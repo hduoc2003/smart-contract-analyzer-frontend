@@ -5,7 +5,7 @@ import { Input, Tooltip } from 'antd';
 
 const RepoImport = () => {
     return (
-        <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 md:mt-20">
+        <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 md:mt-20 animate__animated animate__fadeInUp">
             <div className='grid grid-cols-2'>
                 <h2 className='mb-8 font-bold text-md md:text-xl'>
                     Import a Third-Party Git Repository

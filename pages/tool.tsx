@@ -10,7 +10,7 @@ const tool: React.FC = () => {
       <div className="flex justify-center h-auto min-h-screen p-10 mb-12 bg-white">
         <div className="w-full max-w-7xl">
           <RepoImport />
-          <div className="flex justify-center my-2 md:my-4">
+          <div className="flex justify-center my-2 md:my-4 animate__animated animate__delay-faster animate__fadeInUp">
             <p className="text-xl font-thin md:text-2xl">Or</p>
           </div>
           <FileSubmit />

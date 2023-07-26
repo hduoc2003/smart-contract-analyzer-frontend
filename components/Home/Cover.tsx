@@ -11,7 +11,7 @@ const Cover: React.FC = () => {
       <div className="flex w-full h-screen px-4 py-20 duration-300 md:mt-0 md:px-10 xl:px-40 animate__fadeInUp animate_animated">
         <div className="self-center">
           <div className="flex items-center gap-8">
-            <h1 className="pb-5 text-5xl font-bold duration-300">TOOL</h1>
+            <h1 className="pb-5 text-5xl font-bold duration-300 animate__animated animate__fadeInUp">TOOL</h1>
             <div className='text-2xl italic font-extralight'>
               <Typewriter
                   options={{
@@ -22,7 +22,7 @@ const Cover: React.FC = () => {
               />
             </div>
           </div>
-          <p className="pb-10 duration-300">
+          <p className="pb-10 duration-300 animate__animated animate__fadeInUp animate__delay-faster">
             Introducing a cutting-edge smart contract checking tool,
             revolutionizing the verification process. Our tool utilizes advanced
             algorithms to analyze smart contracts, ensuring security, integrity,
@@ -32,10 +32,10 @@ const Cover: React.FC = () => {
             confidence.
           </p>
           <div className="grid md:grid-cols-2">
-            <button className="block px-6 py-4 duration-300 border border-white bg-slate-950 hover:bg-white hover:text-slate-950">
+            <button className="block px-6 py-4 duration-300 border border-white  animate__animated animate__fadeInUp animate__delay-fast bg-slate-950 hover:bg-white hover:text-slate-950">
               <Link href="./login">Get Started</Link>
             </button>
-            <div className="pt-2 align-bottom duration-300 md:self-end md:pl-4 md:pt-0">
+            <div className="pt-2 align-bottom duration-300  animate__animated animate__fadeInUp animate__delay-1s md:self-end md:pl-4 md:pt-0">
               <Link className="underline" href="./about">
                 Read about us
               </Link>

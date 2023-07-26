@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`flex flex-wrap lg:flex-nowrap items-center justify-between pl-15 sticky top-0 z-20 px-4 py-4 text-white shadow-xl duration-500 md:px-10 xl:px-40 ${
+      className={`animate__animated animate__fadeInDown flex flex-wrap lg:flex-nowrap items-center justify-between pl-15 sticky top-0 z-20 px-4 py-4 text-white shadow-xl duration-500 md:px-10 xl:px-40 ${
         scroll ? "bg-white" : "bg-slate-950"
       }`}
     >
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
           </Link>
         </div>
         <button
-        onClick={toggleNav}
+          onClick={toggleNav}
           className={`inline-flex items-center justify-center w-10 h-10 p-2 duration-500 lg:hidden 
             ${scroll ? "text-slate-950" : "text-white"
           }`}
@@ -64,16 +64,21 @@ const Header: React.FC = () => {
           </svg>
         </button>
         <div className="w-full duration-500 xk:ml-60 lg:ml-40 md:justify-center md:content-center lg:grid">
-          <ul className={`duration-500 flex flex-col p-4 mt-4 font-medium lg:mt-0 lg:flex-row lg:space-x-8 lg:border-0 lg:p-0 lg:dark:bg-gray-900 ${isNavOpen ? "flex" : "hidden" }`}>
+          <ul className={`
+          duration-500  animate__animated
+          animate__animated flex flex-col p-4 mt-4 font-medium lg:mt-0 lg:flex-row lg:space-x-8 lg:border-0 lg:p-0 lg:dark:bg-gray-900 
+            ${isNavOpen ? "flex animate__fadeInDown" : "hidden animate__fadeOutUp" }`
+          }>
             <li className={`lg:hidden ${scroll ? "text-slate-950" : "text-white"}
                 `}>
-              <hr />
+              <hr className="my-4"/>
             </li>
             <li>
               <Link
                 href="../coverage"
-                className={`block py-2 pl-3 pr-4 rounded 
+                className={`block font-normal pl-3 pr-4 duration-500 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
+                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Coverage
               </Link>
@@ -81,8 +86,9 @@ const Header: React.FC = () => {
             <li>
               <Link
                 href="../pricing"
-                className={`block py-2 pl-3 pr-4 rounded 
+                className={`block font-normal pl-3 pr-4 duration-500 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
+                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Pricing
               </Link>
@@ -90,8 +96,9 @@ const Header: React.FC = () => {
             <li>
               <Link
                 href="../about"
-                className={`block py-2 pl-3 pr-4 rounded 
+                className={`block font-normal pl-3 pr-4 duration-500 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
+                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 About
               </Link>
@@ -99,8 +106,9 @@ const Header: React.FC = () => {
             <li>
               <Link
                 href="../tool"
-                className={`block py-2 pl-3 pr-4 rounded
+                className={`block font-normal pl-3 pr-4 duration-500 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
+                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Tool
               </Link>
@@ -108,13 +116,14 @@ const Header: React.FC = () => {
 
             <li className={`my-2 lg:hidden ${scroll ? "text-slate-950" : "text-white"}
                 `}>
-              <hr />
+              <hr className="my-4"/>
             </li>
             <li className="lg:hidden">
               <Link
                 href="../login"
-                className={`block py-2 pl-3 pr-4 rounded
+                className={`block font-normal pl-3 pr-4 duration-500 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
+                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Login
               </Link>
@@ -122,8 +131,9 @@ const Header: React.FC = () => {
             <li className="lg:hidden">
               <Link
                 href="../signup"
-                className={`block py-2 pl-3 pr-4 rounded
+                className={`block font-normal pl-3 pr-4 duration-500 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
+                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Sign up
               </Link>

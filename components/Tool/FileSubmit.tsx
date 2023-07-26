@@ -60,7 +60,7 @@ const FileSubmit = () => {
     };
     
     return (
-        <div className="p-8 border border-gray-200 rounded shadow-md md:mx-20">
+        <div className="p-8 border border-gray-200 rounded shadow-md md:mx-20 animate__animated animate__delay-fast animate__fadeInUp">
             <div className='grid grid-cols-2'>
                 <h2 className='mb-8 text-xl font-bold'>
                     Upload files
