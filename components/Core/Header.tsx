@@ -78,7 +78,6 @@ const Header: React.FC = () => {
                 href="../coverage"
                 className={`block font-normal pl-3 pr-4 duration-500 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
-                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Coverage
               </Link>
@@ -88,7 +87,6 @@ const Header: React.FC = () => {
                 href="../pricing"
                 className={`block font-normal pl-3 pr-4 duration-500 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
-                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Pricing
               </Link>
@@ -98,7 +96,6 @@ const Header: React.FC = () => {
                 href="../about"
                 className={`block font-normal pl-3 pr-4 duration-500 rounded 
                 ${scroll ? "text-slate-950" : "text-white"}
-                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 About
               </Link>
@@ -108,7 +105,6 @@ const Header: React.FC = () => {
                 href="../tool"
                 className={`block font-normal pl-3 pr-4 duration-500 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
-                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Tool
               </Link>
@@ -123,7 +119,6 @@ const Header: React.FC = () => {
                 href="../login"
                 className={`block font-normal pl-3 pr-4 duration-500 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
-                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Login
               </Link>
@@ -133,7 +128,6 @@ const Header: React.FC = () => {
                 href="../signup"
                 className={`block font-normal pl-3 pr-4 duration-500 rounded
                 ${scroll ? "text-slate-950" : "text-white"}
-                ${isNavOpen ? "hover:pl-4" : "" }
                 `}>
                 Sign up
               </Link>

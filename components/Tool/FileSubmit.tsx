@@ -37,7 +37,7 @@ const FileSubmit = () => {
 
     const props: UploadProps = {
         name: 'file',
-        multiple: false,
+        multiple: true,
         action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
         onChange(info) {
         const { status } = info.file;
@@ -60,19 +60,19 @@ const FileSubmit = () => {
     };
     
     return (
-        <div className="p-8 border border-gray-200 rounded shadow-md md:mx-20 animate__animated animate__delay-fast animate__fadeInUp">
+        <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 animate__animated animate__delay-fast animate__fadeInUp">
             <div className='grid grid-cols-2'>
                 <h2 className='mb-8 text-xl font-bold'>
                     Upload files
                 </h2>
             </div>
-            <div className="min-w-full mb-8 h-80">
+            <div className="h-auto min-w-full mb-8">
                 <Dragger {...props}>
-                    <p className="ant-upload-drag-icon">
+                    <p className="mt-8 ant-upload-drag-icon">
                         <InboxOutlined />
                     </p>
                     <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                    <p className="px-4 ant-upload-hint">
+                    <p className="px-4 mb-8 ant-upload-hint">
                         Support for a single or bulk upload. Strictly prohibited from uploading company data or other
                         banned files.
                     </p>
