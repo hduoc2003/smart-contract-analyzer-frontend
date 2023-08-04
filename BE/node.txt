@@ -1,1 +1,0 @@
-- Enum không có __dict__, khi dùng sẽ báo lỗi 'mappingproxy' object has no attribute '__dict__'

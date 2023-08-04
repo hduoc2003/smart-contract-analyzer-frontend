@@ -1,6 +1,0 @@
-containers:
-  run:
-    volumes:
-      bind: /tmp
-      mode: ro
-    timeout: 100

@@ -1,5 +1,0 @@
-docker_image:
-  default: mythril/myth:0.23.24
-analyze_cmd: analyze
-options: -o json
-info: Mythril analyses EVM bytecode using symbolic analysis, taint analysis and control flow checking to detect a variety of security vulnerabilities.
