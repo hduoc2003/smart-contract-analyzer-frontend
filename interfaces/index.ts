@@ -3,6 +3,7 @@
 // example, to import the interface below do:
 //
 // import { User } from 'path/to/interfaces';
+import { ResultType } from "./results";
 
 export type User = {
   id: number
