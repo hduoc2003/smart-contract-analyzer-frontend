@@ -1249,6 +1249,11 @@
   dependencies:
     "function-bind" "^1.1.1"
 
+"highlight.js@^11.8.0":
+  "integrity" "sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg=="
+  "resolved" "https://registry.npmjs.org/highlight.js/-/highlight.js-11.8.0.tgz"
+  "version" "11.8.0"
+
 "import-local@^3.0.2":
   "integrity" "sha512-ASB07uLtnDs1o6EHjKpX34BKYDSqnFerfTOJL2HvMqF70LnxpjkzDB8J44oT9pu4AMPkQwf8jl6szgvNd2tRIg=="
   "resolved" "https://registry.npmjs.org/import-local/-/import-local-3.1.0.tgz"
@@ -1392,6 +1397,11 @@
   "version" "1.4.0"
   dependencies:
     "js-tokens" "^3.0.0 || ^4.0.0"
+
+"marked@^6.0.0":
+  "integrity" "sha512-7E3m/xIlymrFL5gWswIT4CheIE3fDeh51NV09M4x8iOc7NDYlyERcQMLAIHcSlrvwliwbPQ4OGD+MpPSYiQcqw=="
+  "resolved" "https://registry.npmjs.org/marked/-/marked-6.0.0.tgz"
+  "version" "6.0.0"
 
 "merge-stream@^2.0.0":
   "integrity" "sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w=="

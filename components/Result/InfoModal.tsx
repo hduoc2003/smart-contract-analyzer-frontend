@@ -2,9 +2,41 @@ import React from 'react'
 import { ResultType } from '../../interfaces/results';
 import { Tag, Descriptions } from 'antd';
 
+import Highlighter from '../../utils/Highlighter';
 interface InfoModalProps {
     modalData: ResultType; // Replace 'any' with the actual type of 'modalData' if possible
 }
+
+const markdown = `
+  \`\`\`typescript
+        /*
+        * @source: http://blockchain.unica.it/projects/ethereum-survey/attacks.html#simpledao
+        * @author: Atzei N., Bartoletti M., Cimoli T
+        * Modified by Josselin Feist
+        */
+        pragma solidity 0.4.24;
+
+        contract SimpleDAO {
+            mapping(address => uint) public credit;
+
+            function donate(address to) public payable {
+                credit[to] += msg.value;
+            }
+
+            function withdraw(uint amount) public {
+                if (credit[msg.sender] >= amount) {
+                    require(msg.sender.call.value(amount)());
+                    credit[msg.sender] -= amount;
+                }
+            }
+
+            function queryCredit(address to) public view returns (uint) {
+                return credit[to];
+            }
+        }
+
+  \`\`\`
+`;
 
 const InfoModal : React.FC<InfoModalProps> = (props) => {
     const { modalData } = props;
@@ -41,8 +73,8 @@ const InfoModal : React.FC<InfoModalProps> = (props) => {
                 <Descriptions.Item label="Hint" span={3}> {modalData.hint} </Descriptions.Item>
                     
 
-                <Descriptions.Item label="Other info">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem nulla, suscipit quis atque animi esse cum aut, eos molestias saepe voluptatem eum quisquam id omnis impedit doloremque repellat inventore maxime!
+                <Descriptions.Item label="Code">
+                    <Highlighter markdown={markdown}/>
                 </Descriptions.Item>
             </Descriptions>
         </div>

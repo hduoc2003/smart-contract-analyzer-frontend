@@ -1,5 +1,6 @@
 
 export interface ResultType {
+    id: number,
     contract: string,
     source_map: string,
     line_no: number,
