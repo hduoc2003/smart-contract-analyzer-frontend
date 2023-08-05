@@ -27,6 +27,7 @@ const FileSubmit = () => {
             pathname: '/result/[path]',
             query: {
             path: submittedFiles[0].name,
+            source_code : 1212351235123,
             filename: submittedFiles[0].name,
             ref: 'Tung',
             }

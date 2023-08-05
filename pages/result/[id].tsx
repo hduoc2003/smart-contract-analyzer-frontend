@@ -11,8 +11,9 @@ import IssuesTable from '../../components/Result/IssuesTable';
 
 const result : React.FC = () => {
     const router = useRouter();
-    const {filename, ref} = router.query;
+    const {filename, source_code,  ref} = router.query;
     const IssuesData : ResultType[] = final_result.analysis.issues;
+    console.log(source_code);
 
     return (
         <Layout title="Result | Tool">

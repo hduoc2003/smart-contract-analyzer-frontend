@@ -70,10 +70,12 @@ const InfoModal : React.FC<InfoModalProps> = (props) => {
                     </Tag>
                 </Descriptions.Item>
 
+                <Descriptions.Item label="Code" span={2}> {modalData.code} </Descriptions.Item>
+                <Descriptions.Item label="Line" span={1}> {modalData.line_no} </Descriptions.Item>
+
                 <Descriptions.Item label="Hint" span={3}> {modalData.hint} </Descriptions.Item>
                     
-
-                <Descriptions.Item label="Code">
+                <Descriptions.Item label="Code" span={3}>
                     <Highlighter markdown={markdown}/>
                 </Descriptions.Item>
             </Descriptions>
