@@ -9,7 +9,7 @@ const pricing: React.FC = () => (
   <Layout title="Pricing | Tool">
     <div>
       <div className="h-auto min-h-screen bg-white animate__animated animate__fadeIn">
-        <div className="px-8 text-white sm:px-40 bg-slate-950 md:mb-8">
+        <div className="px-8 text-white sm:px-40 bg-blue-500 md:mb-8">
           <h2 className="pt-12 mb-12 text-4xl font-bold sm:pt-32 sm:text-8xl">Plans and pricing</h2>
           <p className="pb-12 text-2xl duration-300 sm:pb-32 sm:text-3xl">
           MythX has flexible pricing options. Receive deeper analysis, comprehensive reporting, and enhanced security with our plans.

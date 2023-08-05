@@ -40,7 +40,7 @@ const columns = [
 const AssertionsAndProperty = () => {
     return (
         <div>
-            <h3 className="pt-12 mt-6 mb-16 text-4xl font-bold sm:text-5xl">Assertions and Property Checking</h3>
+            <h3 className="pt-12 mt-6 mb-16 text-4xl font-bold sm:text-5xl text-blue-500">Assertions and Property Checking</h3>
             <Table dataSource={dataSource} columns={columns} />;
         </div>
     )

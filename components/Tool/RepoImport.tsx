@@ -30,7 +30,7 @@ const RepoImport = () => {
             </div>
             <div className="flex justify-end mt-4">
                 <button
-                    className={`py-2 px-8 font-bold text-white rounded-md focus:shadow-outline bg-slate-950  focus:outline-none`}
+                    className={`py-2 px-8 font-bold text-white rounded-md focus:shadow-outline bg-blue-500 focus:outline-none`}
                     type="button"
                 >
                     Continue

@@ -61,7 +61,6 @@ const IssuesTable = (props) => {
             <Table className='duration-500 animate__animated animate__fade mt-8' columns={columns} 
                     dataSource={IssuesData} rowKey={(IssueData) => IssueData.id} bordered/>
             <Modal
-                title={modalData.issue_title}
                 centered
                 open={open}
                 onOk={() => setOpen(false)}

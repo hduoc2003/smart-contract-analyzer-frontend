@@ -68,7 +68,7 @@ const columns = [
 const BytecodeSafety = () => {
     return (
         <div>
-            <h3 className="pt-12 mt-6 mb-16 text-4xl font-bold sm:text-5xl">Byte-code Safety</h3>
+            <h3 className="pt-12 mt-6 mb-16 text-4xl font-bold sm:text-5xl text-blue-500">Byte-code Safety</h3>
             <Table dataSource={dataSource} columns={columns}/>;
         </div>
     )
