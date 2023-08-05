@@ -5,14 +5,14 @@ const Coverage: React.FC = () => {
     return (
         <section className="h-screen p-8 bg-white lg:px-32">
             <div className="w-full mb-8 md:mb-12 lg:w-1/2">
-                <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">See our current coverage</h2>
-                <p>
-                    The <Link href="https://swcregistry.io" className="align-baseline inline-blockunderline text-md hover:text-slate-900">SWC Registry</Link> is Link community catalog of known smart contract vulnerabilities with detailed descriptions, code samples, and remediations. MythX uses the SWC Registry as its database when scanning smart contracts for security issues.
+                <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-5xl text-blue-900">See our current coverage</h2>
+                <p className="text-blue-500">
+                    The <Link href="https://swcregistry.io" className=" align-baseline inline-blockunderline text-md hover:text-blue-500">SWC Registry</Link> is Link community catalog of known smart contract vulnerabilities with detailed descriptions, code samples, and remediations. MythX uses the SWC Registry as its database when scanning smart contracts for security issues.
                 </p>
             </div>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                             <span className="flex flex-col justify-center">
                                 <span className="text-lg font-bold">SWC-101</span>
                                 <span className="text-sm font-thin">Integer Overflow</span>
@@ -20,7 +20,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                         <span className="flex flex-col justify-center">
                             <span className="text-lg font-bold">SWC-106</span>
                             <span className="text-sm font-thin">Unprotected Selfdestruct</span>
@@ -28,7 +28,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                         <span className="flex flex-col justify-center">
                             <span className="text-lg font-bold">SWC-105</span>
                             <span className="text-sm font-thin">Unprotected Ether Withdrawal</span>
@@ -36,7 +36,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                         <span className="flex flex-col justify-center">
                             <span className="text-lg font-bold">SWC-107</span>
                             <span className="text-sm font-thin">Reentrancy</span>
@@ -44,7 +44,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                         <span className="flex flex-col justify-center">
                             <span className="text-lg font-bold">SWC-120</span>
                             <span className="text-sm font-thin">Weak Randomness</span>
@@ -52,7 +52,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                         <span className="flex flex-col justify-center">
                             <span className="text-lg font-bold">SWC-110</span>
                             <span className="text-sm font-thin">Assert Violation</span>
@@ -60,7 +60,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                         <span className="flex flex-col justify-center">
                             <span className="text-lg font-bold">SWC-124</span>
                             <span className="text-sm font-thin">Write to Arbitrary Storage Loc</span>
@@ -68,7 +68,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                         <span className="flex flex-col justify-center">
                             <span className="text-lg font-bold">SWC-127</span>
                             <span className="text-sm font-thin">Jump to Arbitrary Destination</span>
@@ -76,7 +76,7 @@ const Coverage: React.FC = () => {
                     </div>
                 </Link>
                 <Link href="https://swcregistry.io/docs/SWC-101">
-                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-slate-950 hover:bg-white hover:text-slate-950 border-slate-950">
+                    <div className="w-full h-20 p-2 text-center text-white duration-500 border rounded shadow-xl md:px-4 md:h-full md:py-12 bg-blue-500 hover:bg-white hover:text-blue-500 border-blue-500">
                         <span className="flex flex-col justify-center">
                             <span className="text-lg font-bold">SWC-109</span>
                             <span className="text-sm font-thin">Uninitialized Storage Pointer</span>
@@ -85,7 +85,7 @@ const Coverage: React.FC = () => {
                 </Link>
             </div>
             <div className="flex justify-center mt-8 sm:mt-12 md:mt-16">
-                <Link className="flex items-center p-2 duration-500 border rounded-lg md:p-4 border-slate-950 hover:bg-slate-950 hover:text-white" href="/detectors">
+                <Link className="flex items-center text-gray-500 p-2 duration-500 border rounded-lg md:p-4 border-blue-500 hover:bg-blue-500 hover:text-white" href="/detectors">
                     See our current coverage
                 </Link>
             </div>

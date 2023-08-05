@@ -63,7 +63,7 @@ const FileSubmit = () => {
     return (
         <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 animate__animated animate__delay-fast animate__fadeInUp">
             <div className='grid grid-cols-2'>
-                <h2 className='mb-8 text-xl font-bold'>
+                <h2 className='mb-8 text-xl font-bold '>
                     Upload files
                 </h2>
             </div>
@@ -82,7 +82,7 @@ const FileSubmit = () => {
             <div className="flex justify-end mt-4">
                 {contextHolder}
                 <button
-                    className={`w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-slate-950  focus:outline-none ${submitDisable ? "disabled disabled:opacity-75" : "hover:bg-slate-800"} `}
+                    className={`w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-blue-500  focus:outline-none ${submitDisable ? "disabled disabled:opacity-75" : "hover:bg-blue-800"} `}
                     type="button"
                     onClick={handleSubmit}
                     disabled={submitDisable}

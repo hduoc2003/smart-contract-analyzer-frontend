@@ -7,7 +7,7 @@ import Typewriter from 'typewriter-effect';
 
 const Cover: React.FC = () => {
   return (
-    <section className="relative z-10 grid h-screen grid-cols-1 text-white duration-300 bg-slate-950 md:grid-cols-2">
+    <section className="relative z-10 grid h-screen grid-cols-1 text-white duration-300 bg-blue-500 md:grid-cols-2">
       <div className="flex w-full h-screen px-4 py-20 duration-300 md:mt-0 md:px-10 xl:px-40 animate__fadeInUp animate_animated">
         <div className="self-center">
           <div className="flex items-center gap-8">
@@ -32,7 +32,7 @@ const Cover: React.FC = () => {
             confidence.
           </p>
           <div className="grid md:grid-cols-2">
-            <button className="block px-6 py-4 duration-300 border border-white animate__animated animate__fadeInUp animate__delay-fast bg-slate-950 hover:bg-white hover:text-slate-950">
+            <button className="block px-6 py-4 duration-300 border border-white animate__animated animate__fadeInUp animate__delay-fast bg-blue-500 hover:bg-white hover:text-blue-500">
               <Link href="./login">Get Started</Link>
             </button>
             <div className="pt-2 align-bottom duration-300 animate__animated animate__fadeInUp animate__delay-1s md:self-end md:pl-4 md:pt-0">
@@ -44,7 +44,7 @@ const Cover: React.FC = () => {
         </div>
       </div>
 
-      <div className="content-center justify-center hidden w-full h-full duration-300 bg-slate-950 md:flex">
+      <div className="content-center justify-center hidden w-full h-full duration-300 bg-blue-500 md:flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

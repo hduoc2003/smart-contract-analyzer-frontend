@@ -80,7 +80,7 @@ const signup: React.FC<SignupFormState> = () => {
 
     <div className="flex h-screen duration-500 bg-white submit-white">
       <div
-        className="hidden w-full m-2 duration-500 rounded-3xl bg-slate-950 lg:block"
+        className="hidden w-full m-2 duration-500 rounded-3xl bg-blue-500 lg:block"
         style={{
           position: "relative",
           width: "100%",
@@ -102,7 +102,7 @@ const signup: React.FC<SignupFormState> = () => {
             </h2>
             <div>
               <button
-                className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold border rounded-md border-slate-950 text-slate-950 hover:shadow-sm focus:outline-none"
+                className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold border rounded-md border-blue-500 text-blue-500 hover:shadow-sm focus:outline-none"
                 type="button"
               >
                 <BiLogoGithub />
@@ -157,7 +157,7 @@ const signup: React.FC<SignupFormState> = () => {
                   <Input.Password
                       status={passwordErr ? "error" : ""}
                       onFocus={handlePasswordFocus}
-                      className="w-full px-3 py-2 mb-2 hover:border-slate-950"
+                      className="w-full px-3 py-2 mb-2 hover:border-blue-500"
                       placeholder="Enter your password"
                       onChange={(e) => setPassword(e.target.value)}
                       visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
@@ -170,7 +170,7 @@ const signup: React.FC<SignupFormState> = () => {
                   <Input.Password
                       status={repasswordErr ? "error" : ""}
                       onFocus={handleRepasswordFocus}
-                      className="w-full px-3 py-2 mb-2 hover:border-slate-950"
+                      className="w-full px-3 py-2 mb-2 hover:border-blue-500"
                       placeholder="Enter your password"
                       onChange={(e) => setRepassword(e.target.value)}
                       visibilityToggle={{ visible: repasswordVisible, onVisibleChange: setRepasswordVisible }}
@@ -192,7 +192,7 @@ const signup: React.FC<SignupFormState> = () => {
                     </Checkbox>
                   </div>
                   <button
-                    className="w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-slate-950 hover:bg-slate-700 focus:outline-none"
+                    className="w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-blue-500 hover:bg-slate-700 focus:outline-none"
                     type="button"
                     onClick={handleSubmitForm}
                   >

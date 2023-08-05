@@ -65,7 +65,7 @@ const login: React.FC<InputFormState> = () => {
 
       <div className="flex h-screen duration-500 bg-white submit-white">
         <div
-          className="hidden w-full m-2 duration-500 rounded-3xl bg-slate-950 lg:block"
+          className="hidden w-full m-2 duration-500 rounded-3xl bg-blue-500 lg:block"
           style={{
             position: "relative",
             width: "100%",
@@ -87,7 +87,7 @@ const login: React.FC<InputFormState> = () => {
               </h2>
               <div>
                 <button
-                  className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold duration-500 border rounded-md border-slate-950 text-slate-950 hover:bg-slate-950 hover:text-white focus:outline-none"
+                  className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold duration-500 border rounded-md border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white focus:outline-none"
                   type="button"
                 >
                   <BiLogoGithub />
@@ -99,7 +99,7 @@ const login: React.FC<InputFormState> = () => {
               <div>
                 <form className="pt-6 mb-4 bg-white">
                   <div className="mb-4">
-                    <label className="block mb-2 font-bold text-gray-700 text-md">
+                    <label className="block mb-2 font-bold text-gray-950 text-md">
                       Username or email
                     </label>
                     <Input
@@ -111,7 +111,7 @@ const login: React.FC<InputFormState> = () => {
                     />
                   </div>
                   <div className="mb-6">
-                    <label className="block mb-2 font-bold text-gray-700 text-md">
+                    <label className="block mb-2 font-bold text-gray-950 text-md">
                       Password
                       <p
                         className="text-xs italic font-normal"
@@ -127,7 +127,7 @@ const login: React.FC<InputFormState> = () => {
                     <Input.Password
                       status={passwordErr ? "error" : ""}
                       onFocus={handlePasswordFocus}
-                      className="w-full px-3 py-2 mb-2 hover:border-slate-950"
+                      className="w-full px-3 py-2 mb-2 hover:border-blue-500"
                       placeholder="Enter your password"
                       onChange={(e) => setPassword(e.target.value)}
                       visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
@@ -136,7 +136,7 @@ const login: React.FC<InputFormState> = () => {
                   <div className="flex flex-col items-center justify-between">
                     
                     <button
-                      className="w-full px-12 py-6 mb-4 font-bold text-white rounded-lg focus:shadow-outline bg-slate-950 hover:bg-slate-700 focus:outline-none"
+                      className="w-full px-12 py-6 mb-4 font-bold text-white rounded-lg focus:shadow-outline bg-blue-500 hover:bg-slate-700 focus:outline-none"
                       type="button"
                       onClick={handleSubmitForm}
                     >
