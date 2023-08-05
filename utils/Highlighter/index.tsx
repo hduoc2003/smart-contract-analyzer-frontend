@@ -6,19 +6,7 @@ import hljs from "highlight.js";
 // In Next.js, put this in your _app.js file
 import "highlight.js/styles/github.css";
 
-const markdown = `
-  \`\`\`typescript
-    const variable = 'hello';
 
-    function getProfile(id: string): {
-      name: string; address: string, photo: string
-    } {
-      return {
-        name: 'ben', address: "ben's house", photo: "/ben.png"
-      };
-    }
-  \`\`\`
-`;
 
 export default function highlighter(props) {
     const {markdown} = props;
