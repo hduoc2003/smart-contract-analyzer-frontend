@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
+import axios from 'axios';
 
 import LoginImg from "../assets/images/2.jpg";
 import { BiLogoGithub } from "react-icons/bi";
@@ -9,6 +10,7 @@ import { LoadingOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/i
 import { Button, Input, Spin } from 'antd';
 import { LoginFormState } from "../interfaces";
 import { handleUsernameCheck, handlePasswordCheck} from "../utils/InputCheck";
+import { handleLogin } from "../services/UserService";
 
 type InputFormState = () => void;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -34,17 +36,18 @@ const login: React.FC<InputFormState> = () => {
 
   const handleSubmitForm: InputFormState = () => {
     // Perform form submission logic here
-    if (!handleUsernameCheck(username)) setUsernameErr(true);
-    if (!handlePasswordCheck(password)) setPasswordErr(true);
+    console.log(formInfo)
+    if (username === '') setUsernameErr(true);
+    if (password === '') setPasswordErr(true);
     
     if (handleUsernameCheck(username) && handlePasswordCheck(password)){
       setLoading(true);
-      console.log('Submitting form with username:', username);
-      console.log('Submitting form with password:', password);
-  
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+      handleLogin(formInfo)
+        .then((res) => {
+          console.log(res.data.message, formInfo);
+        })
+        .catch((err) => {console.log("Error while logging in:", err)})
+      setLoading(false);
     }
   };
 
@@ -65,7 +68,7 @@ const login: React.FC<InputFormState> = () => {
 
       <div className="flex h-screen duration-500 bg-white submit-white">
         <div
-          className="hidden w-full m-2 duration-500 rounded-3xl bg-blue-500 lg:block"
+          className="hidden w-full m-2 duration-500 bg-blue-500 rounded-3xl lg:block"
           style={{
             position: "relative",
             width: "100%",
@@ -87,7 +90,7 @@ const login: React.FC<InputFormState> = () => {
               </h2>
               <div>
                 <button
-                  className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold duration-500 border rounded-md border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white focus:outline-none"
+                  className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold text-blue-500 duration-500 border border-blue-500 rounded-md hover:bg-blue-500 hover:text-white focus:outline-none"
                   type="button"
                 >
                   <BiLogoGithub />
@@ -136,7 +139,7 @@ const login: React.FC<InputFormState> = () => {
                   <div className="flex flex-col items-center justify-between">
                     
                     <button
-                      className="w-full px-12 py-6 mb-4 font-bold text-white rounded-lg focus:shadow-outline bg-blue-500 hover:bg-slate-700 focus:outline-none"
+                      className="w-full px-12 py-6 mb-4 font-bold text-white bg-blue-500 rounded-lg focus:shadow-outline hover:bg-slate-700 focus:outline-none"
                       type="button"
                       onClick={handleSubmitForm}
                     >

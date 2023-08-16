@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
@@ -12,6 +12,7 @@ import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { SignupFormState } from "../interfaces";
 import { handlePasswordCheck, handleEmailCheck, handleUsernameCheck } from "../utils/InputCheck";
+import { handleSignUp } from "../services/UserService";
 
 type InputFormState = () => void;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -44,31 +45,56 @@ const signup: React.FC<SignupFormState> = () => {
   const handleCheckboxChange = (e: CheckboxChangeEvent) => { setChecked(e.target.checked); };
 
   const handleSubmitForm: InputFormState = () => {
-    // Perform form submission logic here
-    if (!name) setNameErr(true);
-    if (!handleUsernameCheck(username)) setUsernameErr(true);
-    if (!handleEmailCheck(email)) setEmailErr(true);
-    if (!handlePasswordCheck(password)) setPasswordErr(true);
-    if (repassword !== password || repassword === "") setRepasswordErr(true);
+    // console.log({name: name, username: username, password: password, email: email, repassword: repassword});
+    // Check blank input
+    if (name === '') setNameErr(true);
+    if (username === '') setUsernameErr(true);
+    if (email === '') setEmailErr(true);
+    if (password === '') setPasswordErr(true);
+    if (repassword === '') setRepasswordErr(true);
+
     if (!checked){
       message.info("Please accept our Terms & Conditions");
     }
-    
-    if(handleUsernameCheck(username) && handlePasswordCheck(password) && repassword === password && repassword !== "" && checked){
-      setLoading(true);
-      
-      setTimeout(() => {
-        setFormInfo({name: name, username: username, password: password, email: email});
-        console.log('Form submitted: ', formInfo);
-        message.success("Submitted!");
-        setLoading(false);
-      }, 1000);
+    else if(!handleEmailCheck(email)){
+      message.error("Please enter right email");
+    }
+    else if(password !== repassword){
+      message.error("Make sure u re-enter right password");
+      setRepasswordErr(true);
     }
     else {
-      message.error("Please fill all the form");
+      if(handleUsernameCheck(username) && handlePasswordCheck(password) && repassword === password && repassword !== ""){
+        setLoading(true);
+        setFormInfo({name: name, username: username, password: password, email: email});
+        handleSignUp(formInfo)
+          .then((res) => {
+            console.log(res.data.message, formInfo);
+          })
+          .catch((err) => {console.log("Error while signing up: ", err.response.data.message)})
+        setLoading(false);
+      }
+      else {
+        message.error("Please fill all the form");
+      }
     }
   };
 
+  useEffect(() => {
+    setUsername(username);
+  }, [username]);
+  useEffect(() => {
+    setPassword(password);
+  }, [password]);
+  useEffect(() => {
+    setName(name);
+  }, [name]);
+  useEffect(() => {
+    setEmail(email);
+  }, [email]);
+  useEffect(() => {
+    setRepassword(repassword);
+  }, [repassword]);
 
   return (
     <>
@@ -80,7 +106,7 @@ const signup: React.FC<SignupFormState> = () => {
 
     <div className="flex h-screen duration-500 bg-white submit-white">
       <div
-        className="hidden w-full m-2 duration-500 rounded-3xl bg-blue-500 lg:block"
+        className="hidden w-full m-2 duration-500 bg-blue-500 rounded-3xl lg:block"
         style={{
           position: "relative",
           width: "100%",
@@ -102,7 +128,7 @@ const signup: React.FC<SignupFormState> = () => {
             </h2>
             <div>
               <button
-                className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold border rounded-md border-blue-500 text-blue-500 hover:shadow-sm focus:outline-none"
+                className="flex items-center justify-center w-full gap-2 px-4 py-2 mb-8 font-bold text-blue-500 border border-blue-500 rounded-md hover:shadow-sm focus:outline-none"
                 type="button"
               >
                 <BiLogoGithub />
@@ -192,7 +218,7 @@ const signup: React.FC<SignupFormState> = () => {
                     </Checkbox>
                   </div>
                   <button
-                    className="w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-blue-500 hover:bg-slate-700 focus:outline-none"
+                    className="w-full px-8 py-4 mb-4 font-bold text-white bg-blue-500 rounded-md focus:shadow-outline hover:bg-slate-700 focus:outline-none"
                     type="button"
                     onClick={handleSubmitForm}
                   >
