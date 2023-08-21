@@ -1,8 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router';
 import Layout from "../../components/Layout";
-import { Badge, Descriptions } from 'antd';
-import { Space, Table, Tag } from 'antd';
+import { Badge, Descriptions, Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
 import final_result from '../../utils/results/final_result.json';
@@ -18,10 +17,10 @@ const result : React.FC = () => {
     return (
         <Layout title="Result | Tool">
             <div className='h-auto'>  
-                <div className="px-4 lg:mx-40 h-auto">
+                <div className="h-auto px-4 lg:mx-40">
                     <h2 className="pt-12 mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">Result</h2>
                     <h2 className="mb-6 text-2xl md:text-3xl">{filename}</h2>
-                    <p className="pb-10 duration-300 mb-8">
+                    <p className="pb-10 mb-8 duration-300">
                         MythX has flexible pricing options. 
                         Receive deeper analysis, comprehensive reporting, 
                         and enhanced security with our plans.
