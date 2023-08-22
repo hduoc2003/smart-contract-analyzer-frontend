@@ -5,9 +5,12 @@
 // import { User } from 'path/to/interfaces';
 import { ResultType } from "./results";
 
-export type User = {
-  id: number
+export interface Userdata {
+  _id: string
   name: string
+  username: string
+  role: string 
+  email: string
 }
 
 export interface LoginFormState {
