@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { handleGetAllUser } from '../../services/AdminService';
 import { Userdata } from '../../interfaces';
 import DeleteUserButton from './Userpage/DeleteUserButton';
+import UpdateUserButton from './Userpage/UpdateUserButton';
 
 const UserPage : React.FC = (props) => {
     const columns: ColumnsType<Userdata> = [
@@ -44,7 +45,7 @@ const UserPage : React.FC = (props) => {
             key: 'action',
             render: (_, userData) => (
                 <Space size="middle">
-                    <a>Update</a>
+                    <a><UpdateUserButton userData={userData} onUserUpdated={handleUserUpdated}/></a>
                     <a><DeleteUserButton userData={userData} onUserDeleted={handleUserDeleted}/></a>
                 </Space>
             ),
@@ -65,10 +66,11 @@ const UserPage : React.FC = (props) => {
     useEffect(() => {
         fetchData();
     }, []);
-    useEffect(() => {
-    }, [])
 
     const handleUserDeleted = () => {
+        fetchData();
+    };
+    const handleUserUpdated = () => {
         fetchData();
     };
 

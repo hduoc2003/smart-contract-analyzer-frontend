@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Button, message, Popconfirm } from 'antd';
 import { Userdata } from '../../../interfaces';
 import { handleDeleteUserById } from '../../../services/AdminService';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 interface DeleteUserButtonProps {
   userData: Userdata;
@@ -19,9 +20,6 @@ const cancel = (e: React.MouseEvent<HTMLElement>) => {
 };
 
 const DeleteUserButton : React.FC<DeleteUserButtonProps> = ({ userData, onUserDeleted } : DeleteUserButtonProps) => {
-    const handleDelete = (record : Userdata) => {
-        console.log(record);
-    }
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -53,12 +51,14 @@ const DeleteUserButton : React.FC<DeleteUserButtonProps> = ({ userData, onUserDe
     };
     return (
       <Popconfirm
-      title="Delete this user?"
-      description="You can undo this behavior!"
-      open={open}
-      onConfirm={handleOk}
-      okButtonProps={{ loading: confirmLoading }}
-      onCancel={handleCancel}
+        title="Delete this user?"
+        description="You can undo this behavior!"
+        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+        open={open}
+        okType='default'
+        onConfirm={handleOk}
+        okButtonProps={{ loading: confirmLoading }}
+        onCancel={handleCancel}
       >
         <Button onClick={showPopconfirm}  danger>Delete</Button>
       </Popconfirm>

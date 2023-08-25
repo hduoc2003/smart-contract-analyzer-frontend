@@ -91,7 +91,7 @@ const index : React.FC = () => {
                     <MyContent selectedKey={selectedKey}/>
                 </div>
             </Content>
-            <Footer className='text-center'>Ant Design ©2023 Created by Ant UED</Footer>
+            <Footer className='text-center'>SMART - CONTRACT - ANALYZER</Footer>
             </Layout>
         </Layout>
     );
