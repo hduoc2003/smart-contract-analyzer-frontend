@@ -1,19 +1,45 @@
 import React, {useState} from "react";
+import axios from "axios";
 import { useRouter } from 'next/dist/client/router';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps, UploadFile } from 'antd';
 import { message, Upload } from 'antd';
 const { Dragger } = Upload;
 
-const FileSubmit = () => {
+// interface submitProps {
+//     _id: string,
+//     userId: string,
+//     submittedDate: string,
+//     status: string
+// }
+
+const FileSubmit : React.FC = () => {
     const router = useRouter();
     const [messageApi, contextHolder] = message.useMessage();
     const [submitDisable, setSubmitDisable] = useState<boolean>(true);
     const [submittedFiles, setSubmittedFiles] = useState<UploadFile[]>([]);
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        submittedFiles.forEach((file, index) => {
+            formData.append(`file${index + 1}`, file.originFileObj);
+        });
+
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/api/v1/client/tool/result', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+      
+            console.log('Response:', response.data);
+        } catch (error) {
+         console.error('Error:', error);
+        }
+      
+
         setSubmitDisable(true);
-        console.log("Các files đã submit thành công: ", submittedFiles);
         messageApi
         .open({
             type: 'loading',
@@ -22,43 +48,49 @@ const FileSubmit = () => {
         })
         .then(() => message.success('Loading finished', 0.5))
         setTimeout(() => {
-        setSubmitDisable(false);
-        router.push({
-            pathname: '/result/[path]',
-            query: {
-            path: submittedFiles[0].name,
-            source_code : 1212351235123,
-            filename: submittedFiles[0].name,
-            ref: 'Tung',
-            }
-        });
-        setSubmittedFiles([]);
-        }, 3000)
+            setSubmitDisable(false);
+            console.log("🚀 ~ file: FileSubmit.tsx:34 ~ setTimeout ~ submittedFiles:", submittedFiles)
+            setSubmittedFiles([]);
+        }, 5000)
     }
 
     const props: UploadProps = {
         name: 'file',
         multiple: true,
-        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+        beforeUpload: (file) => {
+            const isSol = file.name.endsWith('.sol');
+            if (!isSol) {
+                message.error(`${file.name} is not a .sol file`);
+            } else {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    // The content of the file is available in event.target.result
+                    const currFileContent = event.target.result.toString(); // Convert to string
+                    // You can do something with currFileContent here
+                    console.log(typeof currFileContent)
+                    console.log('File content:', currFileContent);
+                };
+                reader.readAsText(file); // Read the file as text
+            }
+            return isSol || Upload.LIST_IGNORE;
+        },
         onChange(info) {
-        const { status } = info.file;
-        if (status !== 'uploading') {
-            console.log("Trạng thái upload:", info)
-            console.log("Các file đã upload:", info.fileList);
-        }
-    
-        if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
-            setSubmittedFiles([...submittedFiles, info.file]);
-            setSubmitDisable(false);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
+            // AFTER UPLOAD
+            const { status } = info.file;
+            if (status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully.`);
+                console.log("🚀 ~ file: FileSubmit.tsx:82 ~ onChange ~ info.fileList:", info.fileList)
+                setSubmittedFiles(info.fileList)
+                setSubmitDisable(false);
+            } else if (status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
         },
         onDrop(e) {
             console.log('Dropped files', e.dataTransfer.files);
         },
     };
+    
     
     return (
         <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 animate__animated animate__delay-fast animate__fadeInUp">

@@ -22,7 +22,8 @@ const IssuesTable = (props) => {
             dataIndex: 'severity',
             render: (severity) => {
                 let color = severity.length > 5 ? 'yellow' : 'green';
-                if (severity === 'High') {
+                if (severity === 'Informational') color = 'blue'
+                else if (severity === 'High') {
                     color = 'volcano';
                 }
                 return(
@@ -58,7 +59,7 @@ const IssuesTable = (props) => {
 
     return (
         <div>
-            <Table className='duration-500 animate__animated animate__fade mt-8' columns={columns} 
+            <Table className='mt-8 duration-500 animate__animated animate__fade' columns={columns} 
                     dataSource={IssuesData} rowKey={(IssueData) => IssueData.id} bordered/>
             <Modal
                 centered

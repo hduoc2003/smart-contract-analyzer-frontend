@@ -1,18 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import Layout from "../../components/Layout";
-import { Badge, Descriptions, Space, Table, Tag } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons'
+import { Badge, Descriptions, Space, Button, Modal, Spin } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
 import final_result from '../../utils/results/final_result.json';
 import { ResultType } from '../../interfaces/results';
 import IssuesTable from '../../components/Result/IssuesTable';
+import CodeModal from '../../components/Result/CodeModal';
+import { parse } from 'path';
 
+const spinIcon = <LoadingOutlined className='ml-2' style={{fontSize: 16}} spin/>
 const result : React.FC = () => {
     const router = useRouter();
-    const {filename, source_code,  ref} = router.query;
+    const [open, setOpen] = useState<boolean>(false);
+    const [analyzeState, setAnalyzeState] = useState<boolean>(true)
+    const [codeModalData, setCodeModalData] = useState<String>()
+    const {filename, ref, path} = router.query;
+    // const parsedData = JSON.parse(fileContent as string);
+
+  // Now you have the array of submitted files
+    // console.log("🚀 ~ file: [id].tsx:20 ~ fileContent:", fileContent);
+    // const parsedData = fileContent
+    // console.log("🚀 ~ file: [id].tsx:21 ~ parsedData:", parsedData);
+    setTimeout(() => {
+        setAnalyzeState(false)
+    }, 2000)
+    useEffect(()=>{}, [analyzeState])
     const IssuesData : ResultType[] = final_result.analysis.issues;
-    console.log(source_code);
 
     return (
         <Layout title="Result | Tool">
@@ -28,25 +44,35 @@ const result : React.FC = () => {
                 </div>
                 <div className='mx-4 my-20 lg:mx-40'>
                     <Descriptions title="Submitted file's result" bordered>
-                        <Descriptions.Item label="Filename">{final_result.file_name}</Descriptions.Item>
+                        <Descriptions.Item label="Filename">{filename ? filename : "NOT GIVEN"}</Descriptions.Item>
                         <Descriptions.Item label="Tool">{final_result.tool_name}</Descriptions.Item>
                         <Descriptions.Item label="Duration">{final_result.duration}s</Descriptions.Item>
                         <Descriptions.Item label="Status" span={3}>
-                            <Badge status="processing" text="Analyzing" />
+                            {
+                                analyzeState ? 
+                                    <>
+                                        <Badge status="processing" text="Analyzing" />  
+                                        <Spin indicator={spinIcon}/>
+                                    </>
+                                : <Badge status="success" text="Done" />
+                            }
                         </Descriptions.Item>
-                        <Descriptions.Item label="Config Info">
-                            Data disk type: MongoDB
-                            <br />
-                            Database version: 3.4
-                            <br />
-                            Package: dds.mongo.mid
-                            <br />
-                            Storage space: 10 GB
-                            <br />
-                            Replication factor: 3
-                            <br />
-                            Region: East China 1
-                            <br />
+                        <Descriptions.Item label="Code">
+                            <Space size="middle">
+                                {/* <Button  onClick={() => {setOpen(true), setCodeModalData(fileContent[0])}}>
+                                    View more
+                                </Button> */}
+                                <Modal
+                                    centered
+                                    open={open}
+                                    okType='default'
+                                    onOk={() => setOpen(false)}
+                                    onCancel={() => setOpen(false)}
+                                    width={1000}
+                                >
+                                    {/* <CodeModal parsedData={parsedData as string}/> */}
+                                </Modal>
+                            </Space>
                         </Descriptions.Item>
                     </Descriptions>
                     <IssuesTable IssuesData={IssuesData}/>

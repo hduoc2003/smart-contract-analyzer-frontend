@@ -1,60 +1,68 @@
 {
-    "file_name": "swc-107.sol",
-    "tool_name": "mythril",
-    "duration": 43.9368577003479,
+    "file_name": "swc-106.sol",
+    "tool_name": "slither",
+    "duration": 1.6493606567382812,
     "analysis": {
         "errors": [],
         "issues": [
             {
                 "id": 1,
-                "contract": "Proxy",
-                "source_map": "800:26:0",
-                "line_no": 35,
-                "code": "callee.delegatecall(_data)",
-                "description": "The contract delegates execution to another contract with a user-supplied address.\nThe smart contract delegates execution to a user-supplied address.This could allow an attacker to execute arbitrary code in the context of this contract account and manipulate the state of the contract account or execute actions on its behalf.",
-                "hint": "ch\u01b0a l\u00e0m ph\u1ea7n hint",
-                "issue_title": "Delegatecall to user-supplied address",
-                "swcID": "SWC-112",
-                "swc_title": "Delegatecall to Untrusted Callee",
-                "swc_link": "https://swcregistry.io/docs/SWC-112/",
+                "contract": "SimpleSuicide",
+                "source_map": "57:63:0",
+                "line_no": [
+                    5,
+                    6,
+                    7
+                ],
+                "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                "description": "SimpleSuicide.sudicideAnyone() (../../../tmp/user1/contract/swc-106.sol#5-7) allows anyone to destruct the contract\n",
+                "hint": "suicidal",
+                "issue_title": "suicidal",
+                "swcID": "SWC-106",
+                "swc_title": "Unprotected SELFDESTRUCT Instruction",
+                "swc_link": "https://swcregistry.io/docs/SWC-106/",
                 "severity": "High"
             },
             {
                 "id": 2,
-                "contract": "SimpleDAO",
-                "source_map": "451:31",
-                "line_no": 16,
-                "code": "msg.sender.call.value(amount)()",
-                "description": "A call to a user-supplied address is executed.\nAn external message call to an address specified by the caller is executed. Note that the callee account might contain arbitrary code and could re-enter any function within this contract. Reentering the contract in an intermediate state may lead to unexpected behaviour. Make sure that no state modifications are executed after this call and/or reentrancy guards are in place.",
-                "hint": "ch\u01b0a l\u00e0m ph\u1ea7n hint",
-                "issue_title": "External Call To User-Supplied Address",
-                "swcID": "SWC-107",
-                "swc_title": "Reentrancy",
-                "swc_link": "https://swcregistry.io/docs/SWC-107/",
-                "severity": "Low"
+                "contract": "",
+                "source_map": "",
+                "line_no": [],
+                "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                "description": "solc-0.4.24 is not recommended for deployment\n",
+                "hint": "incorrect-versions-of-solidity",
+                "issue_title": "solc-version",
+                "swcID": "SWC-102",
+                "swc_title": "Outdated Compiler Version",
+                "swc_link": "https://swcregistry.io/docs/SWC-102/",
+                "severity": "Informational"
             },
             {
                 "id": 3,
-                "contract": "SimpleDAO",
-                "source_map": "451:31",
-                "line_no": 16,
-                "code": "msg.sender.call.value(amount)()",
-                "description": "Any sender can withdraw Ether from the contract account.\nArbitrary senders other than the contract creator can profitably extract Ether from the contract account. Verify the business logic carefully and make sure that appropriate security controls are in place to prevent unexpected loss of funds.",
-                "hint": "ch\u01b0a l\u00e0m ph\u1ea7n hint",
-                "issue_title": "Unprotected Ether Withdrawal",
-                "swcID": "SWC-105",
-                "swc_title": "Unprotected Ether Withdrawal",
-                "swc_link": "https://swcregistry.io/docs/SWC-105/",
-                "severity": "High"
+                "contract": "",
+                "source_map": "0:23:0",
+                "line_no": [
+                    1
+                ],
+                "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                "description": "Pragma version0.4.24 (../../../tmp/user1/contract/swc-106.sol#1) allows old versions\n",
+                "hint": "incorrect-versions-of-solidity",
+                "issue_title": "solc-version",
+                "swcID": "SWC-102",
+                "swc_title": "Outdated Compiler Version",
+                "swc_link": "https://swcregistry.io/docs/SWC-102/",
+                "severity": "Informational"
             },
             {
                 "id": 4,
                 "contract": "SimpleDAO",
                 "source_map": ":26",
-                "line_no": 17,
+                "line_no": [
+                    17
+                ],
                 "code": "credit[msg.sender]-=amount",
-                "description": "Read of persistent state following external call\nThe contract account state is accessed after an external call to a user defined address. To prevent reentrancy issues, consider accessing the state only before the call, especially if the callee is untrusted. Alternatively, a reentrancy lock can be used to prevent untrusted callees from re-entering the contract in an intermediate state.",
-                "hint": "ch\u01b0a l\u00e0m ph\u1ea7n hint",
+                "description": "Read of persistent state following external call\nThe contract account state is accessed after an external call to a user-defined address. To prevent reentrancy issues, consider accessing the state only before the call, especially if the callee is untrusted. Alternatively, a reentrancy lock can be used to prevent untrusted callees from re-entering the contract in an intermediate state.",
+                "hint": "chưa làm phần hint",
                 "issue_title": "State access after external call",
                 "swcID": "SWC-107",
                 "swc_title": "Reentrancy",
@@ -65,10 +73,12 @@
                 "id": 5,
                 "contract": "SimpleDAO",
                 "source_map": "451:31",
-                "line_no": 16,
+                "line_no": [
+                    16
+                ],
                 "code": "msg.sender.call.value(amount)()",
-                "description": "A call to a user-supplied address is executed.\nAn external message call to an address specified by the caller is executed. Note that the callee account might contain arbitrary code and could re-enter any function within this contract. Reentering the contract in an intermediate state may lead to unexpected behaviour. Make sure that no state modifications are executed after this call and/or reentrancy guards are in place.",
-                "hint": "ch\u01b0a l\u00e0m ph\u1ea7n hint",
+                "description": "A call to a user-supplied address is executed.\nAn external message call to an address specified by the caller is executed. Note that the callee account might contain arbitrary code and could re-enter any function within this contract. Reentering the contract in an intermediate state may lead to unexpected behavior. Make sure that no state modifications are executed after this call and/or reentrancy guards are in place.",
+                "hint": "chưa làm phần hint",
                 "issue_title": "External Call To User-Supplied Address",
                 "swcID": "SWC-107",
                 "swc_title": "Reentrancy",
@@ -79,15 +89,33 @@
                 "id": 6,
                 "contract": "SimpleDAO",
                 "source_map": "451:31",
-                "line_no": 16,
+                "line_no": [
+                    16
+                ],
                 "code": "msg.sender.call.value(amount)()",
                 "description": "Any sender can withdraw Ether from the contract account.\nArbitrary senders other than the contract creator can profitably extract Ether from the contract account. Verify the business logic carefully and make sure that appropriate security controls are in place to prevent unexpected loss of funds.",
-                "hint": "ch\u01b0a l\u00e0m ph\u1ea7n hint",
+                "hint": "chưa làm phần hint",
                 "issue_title": "Unprotected Ether Withdrawal",
                 "swcID": "SWC-105",
                 "swc_title": "Unprotected Ether Withdrawal",
                 "swc_link": "https://swcregistry.io/docs/SWC-105/",
                 "severity": "High"
+            },
+            {
+                "id": 7,
+                "contract": "AnotherContract",
+                "source_map": "123:45",
+                "line_no": [
+                    10
+                ],
+                "code": "msg.sender.call.value(amount)()",
+                "description": "Description of the new issue goes here.",
+                "hint": "Hint for resolving the new issue goes here.",
+                "issue_title": "New Issue Title",
+                "swcID": "SWC-XXX",
+                "swc_title": "New SWC Title",
+                "swc_link": "https://example.com/docs/SWC-XXX/",
+                "severity": "Medium"
             }
         ]
     }
