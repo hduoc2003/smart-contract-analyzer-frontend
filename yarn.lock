@@ -416,6 +416,11 @@
   "resolved" "https://registry.npmjs.org/@kurkle/color/-/color-0.3.2.tgz"
   "version" "0.3.2"
 
+"@microsoft/fetch-event-source@^2.0.1":
+  "integrity" "sha512-W6CLUJ2eBMw3Rec70qrsEW0jOm/3twwJv21mrmj2yORiaVmVYGS4sSS5yUwvQc1ZlDLYGPnClVWmUUMagKNsfA=="
+  "resolved" "https://registry.npmjs.org/@microsoft/fetch-event-source/-/fetch-event-source-2.0.1.tgz"
+  "version" "2.0.1"
+
 "@next/env@13.4.9":
   "integrity" "sha512-vuDRK05BOKfmoBYLNi2cujG2jrYbEod/ubSSyqgmEx9n/W3eZaJQdRNhTfumO+qmq/QTzLurW487n/PM/fHOkw=="
   "resolved" "https://registry.npmjs.org/@next/env/-/env-13.4.9.tgz"

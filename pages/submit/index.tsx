@@ -123,7 +123,7 @@ const submit : React.FC = () => {
         <div className='h-auto'>
             <div className="h-auto px-4 lg:mx-40">
                 <h2 className="pt-12 mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">Submit</h2>
-                <h2 className="mb-6 text-2xl md:text-3xl">SUBMIT no 123</h2>
+                <h2 className="mb-6 text-2xl md:text-3xl">SUBMIT INDEX no 123</h2>
                 <p className="pb-10 mb-8 duration-300">
                     MythX has flexible pricing options. 
                     Receive deeper analysis, comprehensive reporting, 

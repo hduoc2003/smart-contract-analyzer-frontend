@@ -25,33 +25,37 @@ const FileSubmit : React.FC = () => {
         submittedFiles.forEach((file, index) => {
             formData.append(`file${index + 1}`, file.originFileObj);
         });
-
-        try {
-            const response = await axios.post('http://127.0.0.1:5000/api/v1/client/tool/result', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            });
-      
-            console.log('Response:', response.data);
-        } catch (error) {
-         console.error('Error:', error);
-        }
-      
-
-        setSubmitDisable(true);
+        setSubmitDisable(false);
         messageApi
-        .open({
-            type: 'loading',
-            content: 'Processing your file...',
-            duration: 2.5,
-        })
-        .then(() => message.success('Loading finished', 0.5))
-        setTimeout(() => {
-            setSubmitDisable(false);
-            console.log("🚀 ~ file: FileSubmit.tsx:34 ~ setTimeout ~ submittedFiles:", submittedFiles)
-            setSubmittedFiles([]);
-        }, 5000)
+            .open({
+                type: 'loading',
+                content: 'Processing your submitted file...',
+                duration: 0, // Set duration to 0 to keep it open until explicitly closed
+            });
+        axios
+            .post('http://127.0.0.1:5000/api/v1/client/tool/handle_files', formData, {
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then((response) => {
+                messageApi.success('Loading finished', 0.5);
+                console.log(response.data.uuid);
+                router.push(
+                    {
+                        pathname: '/submit/[id]',
+                        query: {
+                            id: response.data.uuid,
+                        },
+                    }
+                );
+            })
+            .catch((error) => {
+                messageApi.error('Error occurred', 0.5);
+                console.log(error);
+            });
+        setSubmittedFiles([]);
+        setSubmitDisable(true);
     }
 
     const props: UploadProps = {
