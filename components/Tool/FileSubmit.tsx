@@ -37,6 +37,7 @@ const FileSubmit : React.FC = () => {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },
+                withCredentials: true,
             })
             .then((response) => {
                 messageApi.success('Loading finished', 0.5);

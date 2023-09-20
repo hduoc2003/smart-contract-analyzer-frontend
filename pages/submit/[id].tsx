@@ -44,7 +44,7 @@ const submit : React.FC = () => {
     };
 
     // Gửi yêu cầu POST và nhận dữ liệu streaming
-    fetch(serverBaseURL, requestOptions)
+    fetch(serverBaseURL, {credentials:'include', method: "POST"},)
       .then(async (response) => {
         if (!response.ok) {
           throw new Error();
