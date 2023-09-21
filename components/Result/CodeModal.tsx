@@ -35,7 +35,7 @@ const markdown = `
 
 const InfoModal : React.FC<CodeModalProps> = (props) => {
     const { parsedData } = props;
-    console.log("🚀 ~ file: CodeModal.tsx:44 ~ codeModalData:", parsedData)
+    console.log("🚀 ~ file: CodeModal.tsx:44 ~ codeModalData:", parsedData) 
     return (
         <div >
             <Descriptions title="Code submitted" bordered>

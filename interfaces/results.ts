@@ -1,9 +1,8 @@
 
 export interface ResultType {
-    id: number,
     contract: string,
     source_map: string,
-    line_no: number[],
+    line_no: number[] | number,
     code: string,
     description: string,
     hint: string,

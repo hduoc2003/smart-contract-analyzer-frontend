@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/dist/client/router';
 import Layout from '../../components/Layout';
 import { Space, Table, Tag, Button, Badge, Spin } from 'antd';
@@ -18,18 +18,30 @@ interface DataType {
 
 const submit : React.FC = () => {
   const router = useRouter();
-  const {id} = router.query;
-  console.log("🚀 ~ file: [id].tsx:21 ~ id:", id)
+  const id = router.query.id;
+  const fileList = router.query.filelist;
+  let parsed_fileList = JSON.parse(fileList as string);
+  parsed_fileList = parsed_fileList.map((item, index) => (
+    {
+      ...item,
+      key: index+1,
+      status: "Analyzing"
+    }
+  ))
+  const [fileResult, setFileResult] = useState(parsed_fileList);
+  console.log("🚀 ~ file: [id].tsx:32 ~ fileResult:", fileResult)
+  console.log("🚀 ~ file: [id].tsx:21 ~ SUBMIT ID: ", id)
   const viewFile = (record) => {
     router.push(
         {
-            pathname: '/result/[path]',
+            pathname: '/result/' + record.key,
             query: {
+                key: record.key,
                 path: record.name,
-                filename: record.name,
+                file_result: JSON.stringify(record),
                 ref: 'Tung',
             },
-        }
+        }, '/result/' + record.key
     );
   }
 
@@ -42,6 +54,7 @@ const submit : React.FC = () => {
     const requestOptions = {
       method: 'POST',
     };
+    let currFileResult = fileResult;
 
     // Gửi yêu cầu POST và nhận dữ liệu streaming
     fetch(serverBaseURL, {credentials:'include', method: "POST"},)
@@ -60,9 +73,26 @@ const submit : React.FC = () => {
           if (done)
             break;
           const res = decoder.decode(value);
-          console.log(res);
-          // console.log((decoder.decode(value)))
-          // console.log(typeof value)
+          try {
+            const parsedData = JSON.parse(res);
+            console.log(parsedData);
+            // Now, you can access properties of the parsed JSON object.
+            const filename = parsedData.file_name;
+            console.log(filename);
+
+            console.log("→UPDATE STATUS");
+            const updatedFileResult = currFileResult.map((file) => {
+              if (file.name === filename) {
+                return { ...file, status: 'Done' };
+              }
+              return file;
+            });
+
+            currFileResult = updatedFileResult;
+            setFileResult(updatedFileResult);
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+          }
         }
       })
       .catch((error) => {
@@ -70,6 +100,10 @@ const submit : React.FC = () => {
       }
     );
   }, [])
+
+  useEffect(() => {
+    console.log("😊UPDATE");
+  }, [fileResult]);
 
   const columns: ColumnsType<DataType> = [
       {
@@ -123,44 +157,44 @@ const submit : React.FC = () => {
       },
     ];
   
-    const data: DataType[] = [
-      {
-        key: '1',
-        name: 'File 1',
-        size: 32,
-        status: 'Done'
-      },
-      {
-        key: '5', 
-        name: 'Image 1',
-        size: 128,
-        status: 'Done'
-      },
-      {
-        key: '2',
-        name: 'File 2',
-        size: 42,
-        status: 'Analyzing'
-      },
-      {
-        key: '3',
-        name: 'Joe Black',
-        size: 32,
-        status: 'Pending'
-      },
-      {
-        key: '4',
-        name: 'Document 1',
-        size: 64,
-        status: 'Pending'
-      },
-      {
-        key: '6',
-        name: 'File 3',
-        size: 72,
-        status: 'Error'
-      }
-    ];
+    // const data: DataType[] = [
+    //   {
+    //     key: '1',
+    //     name: 'File 1',
+    //     size: 32,
+    //     status: 'Done'
+    //   },
+    //   {
+    //     key: '5', 
+    //     name: 'Image 1',
+    //     size: 128,
+    //     status: 'Done'
+    //   },
+    //   {
+    //     key: '2',
+    //     name: 'File 2',
+    //     size: 42,
+    //     status: 'Analyzing'
+    //   },
+    //   {
+    //     key: '3',
+    //     name: 'Joe Black',
+    //     size: 32,
+    //     status: 'Pending'
+    //   },
+    //   {
+    //     key: '4',
+    //     name: 'Document 1',
+    //     size: 64,
+    //     status: 'Pending'
+    //   },
+    //   {
+    //     key: '6',
+    //     name: 'File 3',
+    //     size: 72,
+    //     status: 'Error'
+    //   }
+    // ];
   return (
     <Layout title="Submit | Tool">
         <div className='h-auto'>
@@ -174,7 +208,7 @@ const submit : React.FC = () => {
                 </p>
             </div>
             <div className='mx-4 my-20 lg:mx-40'>
-                <Table columns={columns} dataSource={data} />
+                <Table columns={columns} dataSource={fileResult} />
             </div>
         </div>
     </Layout>

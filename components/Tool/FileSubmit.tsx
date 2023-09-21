@@ -18,6 +18,7 @@ const FileSubmit : React.FC = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const [submitDisable, setSubmitDisable] = useState<boolean>(true);
     const [submittedFiles, setSubmittedFiles] = useState<UploadFile[]>([]);
+    const [sourceCode, setSourceCode] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,14 +42,16 @@ const FileSubmit : React.FC = () => {
             })
             .then((response) => {
                 messageApi.success('Loading finished', 0.5);
+                localStorage.setItem('codeData', JSON.stringify(sourceCode));
                 console.log(response.data.uuid);
                 router.push(
                     {
-                        pathname: '/submit/[id]',
+                        pathname: '/submit/' + response.data.uuid,
                         query: {
                             id: response.data.uuid,
-                        },
-                    }
+                            filelist: JSON.stringify(submittedFiles),
+                        }
+                    }, '/submit/' + response.data.uuid
                 );
             })
             .catch((error) => {
@@ -72,8 +75,7 @@ const FileSubmit : React.FC = () => {
                     // The content of the file is available in event.target.result
                     const currFileContent = event.target.result.toString(); // Convert to string
                     // You can do something with currFileContent here
-                    console.log(typeof currFileContent)
-                    console.log('File content:', currFileContent);
+                    setSourceCode((prevContents) => [...prevContents, currFileContent]);
                 };
                 reader.readAsText(file); // Read the file as text
             }
