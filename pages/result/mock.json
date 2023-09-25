@@ -1,78 +1,155 @@
 {
-    "file_name": "deprecated_standards.sol",
-    "tool_name": "Mythril, Slither",
-    "duration": 11.995377779006958,
-    "solc": "0.4.11",
-    "analysis": {
-        "errors": [],
-        "issues": [
-            {
-                "contract": "SimpleSuicide",
-                "source_map": "90:24",
-                "line_no": 6,
-                "code": "selfdestruct(msg.sender)",
-                "description": "SimpleSuicide.sudicideAnyone() (../../../tmp/tung123/d7f047fc-cbbf-42ae-b4ba-1a1346833067/contracts/deprecated_standards.sol#5-7) allows anyone to destruct the contract\n\nAny sender can cause the contract to self-destruct.\nAny sender can trigger execution of the SELFDESTRUCT instruction to destroy this contract account and withdraw its balance to an arbitrary address. Review the transaction trace generated for this issue and make sure that appropriate security controls are in place to prevent unrestricted access.",
-                "hint": "suicidal",
-                "issue_title": "suicidal",
-                "swcID": "SWC-106",
-                "swc_title": "MOCK UPPPPP",
-                "swc_link": "https://swcregistry.io/docs/SWC-106/",
-                "severity": "chua lam"
-            },
-            {
-                "contract": "",
-                "source_map": "0:23:0",
-                "line_no": [
-                    1
-                ],
-                "code": "Kh\u00f4ng c\u00f3 source code :(, FE t\u1ef1 \u0111i\u1ec1n \u1ee9ng v\u1edbi sourcemap nh\u00e9",
-                "description": "Pragma version0.4.11 (../../../tmp/tung123/d7f047fc-cbbf-42ae-b4ba-1a1346833067/contracts/deprecated_standards.sol#1) allows old versions\n",
-                "hint": "incorrect-versions-of-solidity",
-                "issue_title": "solc-version",
-                "swcID": "SWC-102",
-                "swc_title": "Outdated Compiler Version",
-                "swc_link": "https://swcregistry.io/docs/SWC-102/",
-                "severity": "Informational"
-            },
-            {
-                "contract": "",
-                "source_map": "",
-                "line_no": [],
-                "code": "Kh\u00f4ng c\u00f3 source code :(, FE t\u1ef1 \u0111i\u1ec1n \u1ee9ng v\u1edbi sourcemap nh\u00e9",
-                "description": "solc-0.4.11 is not recommended for deployment\n",
-                "hint": "incorrect-versions-of-solidity",
-                "issue_title": "solc-version",
-                "swcID": "SWC-102",
-                "swc_title": "Outdated Compiler Version",
-                "swc_link": "https://swcregistry.io/docs/SWC-102/",
-                "severity": "Informational"
-            },
-            {
-                "contract": "SimpleSuicide",
-                "source_map": "27:98:0:-",
-                "line_no": 3,
-                "code": "contract SimpleSuicide {\r\n\r\n  function sudicideAnyone() {\r\n    selfdestruct(msg.sender);\r\n  }\r\n\r\n}",
-                "description": "An assertion violation was triggered.\nIt is possible to trigger an assertion violation. Note that Solidity assert() statements should only be used to check invariants. Review the transaction trace generated for this issue and either make sure your program logic is correct, or use require() instead of assert() if your goal is to constrain user inputs or enforce preconditions. Remember to validate inputs from both callers (for instance, via passed arguments) and callees (for instance, via return values).",
-                "hint": "ch\u01b0a l\u00e0m ph\u1ea7n hint",
-                "issue_title": "Exception State",
-                "swcID": "SWC-110",
-                "swc_title": "Assert Violation",
-                "swc_link": "https://swcregistry.io/docs/SWC-110/",
-                "severity": "Medium"
-            },
-            {
-                "contract": "SimpleSuicide",
-                "source_map": "27:98:0:-",
-                "line_no": 3,
-                "code": "contract SimpleSuicide {\r\n\r\n  function sudicideAnyone() {\r\n    selfdestruct(msg.sender);\r\n  }\r\n\r\n}",
-                "description": "An assertion violation was triggered.\nIt is possible to trigger an assertion violation. Note that Solidity assert() statements should only be used to check invariants. Review the transaction trace generated for this issue and either make sure your program logic is correct, or use require() instead of assert() if your goal is to constrain user inputs or enforce preconditions. Remember to validate inputs from both callers (for instance, via passed arguments) and callees (for instance, via return values).",
-                "hint": "ch\u01b0a l\u00e0m ph\u1ea7n hint",
-                "issue_title": "Exception State",
-                "swcID": "SWC-110",
-                "swc_title": "Assert Violation",
-                "swc_link": "https://swcregistry.io/docs/SWC-110/",
-                "severity": "Medium"
-            }
-        ]
+    "uid": "rc-upload-1695362304777-3",
+    "lastModified": 1695217268839,
+    "lastModifiedDate": "2023-09-20T13:41:08.839Z",
+    "name": "swc-112-proxy-pattern-false-positive.sol",
+    "size": 703,
+    "type": "",
+    "percent": 100,
+    "originFileObj": {
+        "uid": "rc-upload-1695362304777-3"
+    },
+    "status": "Done",
+    "response": "<!DOCTYPE html><html><head><style data-next-hide-fouc=\"true\">body{display:none}</style><noscript data-next-hide-fouc=\"true\"><style>body{display:block}</style></noscript><title>Tool | Tool</title><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"initial-scale=1.0, width=device-width\"/><meta name=\"next-head-count\" content=\"3\"/><noscript data-n-css=\"\"></noscript><script defer=\"\" nomodule=\"\" src=\"/_next/static/chunks/polyfills.js?ts=1695362309829\"></script><script src=\"/_next/static/chunks/webpack.js?ts=1695362309829\" defer=\"\"></script><script src=\"/_next/static/chunks/main.js?ts=1695362309829\" defer=\"\"></script><script src=\"/_next/static/chunks/pages/_app.js?ts=1695362309829\" defer=\"\"></script><script src=\"/_next/static/chunks/pages/tool.js?ts=1695362309829\" defer=\"\"></script><script src=\"/_next/static/development/_buildManifest.js?ts=1695362309829\" defer=\"\"></script><script src=\"/_next/static/development/_ssgManifest.js?ts=1695362309829\" defer=\"\"></script><noscript id=\"__next_css__DO_NOT_USE__\"></noscript></head><body><div id=\"__next\"><div><header class=\"animate__animated animate__fadeInDown flex flex-wrap lg:flex-nowrap items-center justify-between pl-15 sticky top-0 z-20 px-4 py-4 text-white shadow-xl duration-500 md:px-10 xl:px-40 bg-blue-500\"><div class=\"flex items-center duration-500\"><a class=\"text-bold text-2xl text-white\" href=\"/\">TOOL</a></div><button class=\"inline-flex items-center justify-center w-10 h-10 p-2 duration-500 lg:hidden \n            text-white\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5\"></path></svg></button><div class=\"w-full duration-500 xk:ml-60 lg:ml-40 md:justify-center md:content-center lg:grid\"><ul class=\"\n          duration-500  animate__animated\n          animate__animated flex flex-col p-4 mt-4 font-medium lg:mt-0 lg:flex-row lg:space-x-8 lg:border-0 lg:p-0 lg:dark:bg-gray-900 \n            flex animate__fadeInDown\"><li class=\"lg:hidden text-white\n                \"><hr class=\"my-4\"/></li><li><a class=\"block font-normal pl-3 pr-4 duration-500 rounded \n                text-white\n                \" href=\"/coverage\">Coverage</a></li><li><a class=\"block font-normal pl-3 pr-4 duration-500 rounded \n                text-white\n                \" href=\"/pricing\">Pricing</a></li><li><a class=\"block font-normal pl-3 pr-4 duration-500 rounded \n                text-white\n                \" href=\"/about\">About</a></li><li><a class=\"block font-normal pl-3 pr-4 duration-500 rounded\n                text-white\n                \" href=\"/tool\">Tool</a></li><li class=\"my-2 lg:hidden text-white\n                \"><hr class=\"my-4\"/></li><li class=\"lg:hidden\"><a class=\"block font-normal pl-3 pr-4 duration-500 rounded\n                text-white\n                \" href=\"/login\">Login</a></li><li class=\"lg:hidden\"><a class=\"block font-normal pl-3 pr-4 duration-500 rounded\n                text-white\n                \" href=\"/signup\">Sign up</a></li></ul></div><div class=\"flex-col-reverse items-end hidden duration-500 w-96 lg:flex\"><div><button class=\"mr-2 border px-6 py-1 duration-500 hover:text-blue-500 border-white hover:bg-white hover:text-blue-500\"><a href=\"/login\">Login</a></button><button class=\"border px-6 py-1 duration-500 bg-white text-blue-500 hover:bg-blue-500 hover:text-white\"><a href=\"/signup\">Sign up</a></button></div></div></header><div class=\"flex justify-center h-auto min-h-screen p-10 mb-12 bg-white animate__animated animate__fadeIn\"><div class=\"w-full max-w-7xl\"><div class=\"h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 md:mt-20 animate__animated animate__fadeInUp\"><div class=\"grid grid-cols-2\"><h2 class=\"mb-8 font-bold text-md md:text-xl\">Import a Third-Party Git Repository</h2><ul class=\"items-end hidden gap-2 md:flex md:items-start md:justify-end md:flex-row\"><li><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" class=\"w-4 h-4 md:w-8 md:h-8\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"m21.62 11.108-8.731-8.729a1.292 1.292 0 0 0-1.823 0L9.257 4.19l2.299 2.3a1.532 1.532 0 0 1 1.939 1.95l2.214 2.217a1.53 1.53 0 0 1 1.583 2.531c-.599.6-1.566.6-2.166 0a1.536 1.536 0 0 1-.337-1.662l-2.074-2.063V14.9c.146.071.286.169.407.29a1.537 1.537 0 0 1 0 2.166 1.536 1.536 0 0 1-2.174 0 1.528 1.528 0 0 1 0-2.164c.152-.15.322-.264.504-.339v-5.49a1.529 1.529 0 0 1-.83-2.008l-2.26-2.271-5.987 5.982c-.5.504-.5 1.32 0 1.824l8.731 8.729a1.286 1.286 0 0 0 1.821 0l8.69-8.689a1.284 1.284 0 0 0 .003-1.822\"></path></svg></li><li><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" class=\"w-4 h-4 md:w-8 md:h-8\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z\"></path></svg></li><li><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" class=\"w-4 h-4 md:w-8 md:h-8\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20.892 9.889a.664.664 0 0 0-.025-.087l-2.104-6.479a.84.84 0 0 0-.8-.57.822.822 0 0 0-.789.575l-2.006 6.175H8.834L6.826 3.327a.823.823 0 0 0-.786-.575h-.006a.837.837 0 0 0-.795.575L3.133 9.815c0 .005-.005.01-.007.016l-1.067 3.281a1.195 1.195 0 0 0 .435 1.34l9.227 6.706c.167.121.393.12.558-.003l9.229-6.703a1.2 1.2 0 0 0 .435-1.34l-1.051-3.223zM17.97 3.936l1.809 5.566H16.16l1.81-5.566zm-11.94 0 1.812 5.566H4.228L6.03 3.936zm-2.982 9.752a.253.253 0 0 1-.093-.284l.793-2.437 5.817 7.456-6.517-4.735zm1.499-3.239h3.601l2.573 7.916-6.174-7.916zm7.452 8.794-2.856-8.798h5.718l-1.792 5.515-1.07 3.283zm1.282-.877 2.467-7.588.106-.329h3.604l-5.586 7.156-.591.761zm7.671-4.678-6.519 4.733.022-.029 5.794-7.425.792 2.436a.25.25 0 0 1-.089.285z\"></path></svg></li></ul></div><div><span class=\"ant-input-affix-wrapper h-12 css-dev-only-do-not-override-1m62vyb\"><span class=\"ant-input-prefix\"><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17.5 4C15.57 4 14 5.57 14 7.5c0 1.554 1.025 2.859 2.43 3.315-.146.932-.547 1.7-1.23 2.323-1.946 1.773-5.527 1.935-7.2 1.907V8.837c1.44-.434 2.5-1.757 2.5-3.337C10.5 3.57 8.93 2 7 2S3.5 3.57 3.5 5.5c0 1.58 1.06 2.903 2.5 3.337v6.326c-1.44.434-2.5 1.757-2.5 3.337C3.5 20.43 5.07 22 7 22s3.5-1.57 3.5-3.5c0-.551-.14-1.065-.367-1.529 2.06-.186 4.657-.757 6.409-2.35 1.097-.997 1.731-2.264 1.904-3.768C19.915 10.438 21 9.1 21 7.5 21 5.57 19.43 4 17.5 4zm-12 1.5C5.5 4.673 6.173 4 7 4s1.5.673 1.5 1.5S7.827 7 7 7s-1.5-.673-1.5-1.5zM7 20c-.827 0-1.5-.673-1.5-1.5a1.5 1.5 0 0 1 1.482-1.498l.13.01A1.495 1.495 0 0 1 7 20zM17.5 9c-.827 0-1.5-.673-1.5-1.5S16.673 6 17.5 6s1.5.673 1.5 1.5S18.327 9 17.5 9z\"></path></svg></span><input placeholder=\"https://some-provider.com/some-organization/some-project\" class=\"ant-input css-dev-only-do-not-override-1m62vyb\" type=\"text\" value=\"\"/><span class=\"ant-input-suffix\"><span role=\"img\" aria-label=\"info-circle\" style=\"color:rgba(0,0,0,.45)\" class=\"anticon anticon-info-circle\"><svg viewBox=\"64 64 896 896\" focusable=\"false\" data-icon=\"info-circle\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z\"></path><path d=\"M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z\"></path></svg></span></span></span></div><div class=\"flex justify-end mt-4\"><button class=\"py-2 px-8 font-bold text-white rounded-md focus:shadow-outline bg-blue-500 focus:outline-none\" type=\"button\">Continue</button></div></div><div class=\"flex justify-center my-2 md:my-4 animate__animated animate__delay-faster animate__fadeInUp\"><p class=\"text-xl font-thin md:text-2xl\">Or</p></div><div class=\"h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 animate__animated animate__delay-fast animate__fadeInUp\"><div class=\"grid grid-cols-2\"><h2 class=\"mb-8 text-xl font-bold \">Upload files</h2></div><div class=\"h-auto min-w-full mb-8\"><span class=\"ant-upload-wrapper css-dev-only-do-not-override-1m62vyb\"><div class=\"css-dev-only-do-not-override-1m62vyb ant-upload ant-upload-drag\"><span tabindex=\"0\" class=\"ant-upload ant-upload-btn\" role=\"button\"><input type=\"file\" style=\"display:none\" accept=\"\" multiple=\"\"/><div class=\"ant-upload-drag-container\"><p class=\"mt-8 ant-upload-drag-icon\"><span role=\"img\" aria-label=\"inbox\" class=\"anticon anticon-inbox\"><svg viewBox=\"0 0 1024 1024\" focusable=\"false\" data-icon=\"inbox\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M885.2 446.3l-.2-.8-112.2-285.1c-5-16.1-19.9-27.2-36.8-27.2H281.2c-17 0-32.1 11.3-36.9 27.6L139.4 443l-.3.7-.2.8c-1.3 4.9-1.7 9.9-1 14.8-.1 1.6-.2 3.2-.2 4.8V830a60.9 60.9 0 0060.8 60.8h627.2c33.5 0 60.8-27.3 60.9-60.8V464.1c0-1.3 0-2.6-.1-3.7.4-4.9 0-9.6-1.3-14.1zm-295.8-43l-.3 15.7c-.8 44.9-31.8 75.1-77.1 75.1-22.1 0-41.1-7.1-54.8-20.6S436 441.2 435.6 419l-.3-15.7H229.5L309 210h399.2l81.7 193.3H589.4zm-375 76.8h157.3c24.3 57.1 76 90.8 140.4 90.8 33.7 0 65-9.4 90.3-27.2 22.2-15.6 39.5-37.4 50.7-63.6h156.5V814H214.4V480.1z\"></path></svg></span></p><p class=\"ant-upload-text\">Click or drag file to this area to upload</p><p class=\"px-4 mb-8 ant-upload-hint\">Support for a single or bulk upload. Strictly prohibited from uploading company data or other banned files.</p></div></span></div><div class=\"ant-upload-list ant-upload-list-text\"></div></span></div><div class=\"flex justify-end mt-4\"><button class=\"w-full px-8 py-4 mb-4 font-bold text-white rounded-md focus:shadow-outline bg-blue-500  focus:outline-none disabled disabled:opacity-75 \" type=\"button\" disabled=\"\">Submit</button></div></div></div></div><footer class=\"flex-col items-center text-blue-500 duration-300\"><hr class=\"bg-blue-500 h-0.5\"/><div class=\"grid w-full px-10 py-20 duration-300 bg-white sm:grid-cols-2 sm:px-20 md:grid-cols-4 md:space-x-4 lg:px-40 \"><a href=\"#123\" class=\"w-full mb-2 text-2xl md:text-4xl animate__animated animate__fadeInUp\">TOOL</a><ul class=\"flex flex-col w-full\"><h2 class=\"mb-4 font-semibold text animate__animated animate__fadeInUp\">SITE MAP</h2><a class=\"mb-2 animate__animated animate__fadeInUp animate__delay-fast\" href=\"/about\">About</a><a class=\"mb-2 animate__animated animate__fadeInUp animate__delay-fast\" href=\"/tool\">Tools</a><a class=\"mb-2 animate__animated animate__fadeInUp animate__delay-fast\" href=\"/pricing\">Pricing</a><a class=\"mb-2 animate__animated animate__fadeInUp animate__delay-fast\" href=\"/team\">Team</a></ul><ul class=\"flex flex-col w-full\"><h2 class=\"mb-4 font-semibold animate__animated animate__fadeInUp\">THE SERVICE</h2><a class=\"mb-2 animate__animated animate__fadeInUp animate__delay-fast\" href=\"/coverage\">Coverage</a><a class=\"mb-2 animate__animated animate__fadeInUp animate__delay-fast\" href=\"/pricing\">Pricing</a></ul><div class=\"w-full\"><button class=\"w-full px-4 py-2 mb-4 border-2 rounded animate__animated animate__fadeInUp animate__delay-fast\"><a href=\"/signup\">Sign up for more</a></button><p class=\"mb-2 animate__animated animate__fadeInUp animate__delay-fast\">Follow us</p><div class=\"flex gap-4 mt-4\"><a class=\"p-2 duration-500 border hover:border-blue-500 border-white animate__animated animate__fadeInUp animate__delay-fast rounded-3xl\" href=\"/1\"><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" class=\"w-6 h-6\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A22.336 22.336 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.355H7.332v3.209h2.753v8.202h3.312z\"></path></svg></a><a class=\"p-2 duration-500 border hover:border-blue-500 border-white animate__animated animate__fadeInUp animate__delay-fast rounded-3xl\" href=\"/1\"><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" class=\"w-6 h-6\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z\"></path></svg></a><a class=\"p-2 duration-500 border hover:border-blue-500 border-white animate__animated animate__fadeInUp animate__delay-fast rounded-3xl\" href=\"/1\"><svg stroke=\"currentColor\" fill=\"currentColor\" stroke-width=\"0\" viewBox=\"0 0 24 24\" class=\"w-6 h-6\" height=\"1em\" width=\"1em\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"m18.73 5.41-1.28 1L12 10.46 6.55 6.37l-1.28-1A2 2 0 0 0 2 7.05v11.59A1.36 1.36 0 0 0 3.36 20h3.19v-7.72L12 16.37l5.45-4.09V20h3.19A1.36 1.36 0 0 0 22 18.64V7.05a2 2 0 0 0-3.27-1.64z\"></path></svg></a></div></div></div><div class=\"flex items-center w-full px-10 py-10 duration-300 bg-white sm:px-20 lg:px-40\"><ul class=\"w-full gap-2 bg-white md:flex md:justify-between\"><div><p class=\"font-semibold text-start md:w-full animate__animated animate__delay-1s\">COPYRIGHT 2023</p></div><div><a class=\"font-semibold text-start md:w-full md:text-center animate__animated animate__fadeInUp animate__delay-1s\" href=\"/\">TERMS OF SERVICE</a></div><div><a class=\"font-semibold text-start md:w-full md:text-end animate__animated animate__fadeInUp animate__delay-1s\" href=\"/\">PRIVACY POLICY</a></div></ul></div></footer></div></div><script src=\"/_next/static/chunks/react-refresh.js?ts=1695362309829\"></script><script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/tool\",\"query\":{},\"buildId\":\"development\",\"nextExport\":true,\"autoExport\":true,\"isFallback\":false,\"scriptLoader\":[]}</script></body></html>",
+    "xhr": {},
+    "key": 2,
+    "result": {
+        "file_name": "swc-112-proxy-pattern-false-positive.sol",
+        "tool_name": "Mythril, Slither",
+        "duration": 10.026448011398315,
+        "solc": "0.4.24",
+        "analysis": {
+            "errors": [],
+            "issues": [
+                {
+                    "contract": "proxy",
+                    "source_map": "47:13:0",
+                    "line_no": [
+                        4
+                    ],
+                    "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                    "description": "proxy.owner (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#4) is never initialized. It is used in:\n\t- proxy.withdraw() (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#9-12)\n",
+                    "hint": "uninitialized-state-variables",
+                    "issue_title": "uninitialized-state",
+                    "swcID": "N/A",
+                    "swc_title": "N/A",
+                    "swc_link": "N/A",
+                    "severity": "High"
+                },
+                {
+                    "contract": "",
+                    "source_map": "0:24:0",
+                    "line_no": [
+                        1
+                    ],
+                    "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                    "description": "Pragma version^0.4.24 (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#1) allows old versions\n",
+                    "hint": "incorrect-versions-of-solidity",
+                    "issue_title": "solc-version",
+                    "swcID": "SWC-102",
+                    "swc_title": "Outdated Compiler Version",
+                    "swc_link": "https://swcregistry.io/docs/SWC-102/",
+                    "severity": "Informational"
+                },
+                {
+                    "contract": "",
+                    "source_map": "",
+                    "line_no": [],
+                    "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                    "description": "solc-0.4.24 is not recommended for deployment\n",
+                    "hint": "incorrect-versions-of-solidity",
+                    "issue_title": "solc-version",
+                    "swcID": "SWC-102",
+                    "swc_title": "Outdated Compiler Version",
+                    "swc_link": "https://swcregistry.io/docs/SWC-102/",
+                    "severity": "Informational"
+                },
+                {
+                    "contract": "proxy",
+                    "source_map": "128:34:0",
+                    "line_no": [
+                        7
+                    ],
+                    "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                    "description": "Low level call in proxy.proxyCall(address,bytes) (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#6-8):\n\t- require(bool)(! _to.delegatecall(_data)) (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#7)\n",
+                    "hint": "low-level-calls",
+                    "issue_title": "low-level-calls",
+                    "swcID": "N/A",
+                    "swc_title": "N/A",
+                    "swc_link": "N/A",
+                    "severity": "Informational"
+                },
+                {
+                    "contract": "proxy",
+                    "source_map": "99:11:0",
+                    "line_no": [
+                        6
+                    ],
+                    "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                    "description": "Parameter proxy.proxyCall(address,bytes)._data (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#6) is not in mixedCase\n",
+                    "hint": "conformance-to-solidity-naming-conventions",
+                    "issue_title": "naming-convention",
+                    "swcID": "N/A",
+                    "swc_title": "N/A",
+                    "swc_link": "N/A",
+                    "severity": "Informational"
+                },
+                {
+                    "contract": "proxy",
+                    "source_map": "28:265:0",
+                    "line_no": [
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13
+                    ],
+                    "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                    "description": "Contract proxy (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#3-13) is not in CapWords\n",
+                    "hint": "conformance-to-solidity-naming-conventions",
+                    "issue_title": "naming-convention",
+                    "swcID": "N/A",
+                    "swc_title": "N/A",
+                    "swc_link": "N/A",
+                    "severity": "Informational"
+                },
+                {
+                    "contract": "proxy",
+                    "source_map": "86:11:0",
+                    "line_no": [
+                        6
+                    ],
+                    "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                    "description": "Parameter proxy.proxyCall(address,bytes)._to (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#6) is not in mixedCase\n",
+                    "hint": "conformance-to-solidity-naming-conventions",
+                    "issue_title": "naming-convention",
+                    "swcID": "N/A",
+                    "swc_title": "N/A",
+                    "swc_link": "N/A",
+                    "severity": "Informational"
+                },
+                {
+                    "contract": "proxy",
+                    "source_map": "47:13:0",
+                    "line_no": [
+                        4
+                    ],
+                    "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                    "description": "proxy.owner (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#4) should be constant \n",
+                    "hint": "state-variables-that-could-be-declared-constant",
+                    "issue_title": "constable-states",
+                    "swcID": "N/A",
+                    "swc_title": "N/A",
+                    "swc_link": "N/A",
+                    "severity": "Optimization"
+                }
+            ]
+        }
     }
 }

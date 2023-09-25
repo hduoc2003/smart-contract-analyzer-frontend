@@ -1,6 +1,7 @@
 import React from 'react'
 import { ResultType } from '../../interfaces/results';
 import { Tag, Descriptions } from 'antd';
+import hljs from 'highlight.js';
 
 import Highlighter from '../../utils/Highlighter';
 interface CodeModalProps {
@@ -33,19 +34,26 @@ const markdown = `
   \`\`\`
 `;
 
-const InfoModal : React.FC<CodeModalProps> = (props) => {
+const CodeModal : React.FC<CodeModalProps> = (props) => {
     const { parsedData } = props;
-    console.log("🚀 ~ file: CodeModal.tsx:44 ~ codeModalData:", parsedData) 
+
+    const highlightCode = () => {
+      const code = JSON.parse(parsedData as string);
+      const highlightedCode = hljs.highlightAuto(code).value;
+      return { __html: highlightedCode };
+    }; 
     return (
         <div >
             <Descriptions title="Code submitted" bordered>
                 {/* LINE 1 */}
                 <Descriptions.Item label="Code" span={3}>
-                    <Highlighter markdown={parsedData}/>
+                    <pre>
+                        <code dangerouslySetInnerHTML={highlightCode()}></code>
+                    </pre>
                 </Descriptions.Item>
             </Descriptions>
         </div>
     )
 }
 
-export default InfoModal
+export default CodeModal

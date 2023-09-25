@@ -28,8 +28,8 @@ const submit : React.FC = () => {
       status: "Analyzing"
     }
   ))
-  const [fileResult, setFileResult] = useState(parsed_fileList);
-  console.log("🚀 ~ file: [id].tsx:32 ~ fileResult:", fileResult)
+  const [fileInfo, setFileInfo] = useState(parsed_fileList);
+  console.log("🚀 ~ file: [id].tsx:32 ~ fileInfo:", fileInfo)
   console.log("🚀 ~ file: [id].tsx:21 ~ SUBMIT ID: ", id)
   const viewFile = (record) => {
     router.push(
@@ -50,11 +50,7 @@ const submit : React.FC = () => {
     const serverBaseURL = (`http://127.0.0.1:5000/api/v1/client/tool/handle_results?id=${streamId}`);
     // const eventSource = new EventSource(`/api/v1/client/tool/handle_results?id=${streamId}`);
 
-    // Tạo yêu cầu POST với phương thức 'POST' và thông tin yêu cầu
-    const requestOptions = {
-      method: 'POST',
-    };
-    let currFileResult = fileResult;
+    let currFileResult = fileInfo;
 
     // Gửi yêu cầu POST và nhận dữ liệu streaming
     fetch(serverBaseURL, {credentials:'include', method: "POST"},)
@@ -77,19 +73,18 @@ const submit : React.FC = () => {
             const parsedData = JSON.parse(res);
             console.log(parsedData);
             // Now, you can access properties of the parsed JSON object.
-            const filename = parsedData.file_name;
-            console.log(filename);
+            const result_filename = parsedData.file_name;
 
             console.log("→UPDATE STATUS");
             const updatedFileResult = currFileResult.map((file) => {
-              if (file.name === filename) {
-                return { ...file, status: 'Done' };
+              if (file.name === result_filename) {
+                return { ...file, status: 'Done', result: parsedData};
               }
               return file;
             });
 
             currFileResult = updatedFileResult;
-            setFileResult(updatedFileResult);
+            setFileInfo(updatedFileResult);
           } catch (error) {
             console.error('Error parsing JSON:', error);
           }
@@ -103,7 +98,8 @@ const submit : React.FC = () => {
 
   useEffect(() => {
     console.log("😊UPDATE");
-  }, [fileResult]);
+    console.log(fileInfo);
+  }, [fileInfo]);
 
   const columns: ColumnsType<DataType> = [
       {
@@ -149,52 +145,16 @@ const submit : React.FC = () => {
         key: 'action',
         render: (_, record) => (
           <Space size="middle">
-            <Button onClick={() => viewFile(record)}>
-              View more
-            </Button>
+            {fileInfo[record.key as number -1] === undefined ? (
+              <Button disabled>View more</Button>
+            ) : (
+              <Button onClick={() => viewFile(record)}>View more</Button>
+            )}
           </Space>
         ),
       },
     ];
   
-    // const data: DataType[] = [
-    //   {
-    //     key: '1',
-    //     name: 'File 1',
-    //     size: 32,
-    //     status: 'Done'
-    //   },
-    //   {
-    //     key: '5', 
-    //     name: 'Image 1',
-    //     size: 128,
-    //     status: 'Done'
-    //   },
-    //   {
-    //     key: '2',
-    //     name: 'File 2',
-    //     size: 42,
-    //     status: 'Analyzing'
-    //   },
-    //   {
-    //     key: '3',
-    //     name: 'Joe Black',
-    //     size: 32,
-    //     status: 'Pending'
-    //   },
-    //   {
-    //     key: '4',
-    //     name: 'Document 1',
-    //     size: 64,
-    //     status: 'Pending'
-    //   },
-    //   {
-    //     key: '6',
-    //     name: 'File 3',
-    //     size: 72,
-    //     status: 'Error'
-    //   }
-    // ];
   return (
     <Layout title="Submit | Tool">
         <div className='h-auto'>
@@ -208,7 +168,7 @@ const submit : React.FC = () => {
                 </p>
             </div>
             <div className='mx-4 my-20 lg:mx-40'>
-                <Table columns={columns} dataSource={fileResult} />
+                <Table columns={columns} dataSource={fileInfo} />
             </div>
         </div>
     </Layout>

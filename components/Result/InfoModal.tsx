@@ -1,10 +1,11 @@
 import React from 'react'
 import { ResultType } from '../../interfaces/results';
 import { Tag, Descriptions } from 'antd';
-
 import Highlighter from '../../utils/Highlighter';
+import hljs from 'highlight.js';
 interface InfoModalProps {
-    modalData: ResultType; // Replace 'any' with the actual type of 'modalData' if possible
+    modalData: ResultType; // Replace 'any' with the actual type of 'modalData' if 
+    currSourceCode: any; // Replace 'any' with the actual type of 'currSource
 }
 
 const markdown = `
@@ -39,7 +40,14 @@ const markdown = `
 `;
 
 const InfoModal : React.FC<InfoModalProps> = (props) => {
-    const { modalData } = props;
+    const { modalData, currSourceCode } = props;
+    console.log("🚀 ~ file: InfoModal.tsx:44 ~ currSourceCode:", currSourceCode)
+
+    const highlightCode = () => {
+        const code = JSON.parse(currSourceCode as string);
+        const highlightedCode = hljs.highlightAuto(code).value;
+        return { __html: highlightedCode };
+    }; 
     console.log(modalData);
     let color = modalData.severity.length > 5 ? 'yellow' : 'green';
     if (modalData.severity === 'High') {
@@ -76,7 +84,7 @@ const InfoModal : React.FC<InfoModalProps> = (props) => {
                 <Descriptions.Item label="Hint" span={3}> {modalData.hint} </Descriptions.Item>
                     
                 <Descriptions.Item label="Code" span={3}>
-                    <Highlighter markdown={markdown}/>
+                    <Highlighter markdown={highlightCode()}/>
                 </Descriptions.Item>
             </Descriptions>
         </div>

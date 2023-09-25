@@ -6,7 +6,7 @@ import { ResultType } from '../../interfaces/results';
 import InfoModal from './InfoModal';
 
 const IssuesTable = (props) => {
-    const {IssuesData} = props;
+    const {IssuesData, currSourceCode} = props;
     const [open, setOpen] = useState<boolean>(false);
     const [modalData, setModalData] = useState<ResultType>(IssuesData[0]);
 
@@ -60,7 +60,7 @@ const IssuesTable = (props) => {
     return (
         <div>
             <Table className='mt-8 duration-500 animate__animated animate__fade' columns={columns} 
-                    dataSource={IssuesData} rowKey={(IssueData) => IssueData.id} bordered/>
+                    dataSource={IssuesData} rowKey={(IssueData) => IssueData[0]} bordered/>
             <Modal
                 centered
                 open={open}
@@ -68,7 +68,8 @@ const IssuesTable = (props) => {
                 onCancel={() => setOpen(false)}
                 width={1000}
             >
-                <InfoModal modalData={modalData}/>
+                <InfoModal currSourceCode={currSourceCode} modalData={modalData}/>
+                
             </Modal>
         </div>
     )
