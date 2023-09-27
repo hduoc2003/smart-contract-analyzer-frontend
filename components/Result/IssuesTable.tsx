@@ -7,14 +7,14 @@ import InfoModal from './InfoModal';
 
 const IssuesTable = (props) => {
     const {IssuesData, currSourceCode} = props;
-    const [open, setOpen] = useState<boolean>(false);
-    const [modalData, setModalData] = useState<ResultType>(IssuesData[0]);
+    // const [open, setOpen] = useState<boolean>(false);
+    // const [modalData, setModalData] = useState<ResultType>(IssuesData[0]);
 
     const columns: ColumnsType<ResultType> = [
         {
             title: 'Title',
-            dataIndex: 'swc_title',
-            key: 'swc_title',
+            dataIndex: 'issue_title',
+            key: 'issue_title',
         },
         {
             title: 'Severity',
@@ -45,23 +45,28 @@ const IssuesTable = (props) => {
             }
         },
         {
-            title: 'Info',
-            key: 'action',
-            render: (IssueData) => (
-                <Space size="middle">
-                    <Button  onClick={() => {setOpen(true), setModalData(IssueData)}}>
-                        View more
-                    </Button>
-                </Space>
-            ),
+            title: 'Description',    
+            dataIndex: 'description',
+            key:'description',
         },
+        // {
+        //     title: 'Info',
+        //     key: 'action',
+        //     render: (IssueData) => (
+        //         <Space size="middle">
+        //             <Button  onClick={() => {setOpen(true), setModalData(IssueData)}}>
+        //                 View more
+        //             </Button>
+        //         </Space>
+        //     ),
+        // },
     ];
 
     return (
         <div>
             <Table className='mt-8 duration-500 animate__animated animate__fade' columns={columns} 
                     dataSource={IssuesData} rowKey={(IssueData) => IssueData[0]} bordered/>
-            <Modal
+            {/* <Modal
                 centered
                 open={open}
                 onOk={() => setOpen(false)}
@@ -70,7 +75,7 @@ const IssuesTable = (props) => {
             >
                 <InfoModal currSourceCode={currSourceCode} modalData={modalData}/>
                 
-            </Modal>
+            </Modal> */}
         </div>
     )
 }

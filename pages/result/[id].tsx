@@ -20,10 +20,11 @@ const result : React.FC = () => {
     const [analyzeState, setAnalyzeState] = useState<boolean>(true);
     const [srcCode, setSrcCode] = useState()
     const [currSourceCode, setCurrSourceCode] = useState();
-    const fileID = router.query.key;
+    let fileID="1" //! INIT FOR TEST
+    // const fileID = router.query.key;
     const file_result = router.query.file_result;
-    const parsed_fileResult = JSON.parse(file_result as string);
-    // const parsed_fileResult = mockData; //MOCK
+    // const parsed_fileResult = JSON.parse(file_result as string);
+    const parsed_fileResult = mockData; //MOCK
     console.log(parsed_fileResult);
     // const parsedData = JSON.parse(fileContent as string);
     let newCurrSourceCode;
@@ -42,9 +43,8 @@ const result : React.FC = () => {
         setCurrSourceCode(newCurrSourceCode);
         console.log("🚀 ~ file: [id].tsx:41 ~ useEffect ~ newCurrSourceCode:", currSourceCode)
         setAnalyzeState(false);
-    },500)
+    },1000)
     useEffect(()=>{
-
     }, [analyzeState])
     
     const IssuesData : ResultType[] = parsed_fileResult.result.analysis.issues;
@@ -70,7 +70,7 @@ const result : React.FC = () => {
                         <Descriptions.Item label="Last modified date" span={2}>{parsed_fileResult.lastModifiedDate}</Descriptions.Item>
                         <Descriptions.Item label="Solidity version">{parsed_fileResult.result.solc}</Descriptions.Item>
 
-                        <Descriptions.Item label="Code" span={2}>
+                        {/* <Descriptions.Item label="Code" span={2}>
                                 <Space size="middle">
                                     { analyzeState
                                         ?
@@ -94,7 +94,7 @@ const result : React.FC = () => {
                                         </>
                                     }
                                 </Space>
-                        </Descriptions.Item>
+                        </Descriptions.Item> */}
                         <Descriptions.Item label="Size">{parsed_fileResult.size}</Descriptions.Item>
                         <Descriptions.Item label="Status" span={3}>
                             {
@@ -108,11 +108,19 @@ const result : React.FC = () => {
                             }
                         </Descriptions.Item>
                     </Descriptions>
-                    {
-                        !analyzeState ? 
-                        <IssuesTable IssuesData={parsed_fileResult.result.analysis.issues}/>:
-                        <></>
-                    }
+                    <div>
+                        <div className='w-full'>
+                            {analyzeState || <CodeModal IssuesData={IssuesData} parsedData={JSON.stringify(currSourceCode)}/>}
+                        </div>
+                        {/* <div className='w-full'>
+                            {console.log(IssuesData)}
+                            {
+                                !analyzeState ? 
+                                <IssuesTable IssuesData={parsed_fileResult.result.analysis.issues}/>:
+                                <></>
+                            }
+                        </div> */}
+                    </div>
                 </div>
             </div>
         </Layout>
