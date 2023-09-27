@@ -1,0 +1,69 @@
+{
+    "file_name": "unused_variable.sol",
+    "tool_name": "Mythril, Slither",
+    "duration": 15.826551914215088,
+    "solc": "0.5.0",
+    "analysis": {
+        "errors": [],
+        "issues": [
+            {
+                "contract": "ModifierEntrancy",
+                "source_map": "336:13:0",
+                "line_no": [
+                    14
+                ],
+                "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                "description": "Reentrancy in ModifierEntrancy.airDrop() (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#14-16):\nExternal calls:\n- supportsToken() (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#14)\n- require(bool)(keccak256(bytes)(abi.encodePacked(Nu Token)) == bank.supportsToken()) (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#20)\nState variables written after the call(s):\n- tokenBalance[msg.sender] += 20 (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#15)\nModifierEntrancy.tokenBalance (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#5) can be used in cross function reentrancies:\n- ModifierEntrancy.airDrop() (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#14-16)\n- ModifierEntrancy.hasNoBalance() (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#25-28)\n- ModifierEntrancy.tokenBalance (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#5)\n",
+                "hint": "reentrancy-vulnerabilities",
+                "issue_title": "reentrancy-no-eth",
+                "swcID": "SWC-107",
+                "swc_title": "Reentrancy",
+                "swc_link": "https://swcregistry.io/docs/SWC-107/",
+                "severity": "Medium"
+            },
+            {
+                "contract": "",
+                "source_map": "",
+                "line_no": [],
+                "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                "description": "solc-0.5.0 is not recommended for deployment\n",
+                "hint": "incorrect-versions-of-solidity",
+                "issue_title": "solc-version",
+                "swcID": "SWC-102",
+                "swc_title": "Outdated Compiler Version",
+                "swc_link": "https://swcregistry.io/docs/SWC-102/",
+                "severity": "Informational"
+            },
+            {
+                "contract": "",
+                "source_map": "0:23:0",
+                "line_no": [
+                    1
+                ],
+                "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                "description": "Pragma version ^0.5.0 (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#1) allows old versions\n",
+                "hint": "incorrect-versions-of-solidity",
+                "issue_title": "solc-version",
+                "swcID": "SWC-102",
+                "swc_title": "Outdated Compiler Version",
+                "swc_link": "https://swcregistry.io/docs/SWC-102/",
+                "severity": "Informational"
+            },
+            {
+                "contract": "ModifierEntrancy",
+                "source_map": "110:33:0",
+                "line_no": [
+                    6
+                ],
+                "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
+                "description": "ModifierEntrancy.name (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#6) is never used in ModifierEntrancy (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/unused_variable.sol#3-29)\n",
+                "hint": "unused-state-variable",
+                "issue_title": "unused-state",
+                "swcID": "SWC-131",
+                "swc_title": "Presence of unused variables",
+                "swc_link": "https://swcregistry.io/docs/SWC-131/",
+                "severity": "Informational"
+            }
+        ]
+    }
+}
