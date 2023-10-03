@@ -22,7 +22,7 @@ const IssuesTable = (props) => {
             dataIndex: 'severity',
             render: (severity) => {
                 let color = severity.length > 5 ? 'yellow' : 'green';
-                if (severity === 'Informational') color = 'blue'
+                if (severity === 'Informational' || severity === 'Optimization') color = 'blue'
                 else if (severity === 'High') {
                     color = 'volcano';
                 }
@@ -43,39 +43,16 @@ const IssuesTable = (props) => {
                     </Space>
                 )
             }
-        },
-        {
-            title: 'Description',    
-            dataIndex: 'description',
-            key:'description',
-        },
-        // {
-        //     title: 'Info',
-        //     key: 'action',
-        //     render: (IssueData) => (
-        //         <Space size="middle">
-        //             <Button  onClick={() => {setOpen(true), setModalData(IssueData)}}>
-        //                 View more
-        //             </Button>
-        //         </Space>
-        //     ),
-        // },
+        }
     ];
 
     return (
-        <div>
-            <Table className='mt-8 duration-500 animate__animated animate__fade' columns={columns} 
+        <div className='w-96'>
+            <Table className='mt-8 duration-500 animate__animated animate__fade' 
+                    columns={columns} pagination={false} 
                     dataSource={IssuesData} rowKey={(IssueData) => IssueData[0]} bordered/>
-            {/* <Modal
-                centered
-                open={open}
-                onOk={() => setOpen(false)}
-                onCancel={() => setOpen(false)}
-                width={1000}
-            >
-                <InfoModal currSourceCode={currSourceCode} modalData={modalData}/>
-                
-            </Modal> */}
+            <h3 className='mt-4 font-semibold'>Description</h3>
+            <p>{IssuesData[0].description}</p>
         </div>
     )
 }

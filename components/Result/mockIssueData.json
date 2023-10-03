@@ -1,27 +1,25 @@
 [
     {
-        "contract": "proxy",
-        "source_map": "47:13:0",
-        "line_no": [
-            4
-        ],
-        "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
-        "description": "proxy.owner (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#4) is never initialized. It is used in:\n\t- proxy.withdraw() (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#9-12)\n",
-        "hint": "uninitialized-state-variables",
-        "issue_title": "uninitialized-state",
-        "swcID": "N/A",
-        "swc_title": "N/A",
-        "swc_link": "N/A",
-        "severity": "High"
+        "contract": "SimpleSuicide",
+        "source_map": "90:24",
+        "line_no": 6,
+        "code": "selfdestruct(msg.sender)",
+        "description": "SimpleSuicide.suicideAnyone() (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/deprecated_standards.sol#5-7) allows anyone to destruct the contract\n\nAny sender can cause the contract to self-destruct.\nAny sender can trigger execution of the SELFDESTRUCT instruction to destroy this contract account and withdraw its balance to an arbitrary address. Review the transaction trace generated for this issue and make sure that appropriate security controls are in place to prevent unrestricted access.",
+        "hint": "suicidal",
+        "issue_title": "suicidal",
+        "swcID": "SWC-106",
+        "swc_title": "Unprotected SELFDESTRUCT Instruction",
+        "swc_link": "https://swcregistry.io/docs/SWC-106/",
+        "severity": "chưa làm"
     },
     {
         "contract": "",
-        "source_map": "0:24:0",
+        "source_map": "0:23:0",
         "line_no": [
             1
         ],
         "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
-        "description": "Pragma version^0.4.24 (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#1) allows old versions\n",
+        "description": "Pragma version 0.4.11 (../../../tmp/tung123/ffef3129-7c5d-4e0d-bc64-ad8c22c9ac3d/contracts/deprecated_standards.sol#1) allows old versions",
         "hint": "incorrect-versions-of-solidity",
         "issue_title": "solc-version",
         "swcID": "SWC-102",
@@ -34,7 +32,7 @@
         "source_map": "",
         "line_no": [],
         "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
-        "description": "solc-0.4.24 is not recommended for deployment\n",
+        "description": "solc-0.4.11 is not recommended for deployment",
         "hint": "incorrect-versions-of-solidity",
         "issue_title": "solc-version",
         "swcID": "SWC-102",
@@ -43,88 +41,16 @@
         "severity": "Informational"
     },
     {
-        "contract": "proxy",
-        "source_map": "128:34:0",
-        "line_no": [
-            7
-        ],
-        "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
-        "description": "Low level call in proxy.proxyCall(address,bytes) (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#6-8):\n\t- require(bool)(! _to.delegatecall(_data)) (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#7)\n",
-        "hint": "low-level-calls",
-        "issue_title": "low-level-calls",
-        "swcID": "N/A",
-        "swc_title": "N/A",
-        "swc_link": "N/A",
-        "severity": "Informational"
-    },
-    {
-        "contract": "proxy",
-        "source_map": "99:11:0",
-        "line_no": [
-            6
-        ],
-        "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
-        "description": "Parameter proxy.proxyCall(address,bytes)._data (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#6) is not in mixedCase\n",
-        "hint": "conformance-to-solidity-naming-conventions",
-        "issue_title": "naming-convention",
-        "swcID": "N/A",
-        "swc_title": "N/A",
-        "swc_link": "N/A",
-        "severity": "Informational"
-    },
-    {
-        "contract": "proxy",
-        "source_map": "28:265:0",
-        "line_no": [
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13
-        ],
-        "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
-        "description": "Contract proxy (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#3-13) is not in CapWords\n",
-        "hint": "conformance-to-solidity-naming-conventions",
-        "issue_title": "naming-convention",
-        "swcID": "N/A",
-        "swc_title": "N/A",
-        "swc_link": "N/A",
-        "severity": "Informational"
-    },
-    {
-        "contract": "proxy",
-        "source_map": "86:11:0",
-        "line_no": [
-            6
-        ],
-        "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
-        "description": "Parameter proxy.proxyCall(address,bytes)._to (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#6) is not in mixedCase\n",
-        "hint": "conformance-to-solidity-naming-conventions",
-        "issue_title": "naming-convention",
-        "swcID": "N/A",
-        "swc_title": "N/A",
-        "swc_link": "N/A",
-        "severity": "Informational"
-    },
-    {
-        "contract": "proxy",
-        "source_map": "47:13:0",
-        "line_no": [
-            4
-        ],
-        "code": "Không có source code :(, FE tự điền ứng với sourcemap nhé",
-        "description": "proxy.owner (../../../tmp/tung123/c7b6a627-2312-4598-a3dd-21ac5c259f3b/contracts/swc-112-proxy-pattern-false-positive.sol#4) should be constant \n",
-        "hint": "state-variables-that-could-be-declared-constant",
-        "issue_title": "constable-states",
-        "swcID": "N/A",
-        "swc_title": "N/A",
-        "swc_link": "N/A",
-        "severity": "Optimization"
+        "contract": "SimpleSuicide",
+        "source_map": "27:98:0:-",
+        "line_no": 3,
+        "code": "contract SimpleSuicide {\r\n\r\n function suicideAnyone() {\r\n selfdestruct(msg.sender);\r\n }\r\n\r\n}",
+        "description": "An assertion violation was triggered.\nIt is possible to trigger an assertion violation. Note that Solidity assert() statements should only be used to check invariants. Review the transaction trace generated for this issue and either make sure your program logic is correct, or use require() instead of assert() if your goal is to constrain user inputs or enforce preconditions. Remember to validate inputs from both callers (for instance, via passed arguments) and callees (for instance, via return values).",
+        "hint": "chưa làm phần hint",
+        "issue_title": "Exception State",
+        "swcID": "SWC-110",
+        "swc_title": "Assert Violation",
+        "swc_link": "https://swcregistry.io/docs/SWC-110/",
+        "severity": "Medium"
     }
 ]

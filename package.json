@@ -7,6 +7,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@faker-js/faker": "^8.0.2",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
