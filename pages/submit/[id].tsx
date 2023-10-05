@@ -18,19 +18,20 @@ interface DataType {
 
 const submit : React.FC = () => {
   const router = useRouter();
-  const id = router.query.id;
-  const fileList = router.query.filelist;
-  let parsed_fileList = JSON.parse(fileList as string);
-  parsed_fileList = parsed_fileList.map((item, index) => (
-    {
-      ...item,
-      key: index+1,
-      status: "Analyzing"
-    }
-  ))
+  const { id, filelist, idList } = router.query;
+  const parsed_idList = JSON.parse(idList as string);
+  const parsed_fileList = JSON.parse(filelist as string).map((item, index) => ({
+    ...item,
+    key: index + 1,
+    status: "Analyzing"
+  }));
+  const resultData = parsed_fileList.map(item => {
+    const fileName = item.name;
+    if (parsed_idList[fileName]) item.file_id = parsed_idList[fileName];
+    return item;
+  });
+  const [isFetching, setIsFetching] = useState<boolean>(true);
   const [fileInfo, setFileInfo] = useState(parsed_fileList);
-  console.log("🚀 ~ file: [id].tsx:32 ~ fileInfo:", fileInfo)
-  console.log("🚀 ~ file: [id].tsx:21 ~ SUBMIT ID: ", id)
   const viewFile = (record) => {
     router.push(
         {
@@ -49,11 +50,9 @@ const submit : React.FC = () => {
     const streamId = id;
     const serverBaseURL = (`http://127.0.0.1:5000/api/v1/client/tool/handle_results?id=${streamId}`);
     // const eventSource = new EventSource(`/api/v1/client/tool/handle_results?id=${streamId}`);
-
+    let fetchingData = true;
     let currFileResult = fileInfo;
-
-    // Gửi yêu cầu POST và nhận dữ liệu streaming
-    fetch(serverBaseURL, {credentials:'include', method: "POST"},)
+    fetchingData && fetch(serverBaseURL, {credentials:'include', method: "POST"},)
       .then(async (response) => {
         if (!response.ok) {
           throw new Error();
@@ -71,11 +70,11 @@ const submit : React.FC = () => {
           const res = decoder.decode(value);
           try {
             const parsedData = JSON.parse(res);
-            console.log(parsedData);
-            // Now, you can access properties of the parsed JSON object.
             const result_filename = parsedData.file_name;
+            console.log(currFileResult)
+            console.log(parsedData)
 
-            console.log("→UPDATE STATUS");
+            console.log("→ UPDATE STATUS");
             const updatedFileResult = currFileResult.map((file) => {
               if (file.name === result_filename) {
                 return { ...file, status: 'Done', result: parsedData};
@@ -85,19 +84,20 @@ const submit : React.FC = () => {
 
             currFileResult = updatedFileResult;
             setFileInfo(updatedFileResult);
+            localStorage.setItem('lastResults', JSON.stringify(updatedFileResult));
           } catch (error) {
             console.error('Error parsing JSON:', error);
           }
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
-      }
-    );
+          console.error('Error:', error);
+        }
+      );
   }, [])
 
   useEffect(() => {
-    console.log("😊UPDATE");
+    console.log("😊UPDATE STATUS");
     console.log(fileInfo);
   }, [fileInfo]);
 

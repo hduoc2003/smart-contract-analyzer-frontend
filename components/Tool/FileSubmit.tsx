@@ -43,13 +43,13 @@ const FileSubmit : React.FC = () => {
             .then((response) => {
                 messageApi.success('Loading finished', 0.5);
                 localStorage.setItem('codeData', JSON.stringify(sourceCode));
-                console.log(response.data.uuid);
                 router.push(
                     {
                         pathname: '/submit/' + response.data.uuid,
                         query: {
                             id: response.data.uuid,
                             filelist: JSON.stringify(submittedFiles),
+                            idList: JSON.stringify(response.data)
                         }
                     }, '/submit/' + response.data.uuid
                 );
@@ -85,7 +85,7 @@ const FileSubmit : React.FC = () => {
             // AFTER UPLOAD
             const { status } = info.file;
             if (status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully.`);
+                messageApi.success(`${info.file.name} file uploaded successfully.`);
                 console.log("🚀 ~ file: FileSubmit.tsx:82 ~ onChange ~ info.fileList:", info.fileList)
                 setSubmittedFiles(info.fileList)
                 setSubmitDisable(false);
