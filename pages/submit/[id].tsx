@@ -45,16 +45,15 @@ const submit : React.FC = () => {
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [fileInfo, setFileInfo] = useState(parsed_fileList);
   const viewFile = (record) => {
+    console.log("👾👾👾", record);
     router.push(
         {
-            pathname: '/result/' + record.key,
+            pathname: '/result/' + record.file_id,
             query: {
                 key: record.key,
-                path: record.name,
-                file_result: JSON.stringify(record),
-                ref: 'Tung',
+                file_id: record.file_id,
             },
-        }, '/result/' + record.key
+        }, '/result/' + record.file_id
     );
   }
 

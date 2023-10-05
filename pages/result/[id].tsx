@@ -17,29 +17,21 @@ const result : React.FC = () => {
     const [analyzeState, setAnalyzeState] = useState<boolean>(true);
     const [srcCode, setSrcCode] = useState()
     const [currSourceCode, setCurrSourceCode] = useState();
-    // let fileID="1" //! INIT FOR TEST
-    const fileID = router.query.key;
-    const file_result = router.query.file_result;
-    const parsed_fileResult = JSON.parse(file_result as string);
-    // const parsed_fileResult = mockData; //! FOR TEST
-    console.log(parsed_fileResult);
-    // const parsedData = JSON.parse(fileContent as string);
-    let newCurrSourceCode;
 
-    const reduxLastSubmitData = useSelector((state : AppState) => state.lastSubmit.lastSubmitData)
-    console.log("✨✨✨❤️ ~ file: [id].tsx:38 ~ reduxLastSubmitData:", JSON.parse(reduxLastSubmitData))
-    if (typeof window !== 'undefined') {
-        // Perform localStorage action
-        const localCodeData = localStorage.getItem('codeData');
-        const sourceCodeArr = JSON.parse(localCodeData);
-        const ID = parseInt(fileID as string);
-        console.log("ID: ", ID);
-        newCurrSourceCode = sourceCodeArr[ID - 1];
-    }
+    const codeKey = router.query.key;
+    const fileId = router.query.file_id;
+    const reduxLastSubmitData = useSelector((state : AppState) => state.lastSubmit.lastSubmitData) //!REDUX 
+    const reduxSrcCodeData = useSelector((state : AppState) => state.srcCodeData.sourceCodeData) //!REDUX
+
+    const parsed_codeData = JSON.parse(reduxSrcCodeData);
+    const parsed_lastSubmitData = JSON.parse(reduxLastSubmitData);
+    const parsed_fileResult = parsed_lastSubmitData.find(res => res.file_id === fileId);
+    const ID = parseInt(codeKey as string);
+
     setTimeout(() => {
-        setCurrSourceCode(newCurrSourceCode);
+        setCurrSourceCode(parsed_codeData[ID -1]);
         setAnalyzeState(false);
-    },1000)
+    },100)
     useEffect(()=>{
     }, [analyzeState])
     
