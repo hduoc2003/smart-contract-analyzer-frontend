@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/dist/client/router';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../redux/store';
 import Layout from '../../components/Layout';
 import { Space, Table, Tag, Button, Badge, Spin } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { LoadingOutlined } from '@ant-design/icons'
+
+//! REDUX
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
+import { setLastSubmitData } from '../../redux/actions/lastSubmitActions';
+import { useRouter } from 'next/dist/client/router';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../redux/store';
 
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import App from 'next/app';
@@ -20,6 +25,7 @@ interface DataType {
 }
 
 const submit : React.FC = () => {
+  const dispatch: Dispatch = useDispatch();
   const router = useRouter();
   const { id, filelist, idList } = router.query;
   const parsed_idList = JSON.parse(idList as string);
@@ -90,6 +96,7 @@ const submit : React.FC = () => {
 
             currFileResult = updatedFileResult;
             setFileInfo(updatedFileResult);
+            dispatch(setLastSubmitData(JSON.stringify(updatedFileResult)));
             localStorage.setItem('lastResults', JSON.stringify(updatedFileResult));
           } catch (error) {
             console.error('Error parsing JSON:', error);

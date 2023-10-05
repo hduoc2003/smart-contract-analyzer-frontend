@@ -4,14 +4,11 @@ import Layout from "../../components/Layout";
 import { LoadingOutlined } from '@ant-design/icons'
 import { Badge, Descriptions, Space, Button, Modal, Spin } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import mockData from './mock.json'
 
-import final_result from '../../utils/results/final_result.json';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../redux/store';
 import { ResultType } from '../../interfaces/results';
-import { AnalysisResult } from '../../interfaces/analysisResult';
-import IssuesTable from '../../components/Result/IssuesTable';
 import CodeModal from '../../components/Result/CodeModal';
-import { parse } from 'path';
 
 const spinIcon = <LoadingOutlined className='ml-2' style={{fontSize: 16}} spin/>
 const result : React.FC = () => {
@@ -29,6 +26,8 @@ const result : React.FC = () => {
     // const parsedData = JSON.parse(fileContent as string);
     let newCurrSourceCode;
 
+    const reduxLastSubmitData = useSelector((state : AppState) => state.lastSubmit.lastSubmitData)
+    console.log("✨✨✨❤️ ~ file: [id].tsx:38 ~ reduxLastSubmitData:", JSON.parse(reduxLastSubmitData))
     if (typeof window !== 'undefined') {
         // Perform localStorage action
         const localCodeData = localStorage.getItem('codeData');

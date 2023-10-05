@@ -1,12 +1,15 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import srcCodeReducer from './reducers/srcCodeReducer'; // Create your own reducer
+
+import srcCodeReducer from './reducers/srcCodeReducer';
+import lastSubmitReducer from './reducers/lastSubmitReducer';
 import { createWrapper } from "next-redux-wrapper";
 
 const makeStore = () =>
     configureStore({
-        reducer: {
-        srcCodeData: srcCodeReducer,
-    },
+          reducer: {
+          srcCodeData: srcCodeReducer,
+          lastSubmit: lastSubmitReducer,
+      },
     });
 
 export type AppStore = ReturnType<typeof makeStore>;
