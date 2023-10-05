@@ -1,24 +1,26 @@
 import React, {useState} from "react";
 import axios from "axios";
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
+import { setSourceCodeData } from "../../redux/actions/srcCodeActions";
 import { useRouter } from 'next/dist/client/router';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps, UploadFile } from 'antd';
 import { message, Upload } from 'antd';
 const { Dragger } = Upload;
 
-// interface submitProps {
-//     _id: string,
-//     userId: string,
-//     submittedDate: string,
-//     status: string
-// }
-
 const FileSubmit : React.FC = () => {
+    const dispatch: Dispatch = useDispatch();
     const router = useRouter();
     const [messageApi, contextHolder] = message.useMessage();
     const [submitDisable, setSubmitDisable] = useState<boolean>(true);
     const [submittedFiles, setSubmittedFiles] = useState<UploadFile[]>([]);
     const [sourceCode, setSourceCode] = useState([]);
+
+    const saveDataToStore = (data) => {
+        console.log("REDUX SET", data)
+        dispatch(setSourceCodeData(JSON.stringify(data))); // Dispatch the action
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,6 +29,7 @@ const FileSubmit : React.FC = () => {
             formData.append(`file${index + 1}`, file.originFileObj);
         });
         setSubmitDisable(false);
+        saveDataToStore(sourceCode);
         messageApi
             .open({
                 type: 'loading',

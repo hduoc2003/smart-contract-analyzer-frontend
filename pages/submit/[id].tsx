@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/dist/client/router';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../redux/store';
 import Layout from '../../components/Layout';
 import { Space, Table, Tag, Button, Badge, Spin } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { LoadingOutlined } from '@ant-design/icons'
 
 import { fetchEventSource } from "@microsoft/fetch-event-source";
+import App from 'next/app';
 
 const spinIcon = <LoadingOutlined className='ml-2' style={{fontSize: 12}} spin/>
 
@@ -30,6 +33,9 @@ const submit : React.FC = () => {
     if (parsed_idList[fileName]) item.file_id = parsed_idList[fileName];
     return item;
   });
+
+  const reduxSrcCodeData = useSelector((state : AppState) => state.srcCodeData.sourceCodeData)
+  console.log("✨✨✨❤️ ~ file: [id].tsx:38 ~ reduxSrcCodeData:", JSON.parse(reduxSrcCodeData))
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [fileInfo, setFileInfo] = useState(parsed_fileList);
   const viewFile = (record) => {
