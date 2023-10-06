@@ -3,12 +3,13 @@ import Layout from '../../components/Layout';
 import { Space, Table, Tag, Button, Badge, Spin } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { LoadingOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/dist/client/router';
 
 //! REDUX
 import { Dispatch } from 'redux';
 import { useDispatch } from 'react-redux';
 import { setLastSubmitData } from '../../redux/actions/lastSubmitActions';
-import { useRouter } from 'next/dist/client/router';
+import { setLastIdData } from '../../redux/actions/lastIdActions';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../redux/store';
 
@@ -28,6 +29,9 @@ const submit : React.FC = () => {
   const dispatch: Dispatch = useDispatch();
   const router = useRouter();
   const { id, filelist, idList } = router.query;
+  const lastId  = useSelector((state : AppState) => state.lastId.lastIdData);
+  const reduxLastSubmitData = useSelector((state : AppState) => state.lastSubmit.lastSubmitData) //!REDUX 
+
   const parsed_idList = JSON.parse(idList as string);
   const parsed_fileList = JSON.parse(filelist as string).map((item, index) => ({
     ...item,
@@ -40,8 +44,6 @@ const submit : React.FC = () => {
     return item;
   });
 
-  const reduxSrcCodeData = useSelector((state : AppState) => state.srcCodeData.sourceCodeData)
-  console.log("✨✨✨❤️ ~ file: [id].tsx:38 ~ reduxSrcCodeData:", JSON.parse(reduxSrcCodeData))
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [fileInfo, setFileInfo] = useState(parsed_fileList);
   const viewFile = (record) => {
@@ -63,49 +65,59 @@ const submit : React.FC = () => {
     // const eventSource = new EventSource(`/api/v1/client/tool/handle_results?id=${streamId}`);
     let fetchingData = true;
     let currFileResult = fileInfo;
-    fetchingData && fetch(serverBaseURL, {credentials:'include', method: "POST"},)
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error();
-        }
+    console.log("👌", id, lastId, (lastId === id));
 
-        console.log(response.body)
-        // Xử lý dữ liệu streaming khi nhận được
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let done = false, value;
-        while (!done) {
-          ({done, value} = await reader.read());
-          if (done)
-            break;
-          const res = decoder.decode(value);
-          try {
-            const parsedData = JSON.parse(res);
-            const result_filename = parsedData.file_name;
-            console.log(currFileResult)
-            console.log(parsedData)
+    lastId !== id ? 
+      fetch(serverBaseURL, {credentials:'include', method: "POST"},)
+        .then(async (response) => {
+          if (!response.ok) {
+            throw new Error();
+          }
+          
+          dispatch(setLastIdData(id)) //! REDUX
 
-            console.log("→ UPDATE STATUS");
-            const updatedFileResult = currFileResult.map((file) => {
-              if (file.name === result_filename) {
-                return { ...file, status: 'Done', result: parsedData};
-              }
-              return file;
-            });
+          // Xử lý dữ liệu streaming khi nhận được
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let done = false, value;
+          while (!done) {
+            ({done, value} = await reader.read());
+            if (done)
+              break;
+            const res = decoder.decode(value);
+            try {
+              const parsedData = JSON.parse(res);
+              const result_filename = parsedData.file_name;
+              console.log(currFileResult)
+              console.log(parsedData)
 
-            currFileResult = updatedFileResult;
-            setFileInfo(updatedFileResult);
-            dispatch(setLastSubmitData(JSON.stringify(updatedFileResult)));
-            localStorage.setItem('lastResults', JSON.stringify(updatedFileResult));
-          } catch (error) {
-            console.error('Error parsing JSON:', error);
+              console.log("→ UPDATE STATUS");
+              const updatedFileResult = currFileResult.map((file) => {
+                if (file.name === result_filename) {
+                  return { ...file, status: 'Done', result: parsedData};
+                }
+                return file;
+              });
+
+              currFileResult = updatedFileResult;
+              setFileInfo(updatedFileResult);
+              dispatch(setLastSubmitData(JSON.stringify(updatedFileResult))); //! REDUX
+              localStorage.setItem('lastResults', JSON.stringify(updatedFileResult));
+            } catch (error) {
+              console.error('Error parsing JSON:', error);
+            }
           }
         }
-      })
+      )
       .catch((error) => {
           console.error('Error:', error);
         }
-      );
+      ) : 
+      (() =>{
+        console.log("⚠️⚠️⚠️⚠️⚠️⚠️ Same ID detected!");
+        setFileInfo(parsed_fileList);
+      }
+    )
   }, [])
 
   useEffect(() => {

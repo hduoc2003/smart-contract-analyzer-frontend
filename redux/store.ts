@@ -2,13 +2,15 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import srcCodeReducer from './reducers/srcCodeReducer';
 import lastSubmitReducer from './reducers/lastSubmitReducer';
+import lastIdReducer from "./reducers/lastIdReducer";
 import { createWrapper } from "next-redux-wrapper";
 
 const makeStore = () =>
     configureStore({
-          reducer: {
-          srcCodeData: srcCodeReducer,
-          lastSubmit: lastSubmitReducer,
+      reducer: {
+        srcCodeData: srcCodeReducer,
+        lastSubmit: lastSubmitReducer,
+        lastId: lastIdReducer,
       },
     });
 
