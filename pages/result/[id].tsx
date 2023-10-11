@@ -87,7 +87,7 @@ const result : React.FC = () => {
                     </Descriptions>
                     <div>
                         <div className='w-full'>
-                            {/* {false || <CodeModal IssuesData={fileResult.analysis.issues} parsedData={JSON.stringify(currSourceCode)}/>} */}
+                            {false || <CodeModal IssuesData={fileResult.analysis[1].issues} parsedData={fileResult.source_code}/>}
                         </div>
                     </div>
                 </div>

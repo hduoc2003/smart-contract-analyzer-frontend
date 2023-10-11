@@ -69,7 +69,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
     );
 
     const highlightCode = () => {
-        const code = JSON.parse(parsedData as string);
+        const code = (parsedData as string);
         const highlightedCode = hljs.highlightAuto(code).value;
         // Split the highlighted code into lines
         const lines = highlightedCode.split('\n');
@@ -146,7 +146,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                             onClick={() => {
                                 console.log(ErrorMap[index]);
                             }}
-                            dangerouslySetInnerHTML={{ __html: line }}
+                            dangerouslySetInnerHTML={{ __html: line+"\n" }}
                         ></span>
                     {/* </Popover> */}
                 </>
