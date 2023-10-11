@@ -32,8 +32,7 @@ const submit : React.FC = () => {
         {
             pathname: '/result/' + record.file_id,
             query: {
-                key: record.key,
-                file_id: record.file_id,
+                id: record.file_id,
             },
         }, '/result/' + record.file_id
     );
