@@ -47,7 +47,7 @@ const IssuesTable = (props) => {
     ];
 
     return (
-        <div className='w-96'>
+        <div style={{width:"30rem"}}>
             <Table className='mt-8 duration-500 animate__animated animate__fade' 
                     columns={columns} pagination={false} 
                     dataSource={IssuesData} rowKey={(IssueData) => IssueData[0]} bordered/>
