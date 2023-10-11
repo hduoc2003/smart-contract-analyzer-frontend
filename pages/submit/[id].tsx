@@ -5,17 +5,6 @@ import type { ColumnsType } from 'antd/es/table';
 import { LoadingOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/dist/client/router';
 
-//! REDUX
-import { Dispatch } from 'redux';
-import { useDispatch } from 'react-redux';
-import { setLastSubmitData } from '../../redux/actions/lastSubmitActions';
-import { setLastIdData } from '../../redux/actions/lastIdActions';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../redux/store';
-
-import { fetchEventSource } from "@microsoft/fetch-event-source";
-import App from 'next/app';
-
 const spinIcon = <LoadingOutlined className='ml-2' style={{fontSize: 12}} spin/>
 
 interface DataType {
@@ -24,28 +13,19 @@ interface DataType {
     size: number;
     status: string;
 }
+  
+const areAllFilesCompleted = (resultArray) => {
+  resultArray.forEach(element => {
+    if(element.status === 'Continue') return false;
+  });
+  return true;
+};
 
 const submit : React.FC = () => {
-  const dispatch: Dispatch = useDispatch();
   const router = useRouter();
-  const { id, filelist, idList } = router.query;
-  const lastId  = useSelector((state : AppState) => state.lastId.lastIdData);
-  const reduxLastSubmitData = useSelector((state : AppState) => state.lastSubmit.lastSubmitData) //!REDUX 
-
-  const parsed_idList = JSON.parse(idList as string);
-  const parsed_fileList = JSON.parse(filelist as string).map((item, index) => ({
-    ...item,
-    key: index + 1,
-    status: "Analyzing"
-  }));
-  const resultData = parsed_fileList.map(item => {
-    const fileName = item.name;
-    if (parsed_idList[fileName]) item.file_id = parsed_idList[fileName];
-    return item;
-  });
-
+  const id = router.query.id;
   const [isFetching, setIsFetching] = useState<boolean>(true);
-  const [fileInfo, setFileInfo] = useState(parsed_fileList);
+  const [fileInfo, setFileInfo] = useState();
   const viewFile = (record) => {
     console.log("👾👾👾", record);
     router.push(
@@ -60,65 +40,51 @@ const submit : React.FC = () => {
   }
 
   useEffect(() => {
-    const streamId = id;
-    const serverBaseURL = (`http://127.0.0.1:5000/api/v1/client/tool/handle_results?id=${streamId}`);
-    // const eventSource = new EventSource(`/api/v1/client/tool/handle_results?id=${streamId}`);
-    let fetchingData = true;
-    let currFileResult = fileInfo;
-    console.log("👌", id, lastId, (lastId === id));
+    console.log("👾👾", id);
 
-    lastId !== id ? 
-      fetch(serverBaseURL, {credentials:'include', method: "POST"},)
-        .then(async (response) => {
-          if (!response.ok) {
-            throw new Error();
-          }
-          
-          dispatch(setLastIdData(id)) //! REDUX
+    const fetchData = () => {
+      if (id) {
+        const serverBaseURL = `http://127.0.0.1:5000/api/v1/client/tool/handle_results?id=${id}`;
+        console.log("🚀 ~ file: [id].tsx:38 ~ useEffect ~ serverBaseURL:", serverBaseURL);
 
-          // Xử lý dữ liệu streaming khi nhận được
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder();
-          let done = false, value;
-          while (!done) {
-            ({done, value} = await reader.read());
-            if (done)
-              break;
-            const res = decoder.decode(value);
-            try {
-              const parsedData = JSON.parse(res);
-              const result_filename = parsedData.file_name;
-              console.log(currFileResult)
-              console.log(parsedData)
+        fetch(serverBaseURL, { credentials: 'include' })
+          .then(async (response) => {
+            console.log("👁️👁️", response);
 
-              console.log("→ UPDATE STATUS");
-              const updatedFileResult = currFileResult.map((file) => {
-                if (file.name === result_filename) {
-                  return { ...file, status: 'Done', result: parsedData};
-                }
-                return file;
-              });
-
-              currFileResult = updatedFileResult;
-              setFileInfo(updatedFileResult);
-              dispatch(setLastSubmitData(JSON.stringify(updatedFileResult))); //! REDUX
-              localStorage.setItem('lastResults', JSON.stringify(updatedFileResult));
-            } catch (error) {
-              console.error('Error parsing JSON:', error);
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
             }
-          }
-        }
-      )
-      .catch((error) => {
-          console.error('Error:', error);
-        }
-      ) : 
-      (() =>{
-        console.log("⚠️⚠️⚠️⚠️⚠️⚠️ Same ID detected!");
-        setFileInfo(parsed_fileList);
+
+            return response.json(); // You may want to parse the response as JSON
+          })
+          .then((data) => {
+            // Handle the data received from the API
+            console.log("Data from the API:", data);
+            setFileInfo(data);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
       }
-    )
-  }, [])
+    };
+
+    // Fetch data initially
+    fetchData();
+
+    // Set up an interval to fetch data every 3 seconds (adjust the interval as needed)
+    const intervalId = setInterval(() => {
+      console.log("⚠️⚠️", fileInfo);
+      if (fileInfo && areAllFilesCompleted(fileInfo)) {
+        clearInterval(intervalId);
+      } else {
+        fetchData();
+      }
+    }, 3000);
+    // Clean up the interval when the component unmounts or when the 'id' prop changes
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [id]);
 
   useEffect(() => {
     console.log("😊UPDATE STATUS");
@@ -127,34 +93,30 @@ const submit : React.FC = () => {
 
   const columns: ColumnsType<DataType> = [
       {
-          title: 'Key',
-          dataIndex: 'key',
-          key: 'key',
+        title: 'File id',
+        dataIndex: 'file_id',
+        key: 'file_id',
       },
       {
         title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'file_name',
+        key: 'file_name',
         render: (text) => <a>{text}</a>,
       },
       {
-        title: 'Size',
-        dataIndex: 'size',
-        key: 'size',
-      },
-      {
         title: 'Status',
-        dataIndex: 'status',
-        key: 'status',
+        dataIndex: 'file_status',
+        key: 'file_status',
         render: (status) => {
-          let color = status.length > 5 ? 'geekblue' : 'green';
-          if (status === 'Error') {
-            color = 'volcano';
+          let color = 'geekblue';
+          if (status === 'Completed') {
+            color = 'green';
           }
+          else status === 'analyzing'
           return (
             <Tag color={color} key={status}>
               {status.toUpperCase()}
-              {status === 'Analyzing' ? 
+              {status === 'analyzing' ? 
                   <>
                       <Spin indicator={spinIcon}/>
                   </> 
@@ -167,9 +129,9 @@ const submit : React.FC = () => {
       {
         title: 'Action',
         key: 'action',
-        render: (_, record) => (
+        render: (record) => (
           <Space size="middle">
-            {fileInfo[record.key as number -1] === undefined ? (
+            {record.file_status !== 'Completed' ? (
               <Button disabled>View more</Button>
             ) : (
               <Button onClick={() => viewFile(record)}>View more</Button>
@@ -186,9 +148,7 @@ const submit : React.FC = () => {
                 <h2 className="pt-12 mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">Submit</h2>
                 <h2 className="mb-6 text-2xl md:text-3xl">SUBMIT no {id}</h2>
                 <p className="pb-10 mb-8 duration-300">
-                    MythX has flexible pricing options. 
-                    Receive deeper analysis, comprehensive reporting, 
-                    and enhanced security with our plans.
+                    Smart contract analyzer
                 </p>
             </div>
             <div className='mx-4 my-20 lg:mx-40'>

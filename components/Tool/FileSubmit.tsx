@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import axios from "axios";
 import { Dispatch } from 'redux';
 import { useDispatch } from 'react-redux';
-import { setSourceCodeData } from "../../redux/actions/srcCodeActions";
 import { useRouter } from 'next/dist/client/router';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps, UploadFile } from 'antd';
@@ -15,21 +14,14 @@ const FileSubmit : React.FC = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const [submitDisable, setSubmitDisable] = useState<boolean>(true);
     const [submittedFiles, setSubmittedFiles] = useState<UploadFile[]>([]);
-    const [sourceCode, setSourceCode] = useState([]);
-
-    const saveDataToStore = (data) => {
-        console.log("REDUX SET", data)
-        dispatch(setSourceCodeData(JSON.stringify(data))); // Dispatch the action
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         submittedFiles.forEach((file, index) => {
-            formData.append(`file${index + 1}`, file.originFileObj);
+            formData.append(file.originFileObj.name, file.originFileObj);
         });
         setSubmitDisable(false);
-        saveDataToStore(sourceCode);
         messageApi
             .open({
                 type: 'loading',
@@ -44,15 +36,13 @@ const FileSubmit : React.FC = () => {
                 withCredentials: true,
             })
             .then((response) => {
+                console.log(response);
                 messageApi.success('Loading finished', 0.5);
-                localStorage.setItem('codeData', JSON.stringify(sourceCode));
                 router.push(
                     {
                         pathname: '/submit/' + response.data.uuid,
                         query: {
                             id: response.data.uuid,
-                            filelist: JSON.stringify(submittedFiles),
-                            idList: JSON.stringify(response.data)
                         }
                     }, '/submit/' + response.data.uuid
                 );
@@ -75,10 +65,7 @@ const FileSubmit : React.FC = () => {
             } else {
                 const reader = new FileReader();
                 reader.onload = (event) => {
-                    // The content of the file is available in event.target.result
                     const currFileContent = event.target.result.toString(); // Convert to string
-                    // You can do something with currFileContent here
-                    setSourceCode((prevContents) => [...prevContents, currFileContent]);
                 };
                 reader.readAsText(file); // Read the file as text
             }
