@@ -89,37 +89,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                     isInfoLine = true;
                                     return (
                                         <Popover placement="bottomLeft" title={"Informational"} content={generateIssueContent(index, "Optimization")}>
-                                            <RiseOutlined className='text-blue-400 hover:text-blue-500 hover:cursor-pointer'/>
-                                        </Popover>
-                                    );
-                                })()
-                            )}
-                            {ErrorMap[index] && ErrorMap[index].some(item => item.severity === "High") && (
-                                (() => {
-                                    isErrorLine = true;
-                                    return (
-                                        <Popover placement="bottomLeft" title={"High risk"} content={generateIssueContent(index, "High")}>
-                                            <WarningOutlined className='text-red-400 hover:cursor-pointer hover:text-red-500 focus:bg-red-100'/>
-                                        </Popover>
-                                    );
-                                })()
-                            )}
-                            {ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Medium") && (
-                                (() => {
-                                    isMediumLine = true;
-                                    return (
-                                        <Popover placement="bottomLeft" title={"Medium risk"} content={generateIssueContent(index, "Medium")}>
-                                            <WarningOutlined className='text-orange-400 hover:cursor-pointer hover:text-orange-500'/>
-                                        </Popover>
-                                    );
-                                })()
-                            )}
-                            {ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Low") && (
-                                (() => {
-                                    isLowLine = true;
-                                    return (
-                                        <Popover placement="bottomLeft" title={"Low risk"} content={generateIssueContent(index, "Low")}>
-                                            <WarningOutlined className='text-yellow-400 hover:cursor-pointer hover:text-yellow-500'/>
+                                            <RiseOutlined className='text-blue-600 hover:text-blue-700 hover:cursor-pointer'/>
                                         </Popover>
                                     );
                                 })()
@@ -129,7 +99,37 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                     isInfoLine = true;
                                     return (
                                         <Popover placement="bottomLeft" title={"Informational"} content={generateIssueContent(index, "Informational")}>
-                                            <InfoCircleOutlined className='text-blue-400 hover:text-blue-500 hover:cursor-pointer'/>
+                                            <InfoCircleOutlined className='text-blue-600 hover:text-blue-700 hover:cursor-pointer'/>
+                                        </Popover>
+                                    );
+                                })()
+                            )}
+                            {ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Low") && (
+                                (() => {
+                                    isLowLine = true;
+                                    return (
+                                        <Popover placement="bottomLeft" title={"Low risk"} content={generateIssueContent(index, "Low")}>
+                                            <WarningOutlined className='text-yellow-600 hover:cursor-pointer hover:text-yellow-700'/>
+                                        </Popover>
+                                    );
+                                })()
+                            )}
+                            {ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Medium") && (
+                                (() => {
+                                    isMediumLine = true;
+                                    return (
+                                        <Popover placement="bottomLeft" title={"Medium risk"} content={generateIssueContent(index, "Medium")}>
+                                            <WarningOutlined className='text-orange-600 hover:cursor-pointer hover:text-orange-700'/>
+                                        </Popover>
+                                    );
+                                })()
+                            )}
+                            {ErrorMap[index] && ErrorMap[index].some(item => item.severity === "High") && (
+                                (() => {
+                                    isErrorLine = true;
+                                    return (
+                                        <Popover placement="bottomLeft" title={"High risk"} content={generateIssueContent(index, "High")}>
+                                            <WarningOutlined className='text-red-600 hover:cursor-pointer hover:text-red-700 focus:bg-red-100'/>
                                         </Popover>
                                     );
                                 })()
@@ -142,10 +142,10 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                     <span
                         key={index}
                         className={`
-                            ${isErrorLine ? "bg-red-100 rounded hover:bg-red-200 hover:cursor-pointer" : 
-                                isMediumLine ? "bg-orange-100 rounded hover:bg-orange-200 hover:cursor-pointer" :
-                                isLowLine ? "bg-yellow-100 rounded hover:bg-yellow-200 hover:cursor-pointer" :
-                                isInfoLine ? "bg-blue-100 rounded hover:bg-blue-200 hover:cursor-pointer" : ""}
+                            ${isErrorLine ? "bg-red-200 rounded hover:bg-red-300 hover:cursor-pointer" : 
+                                isMediumLine ? "bg-orange-200 rounded hover:bg-orange-300 hover:cursor-pointer" :
+                                isLowLine ? "bg-yellow-200 rounded hover:bg-yellow-300 hover:cursor-pointer" :
+                                isInfoLine ? "bg-blue-200 rounded hover:bg-blue-300 hover:cursor-pointer" : ""}
                             `}
                         onClick={() => {
                             console.log(ErrorMap[index]);
