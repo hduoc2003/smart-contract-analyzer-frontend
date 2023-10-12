@@ -6,6 +6,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/dist/client/router';
 
 const spinIcon = <LoadingOutlined className='ml-2' style={{fontSize: 12}} spin/>
+const bigSpinIcon = <LoadingOutlined className='' style={{fontSize: 36}} spin/>
 
 interface DataType {
     key: React.Key;
@@ -93,14 +94,13 @@ const submit : React.FC = () => {
   const columns: ColumnsType<DataType> = [
       {
         title: 'File id',
-        dataIndex: 'file_id',
         key: 'file_id',
+        render: (record) => <a onClick={() => viewFile(record)}>{record.file_id}</a>
       },
       {
         title: 'Name',
-        dataIndex: 'file_name',
         key: 'file_name',
-        render: (text) => <a>{text}</a>,
+        render: (record) => <a onClick={() => viewFile(record)}>{record.file_name}</a>
       },
       {
         title: 'Status',
@@ -115,7 +115,7 @@ const submit : React.FC = () => {
           return (
             <Tag color={color} key={status}>
               {status.toUpperCase()}
-              {status === 'analyzing' ? 
+              {status === 'Continue' ? 
                   <>
                       <Spin indicator={spinIcon}/>
                   </> 
@@ -143,15 +143,21 @@ const submit : React.FC = () => {
   return (
     <Layout title="Submit | Tool">
         <div className='h-auto'>
-            <div className="h-auto px-4 lg:mx-40">
+            <div className="h-auto lg:mx-40">
                 <h2 className="pt-12 mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">Submit</h2>
-                <h2 className="mb-6 text-2xl md:text-3xl">SUBMIT no {id}</h2>
+                <h2 className="mb-6 text-2xl md:text-3xl">{id}</h2>
                 <p className="pb-10 mb-8 duration-300">
-                    Smart contract analyzer
+                  Experience streamlined and efficient smart contract analysis with our cutting-edge Smart Contract Analyzer. Simply upload your file and let the system work its magic. While your file undergoes analysis, you can monitor the progress and view the results as soon as they become available. It's a hassle-free and time-saving solution for all your smart contract assessment needs.
                 </p>
             </div>
-            <div className='mx-4 my-20 lg:mx-40'>
-                <Table columns={columns} dataSource={fileInfo} />
+            <div className='mx-4 my-10 lg:mx-40'>
+                {fileInfo ? (<Table className='animate__animated animate__delay-fast animate__fadeIn' columns={columns} dataSource={fileInfo} />) :
+                  (
+                    <div className='flex items-center justify-center my-48 animate__animated animate__delay-fast animate__fadeIn'>
+                      <Spin indicator={bigSpinIcon}/>
+                    </div>
+                  )
+                }
             </div>
         </div>
     </Layout>

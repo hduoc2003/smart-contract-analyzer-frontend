@@ -21,7 +21,7 @@ const IssuesTable = (props) => {
             key: 'severity',
             dataIndex: 'severity',
             render: (severity) => {
-                let color = severity.length > 5 ? 'yellow' : 'green';
+                let color = severity.length > 5 ? 'orange' : 'yellow';
                 if (severity === 'Informational' || severity === 'Optimization') color = 'blue'
                 else if (severity === 'High') {
                     color = 'volcano';

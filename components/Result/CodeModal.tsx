@@ -78,13 +78,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
             let isErrorLine = false;
             let isMediumLine = false;
             let isInfoLine = false;
-
-
-            if(index == 11){
-                console.log("🚀 ~ file: CodeModal.tsx:80 ~ highlightCode ~ index:", index)
-                console.log("🚀 ~ file: CodeModal.tsx:67 ~ highlightCode ~ ErrorMap[index]:", ErrorMap[index])
-            }
-            // const isInformational = ErrorMap[index].some(item => item.severity === "Informational") || false;
+            let isLowLine = false;
 
             return (
                 <>
@@ -114,8 +108,18 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                 (() => {
                                     isMediumLine = true;
                                     return (
-                                        <Popover placement="bottomLeft" title={"WARN"} content={generateIssueContent(index, "Medium")}>
+                                        <Popover placement="bottomLeft" title={"Medium risk"} content={generateIssueContent(index, "Medium")}>
                                             <WarningOutlined className='text-orange-400 hover:cursor-pointer hover:text-orange-500'/>
+                                        </Popover>
+                                    );
+                                })()
+                            )}
+                            {ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Low") && (
+                                (() => {
+                                    isLowLine = true;
+                                    return (
+                                        <Popover placement="bottomLeft" title={"Low risk"} content={generateIssueContent(index, "Low")}>
+                                            <WarningOutlined className='text-yellow-400 hover:cursor-pointer hover:text-yellow-500'/>
                                         </Popover>
                                     );
                                 })()
@@ -124,7 +128,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                 (() => {
                                     isInfoLine = true;
                                     return (
-                                        <Popover placement="bottomLeft" title={"WARN"} content={generateIssueContent(index, "Informational")}>
+                                        <Popover placement="bottomLeft" title={"Informational"} content={generateIssueContent(index, "Informational")}>
                                             <InfoCircleOutlined className='text-blue-400 hover:text-blue-500 hover:cursor-pointer'/>
                                         </Popover>
                                     );
@@ -135,20 +139,19 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                             {index}
                         </span>
                     </span>
-                    {/* <Popover placement="bottomLeft" title={"WARN"} content={generateIssueContent(index, "All")}> */}
-                        <span
-                            key={index}
-                            className={`
-                                ${isErrorLine ? "bg-red-100 rounded hover:bg-red-200 hover:cursor-pointer" : ""}
-                                ${isMediumLine ? "bg-orange-100 rounded hover:bg-orange-200 hover:cursor-pointer" : ""}
-                                ${isInfoLine ? "bg-blue-100 rounded hover:bg-blue-200 hover:cursor-pointer" : ""} 
+                    <span
+                        key={index}
+                        className={`
+                            ${isErrorLine ? "bg-red-100 rounded hover:bg-red-200 hover:cursor-pointer" : 
+                                isMediumLine ? "bg-orange-100 rounded hover:bg-orange-200 hover:cursor-pointer" :
+                                isLowLine ? "bg-yellow-100 rounded hover:bg-yellow-200 hover:cursor-pointer" :
+                                isInfoLine ? "bg-blue-100 rounded hover:bg-blue-200 hover:cursor-pointer" : ""}
                             `}
-                            onClick={() => {
-                                console.log(ErrorMap[index]);
-                            }}
-                            dangerouslySetInnerHTML={{ __html: line+"\n" }}
-                        ></span>
-                    {/* </Popover> */}
+                        onClick={() => {
+                            console.log(ErrorMap[index]);
+                        }}
+                        dangerouslySetInnerHTML={{ __html: line+"\n" }}
+                    ></span>
                 </>
             );
     })}

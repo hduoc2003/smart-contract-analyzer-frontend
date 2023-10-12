@@ -64,21 +64,17 @@ const result : React.FC = () => {
     return (
         <Layout title="Result | Tool">
             {fileResult && fileResult.file_status === "Completed" && (
-            <div className='h-auto'>    
+            <div className='h-auto min-h-screen'>    
                 <div className="h-auto px-4 lg:mx-40">
                     <h2 className="pt-12 mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">Result</h2>
                     <h2 className="mb-6 text-2xl md:text-3xl">{fileResult.file_name}</h2>
-                    <p className="pb-10 mb-8 duration-300">
-                        Tool
-                    </p>
                 </div>
-                <div className='mx-4 my-20 lg:mx-40'>
-                    <Descriptions title="Submitted file's result" bordered>
+                <div className='mx-4 my-10 lg:mx-40 animate__animated animate__delay-fast animate__fadeIn'>
+                    <Descriptions title="Infomation" bordered>
                         <Descriptions.Item label="File ID" span={2}>{fileResult.file_id}</Descriptions.Item>
                         <Descriptions.Item label="Filename">{fileResult.file_name ? fileResult.file_name : "NOT GIVEN"}</Descriptions.Item>
-                        <Descriptions.Item label="Tool" span={2}>{fileResult.tool_name}</Descriptions.Item>
                         <Descriptions.Item label="Duration">{fileResult.duration}s</Descriptions.Item>
-                        <Descriptions.Item label="Solidity version" span={2}>{fileResult.solc}</Descriptions.Item>
+                        <Descriptions.Item label="Solidity version" span={1}>{fileResult.solc}</Descriptions.Item>
                         <Descriptions.Item label="Status" span={1}>
                             {
                                 <Badge status="success" text="Done" />
