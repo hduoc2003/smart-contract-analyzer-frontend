@@ -14,13 +14,6 @@ interface DataType {
     size: number;
     status: string;
 }
-  
-const areAllFilesCompleted = (resultArray) => {
-  resultArray.forEach(element => {
-    if(element.status === 'Continue') return false;
-  });
-  return true;
-};
 
 const submit : React.FC = () => {
   const router = useRouter();
@@ -61,6 +54,15 @@ const submit : React.FC = () => {
             // Handle the data received from the API
             console.log("Data from the API:", data);
             setFileInfo(data);
+            const allCompleted = data.every(item => item.file_status === 'Completed');
+            if(allCompleted) {
+              console.log("😊😊😊😊😊", data)
+            }
+            else {
+              setTimeout(() => {
+                fetchData();
+              }, 3000); // Adjust the delay as needed.
+            }
           })
           .catch((error) => {
             console.error('Error:', error);
@@ -70,20 +72,6 @@ const submit : React.FC = () => {
 
     // Fetch data initially
     fetchData();
-
-    // Set up an interval to fetch data every 3 seconds (adjust the interval as needed)
-    const intervalId = setInterval(() => {
-      console.log("⚠️⚠️", fileInfo);
-      if (fileInfo && areAllFilesCompleted(fileInfo)) {
-        clearInterval(intervalId);
-      } else {
-        fetchData();
-      }
-    }, 3000);
-    // Clean up the interval when the component unmounts or when the 'id' prop changes
-    return () => {
-      clearInterval(intervalId);
-    };
   }, [id]);
 
   useEffect(() => {

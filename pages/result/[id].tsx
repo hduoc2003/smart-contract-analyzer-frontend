@@ -43,6 +43,11 @@ const result : React.FC = () => {
                     setFileResult(data);
                     if(data.analysis){
                         setFetchDone(true);
+                    } else {
+                        // If the condition is not met, trigger the useEffect again after a delay.
+                        setTimeout(() => {
+                            fetchData();
+                        }, 3000); // Adjust the delay as needed.
                     }
                 })
                 .catch((error) => {
@@ -52,17 +57,6 @@ const result : React.FC = () => {
         };
 
         fetchData();
-        const intervalId = setInterval(() => {
-            if (fetchDone) {
-                clearInterval(intervalId);
-            } else {
-                fetchData();
-            }
-        }, 3000);
-          // Clean up the interval when the component unmounts or when the 'id' prop changes
-        return () => {
-            clearInterval(intervalId);
-        };
     }, [id]);
 
     useEffect(() =>{
