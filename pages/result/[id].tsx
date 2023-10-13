@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import Layout from "../../components/Layout";
-import { LoadingOutlined } from '@ant-design/icons'
-import { Badge, Descriptions, Space, Button, Modal, Spin } from 'antd';
+import { LoadingOutlined, CheckCircleOutlined, SyncOutlined } from '@ant-design/icons'
+import { Badge, Descriptions, Space, Button, Modal, Spin, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { AnalysisIssue, AnalysisResult, ContractAnalysis } from '../../interfaces/analysisResult';
 
@@ -60,10 +60,6 @@ const result : React.FC = () => {
             }
         }, 3000);
           // Clean up the interval when the component unmounts or when the 'id' prop changes
-            return () => {
-                clearInterval(intervalId);
-        };
-        // Fetch data initially
         return () => {
             clearInterval(intervalId);
         };
@@ -84,9 +80,15 @@ const result : React.FC = () => {
                             <h2 className="text-2xl md:text-3xl">{fileResult.file_name}</h2>
                             <div className='items-center ml-4'>
                                 {
-                                    fetchDone ? (<Badge status="success" text="Done" />)
+                                    fetchDone ? (
+                                            <Tag className='w-auto h-auto text-xl justify-center pb-2 flex' icon={<CheckCircleOutlined className='mt-2' />} color="success">
+                                                Done
+                                            </Tag>
+                                        )
                                         : (
-                                            <Badge status="processing" text="Analyzing" />
+                                            <Tag className='w-auto h-auto text-xl justify-center pb-2 flex' icon={<SyncOutlined className='mt-2' spin />} color="processing">
+                                                Analyzing
+                                            </Tag>
                                         )
                                 }
                             </div>
@@ -97,10 +99,19 @@ const result : React.FC = () => {
                         ? (
                             <div className='mx-4 my-10 lg:mx-40 animate__animated animate__delay-fast animate__fadeIn'>
                                 <Descriptions title="Infomation" bordered>
-                                    <Descriptions.Item label="File ID" span={2}>{fileResult.file_id}    </Descriptions.Item>
-                                    <Descriptions.Item label="Filename">{fileResult.file_name ? fileResult.file_name : "NOT GIVEN"}</Descriptions.Item>
-                                    <Descriptions.Item label="Duration"span={2}>{fileResult.duration}s</Descriptions.Item>
-                                    <Descriptions.Item label="Solidity version">{fileResult.solc}</Descriptions.Item>
+                                <Descriptions.Item label={<h1 className='text-lg font-monobold'>File ID</h1>} span={2}>
+                                    {fileResult.file_id}
+                                </Descriptions.Item>
+                                <Descriptions.Item label={<h1 className='text-lg font-monobold'>Filename</h1>}>
+                                    {fileResult.file_name}
+                                </Descriptions.Item>
+                                <Descriptions.Item label={<h1 className='text-lg font-monobold'>Duration</h1>} span={2}>
+                                    {fileResult.duration}s
+                                </Descriptions.Item>
+                                <Descriptions.Item label={<h1 className='text-lg font-monobold'>Solidity version</h1>}>
+                                    {fileResult.solc}
+                                </Descriptions.Item>
+
                                     {/* <Descriptions.Item label="Status" span={1}>
                                         {
                                             fetchDone && (<Badge status="success" text="Done" />)

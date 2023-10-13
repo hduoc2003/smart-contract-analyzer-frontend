@@ -131,7 +131,7 @@ const submit : React.FC = () => {
         render: (record) => (
           <Space size="middle">
             {record.file_status !== 'Completed' ? (
-              <Button disabled>View more</Button>
+              <Button disabled>View</Button>
             ) : (
               <Button onClick={() => viewFile(record)}>View</Button>
             )}
