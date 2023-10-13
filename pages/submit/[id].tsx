@@ -133,7 +133,7 @@ const submit : React.FC = () => {
             {record.file_status !== 'Completed' ? (
               <Button disabled>View more</Button>
             ) : (
-              <Button onClick={() => viewFile(record)}>View more</Button>
+              <Button onClick={() => viewFile(record)}>View</Button>
             )}
           </Space>
         ),
@@ -141,7 +141,7 @@ const submit : React.FC = () => {
     ];
   
   return (
-    <Layout title="Submit | Tool">
+    <Layout title={`Result | ${id !== undefined ? id : "loading.."}`}>
         <div className='h-auto'>
             <div className="h-auto lg:mx-40">
                 <h2 className="pt-12 mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">Submit</h2>
