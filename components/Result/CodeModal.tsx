@@ -158,7 +158,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
 
     return (
     <div className='mt-4'>
-        <Descriptions title="Code submitted" bordered>
+        <Descriptions bordered>
         {/* LINE 1 */}
             <Descriptions.Item span={3}>
                 <pre>

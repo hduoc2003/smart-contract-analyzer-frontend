@@ -6,10 +6,6 @@ import { Badge, Descriptions, Space, Button, Modal, Spin, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { AnalysisIssue, AnalysisResult, ContractAnalysis } from '../../interfaces/analysisResult';
 
-
-import { useSelector } from 'react-redux';
-import { AppState } from '../../redux/store';
-import { ResultType } from '../../interfaces/results';
 import CodeModal from '../../components/Result/CodeModal';
 
 const spinIcon = <LoadingOutlined className='ml-2' style={{fontSize: 12}} spin/>
@@ -23,15 +19,12 @@ const result : React.FC = () => {
     const [counter, setCounter] = useState(1);
 
     useEffect(() => {
-        console.log("👾👾", id);
-
         const fetchData = () => {
             if (id) {
-                const serverBaseURL = `http://127.0.0.1:5000/api/v1/client/tool/handle_file_id?id=${id}`;
+                const serverBaseURL = `${process.env.SERVER_BASE_URL}/client/tool/handle_file_id?id=${id}`;
+                console.log(serverBaseURL);
                 fetch(serverBaseURL, { credentials: 'include' })
                 .then(async (response) => {
-                    console.log("👁️👁️", response);
-
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
@@ -55,32 +48,34 @@ const result : React.FC = () => {
                 });
             }
         };
-
         fetchData();
     }, [id]);
 
     useEffect(() =>{
-        console.log("👾 done fetch")
+        console.log("All fetched")
     }, [fetchDone]);
 
+    const handleEdit = () => {
+        router.push(`/edit/${id}`)
+    }
 
     return (
         <Layout title={`Result | ${id !== undefined ? id : "loading.."}`}>
             {fileResult && (
                 <div className='h-auto min-h-screen'>    
-                    <div className="h-auto px-4 lg:mx-40">
+                    <div className="h-auto lg:mx-40">
                         <h2 className="pt-12 mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">Result</h2>
                         <div className='flex items-center'>
                             <h2 className="text-2xl md:text-3xl">{fileResult.file_name}</h2>
                             <div className='items-center ml-4'>
                                 {
                                     fetchDone ? (
-                                            <Tag className='w-auto h-auto text-xl justify-center pb-2 flex' icon={<CheckCircleOutlined className='mt-2' />} color="success">
+                                            <Tag className='flex justify-center w-auto h-auto pb-2 text-xl' icon={<CheckCircleOutlined className='mt-2' />} color="success">
                                                 Done
                                             </Tag>
                                         )
                                         : (
-                                            <Tag className='w-auto h-auto text-xl justify-center pb-2 flex' icon={<SyncOutlined className='mt-2' spin />} color="processing">
+                                            <Tag className='flex justify-center w-auto h-auto pb-2 text-xl' icon={<SyncOutlined className='mt-2' spin />} color="processing">
                                                 Analyzing
                                             </Tag>
                                         )
@@ -114,6 +109,10 @@ const result : React.FC = () => {
                                 </Descriptions>
                                 <div>
                                     <div className='w-full'>
+                                        <div className='flex justify-between mt-4'>
+                                            <h1 className='font-monobold'>Code submitted</h1>
+                                            <Button onClick={() => handleEdit()}>Edit</Button>
+                                        </div>
                                         <CodeModal IssuesData={fileResult.analysis[1].issues} parsedData={fileResult.source_code}/>
                                     </div>
                                 </div>
