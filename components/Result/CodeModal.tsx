@@ -99,7 +99,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                     isInfoLine = true;
                                     return (
                                         <Popover placement="bottomLeft" title={"Informational"} content={generateIssueContent(index, "Informational")}>
-                                            <InfoCircleOutlined className='text-blue-600 hover:text-blue-700 hover:cursor-pointer'/>
+                                            <InfoCircleOutlined className='text-blue-600 hover:text-blue-700 hover:cursor-pointer none'/>
                                         </Popover>
                                     );
                                 })()
@@ -158,7 +158,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
 
     return (
     <div className='mt-4'>
-        <Descriptions title="Code submitted" bordered>
+        <Descriptions bordered>
         {/* LINE 1 */}
             <Descriptions.Item span={3}>
                 <pre>
