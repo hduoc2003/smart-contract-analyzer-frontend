@@ -13,6 +13,7 @@ const bigSpinIcon = <LoadingOutlined className='' style={{fontSize: 36}} spin/>
 const Edit = () => {
     const router = useRouter();
     const id = router.query.id;
+    console.log(id)
     const [fileSrcCode, setFileSrcCode] = useState<string>("");
     const [fetchDone, setFetchDone] = useState(false)
     const [editorCode, setEditorCode] = useState()
@@ -23,7 +24,7 @@ const Edit = () => {
     useEffect(() => {
         const fetchData = () => {
             if (id) {
-                const serverBaseURL = `${process.env.SERVER_BASE_URL}/client/tool/handle_file_id?id=${id}`;
+                const serverBaseURL = `${process.env.SERVER_BASE_URL}/client/tool/file/get-analyze-result?id=${id}`;
                 console.log(serverBaseURL);
                 fetch(serverBaseURL, { credentials: 'include' })
                 .then(async (response) => {
@@ -65,14 +66,14 @@ const Edit = () => {
 
     return (
         <Layout title={`Edit | ${id !== undefined ? id : "loading.."}`}>
-            <div className='h-auto min-h-screen'>    
+            <div className='h-auto min-h-screen'>
                 <div className="h-auto lg:mx-40 sm:mx-4">
                     <h2 className="pt-12 mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">Edit</h2>
                     <div className='flex items-center'>
                         <h2 className="text-2xl md:text-3xl">{id}</h2>
                     </div>
                 </div>
-                {fetchDone 
+                {fetchDone
                 ? (
                     <div className='mx-4 my-10 lg:mx-40'>
                         <div className='flex justify-between'>
@@ -100,7 +101,7 @@ const Edit = () => {
                                         },
                                         {
                                             label: 'Both editor',
-                                            value: 2, 
+                                            value: 2,
                                         }
                                     ]}
                                     onChange={(value) => {

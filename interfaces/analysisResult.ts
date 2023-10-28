@@ -1,5 +1,4 @@
 export interface AnalysisIssue {
-  id: number;
   contract: string;
   source_map: string;
   line_no: number[];
@@ -14,17 +13,22 @@ export interface AnalysisIssue {
 }
 
 export interface AnalysisResult {
-  errors: any[];
+  error: {
+    error: "runtime out" | "compile error" | "unsupported solc" | "undefined solc" | "unknown error",
+    msg: string
+  }[];
+
   issues: AnalysisIssue[];
 }
 
+export type AnalyzeStatus = 'Analyzing' | 'Error' | 'Completed'
 export interface ContractAnalysis {
-  file_status: string;
-  file_id: string;
+  _id: string;
+  status: AnalyzeStatus;
   file_name: string;
   tool_name: string;
   duration: number;
   solc: string;
-  analysis: AnalysisResult[];
+  analysis: AnalysisResult;
   source_code: string;
 }

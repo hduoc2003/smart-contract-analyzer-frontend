@@ -8,6 +8,14 @@ import type { UploadProps, UploadFile } from 'antd';
 import { message, Upload } from 'antd';
 const { Dragger } = Upload;
 
+interface SubmitResponse {
+    submit_id: string
+    files_info: {
+        file_id: string
+        file_name: string
+    }[]
+}
+
 const FileSubmit : React.FC = () => {
     const dispatch: Dispatch = useDispatch();
     const router = useRouter();
@@ -29,22 +37,23 @@ const FileSubmit : React.FC = () => {
                 duration: 0, // Set duration to 0 to keep it open until explicitly closed
             });
         axios
-            .post('http://127.0.0.1:5000/api/v1/client/tool/handle_files', formData, {
+            .post('http://127.0.0.1:5000/api/v1/client/tool/submit', formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },
                 withCredentials: true,
             })
             .then((response) => {
-                console.log(response);
+                const data: SubmitResponse = JSON.parse(response.data)
+                console.log(data);
                 messageApi.success('Loading finished', 0.5);
                 router.push(
                     {
-                        pathname: '/submit/' + response.data.uuid,
+                        pathname: '/submit/' + data.submit_id,
                         query: {
-                            id: response.data.uuid,
+                            id: data.submit_id,
                         }
-                    }, '/submit/' + response.data.uuid
+                    }, '/submit/' + data.submit_id
                 );
             })
             .catch((error) => {
@@ -87,8 +96,8 @@ const FileSubmit : React.FC = () => {
             console.log('Dropped files', e.dataTransfer.files);
         },
     };
-    
-    
+
+
     return (
         <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 animate__animated animate__delay-fast animate__fadeInUp">
             <div className='grid grid-cols-2'>
