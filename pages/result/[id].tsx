@@ -35,6 +35,12 @@ const result: React.FC = () => {
     }, [id]);
 
     const handleEdit = () => {
+        // router.push({
+        //     pathname: `/edit/${id}`,
+        //     query: {
+        //         submitId:
+        //     }
+        // })
         router.push(`/edit/${id}`)
     }
 

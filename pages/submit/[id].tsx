@@ -22,9 +22,9 @@ const submit: React.FC = () => {
   const [filesInfo, setFilesInfo] = useState<TableData[]>([]);
   const socket = useRef<Socket>(undefined)
 
-  console.log('rerender')
+  // console.log('rerender')
   const viewFile = (record: TableData) => {
-    console.log("👾👾👾", record);
+    // console.log("👾👾👾", record);
     router.push(
       {
         pathname: '/result/' + record.file_id,
@@ -36,12 +36,12 @@ const submit: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log("👾👾", submitId);
+    // console.log("👾👾", submitId);
 
     const fetchData = () => {
       if (submitId) {
         const serverBaseURL = `${process.env.SERVER_BASE_URL}/client/tool/submit/get-analyze-status?id=${submitId}`;
-        console.log(process.env.SERVER_BASE_URL)
+        // console.log(process.env.SERVER_BASE_URL)
         fetch(serverBaseURL)
           .then(res => res.json())
           .then((newFilesInfo: TableData[]) => {
@@ -67,11 +67,12 @@ const submit: React.FC = () => {
             });
 
             socket.current.on('close-listen-analyze-status-change', () => {
-              console.log('Socket closed')
+              // console.log('Socket closed')
               socket.current.close();
             });
 
             socket.current.on('send-analyze-status-change', (data: TableData) => {
+              // console.log(data)
               setFilesInfo((prevFilesInfo) => {
                 let i = prevFilesInfo.findIndex((fileInfo: TableData) => fileInfo.file_id === data.file_id);
                 if (i === -1)

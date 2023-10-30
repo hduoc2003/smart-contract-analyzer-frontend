@@ -26,9 +26,9 @@ export interface ContractAnalysis {
   _id: string;
   status: AnalyzeStatus;
   file_name: string;
-  tool_name: string;
   duration: number;
   solc: string;
   analysis: AnalysisResult;
   source_code: string;
+  created_at: string
 }

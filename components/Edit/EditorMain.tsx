@@ -1,12 +1,24 @@
 'use client'
 import Editor, { DiffEditor, useMonaco } from '@monaco-editor/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+// import { IStandaloneCodeEditor } from "monaco";
+import { editor } from "monaco-editor/esm/vs/editor/editor.api";
 
-export default function EditorDiff({fileSrcCode, updateCode, theme}) {
-    const [defaultCode, setDefaultCode] = useState(fileSrcCode)
-    const [languages, setLanguages] = useState([])
-    const [isDisabled, setIsDisabled] = useState(true)
+export default function EditorMain({
+    fileSrcCode,
+    onChange,
+    theme,
+    editorRef: ref
+} : {
+    fileSrcCode: string
+    onChange?: (value: string) => void
+    theme?: string
+    editorRef?: {
+        current: editor.IStandaloneCodeEditor
+    }
+}) {
     const monaco = useMonaco()
+    // console.log(fileSrcCode)
 
     return (
         <>
@@ -18,16 +30,15 @@ export default function EditorDiff({fileSrcCode, updateCode, theme}) {
                         // @ts-ignore
                         defaultLanguage="sol"
                         theme={theme}
-                        defaultValue={defaultCode}
-                        onChange={(code) => {
-                            updateCode(code);
-                        }}
+                        defaultValue={fileSrcCode}
+                        onChange={onChange}
                         options={{
                             minimap: {
                                 enabled: true,
                             },
                             cursorBlinking: 'solid',
                         }}
+                        onMount={(editor) => {ref.current = editor}}
                     />
                 </div>
             </div>
