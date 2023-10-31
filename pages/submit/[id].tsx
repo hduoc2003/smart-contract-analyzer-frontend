@@ -72,6 +72,7 @@ const submit: React.FC = () => {
             });
 
             socket.current.on('send-analyze-status-change', (data: TableData) => {
+              console.log("🚀 ~ file: [id].tsx:76 ~ socket.current.on ~ data:", data)
               setFilesInfo((prevFilesInfo) => {
                 let i = prevFilesInfo.findIndex((fileInfo: TableData) => fileInfo.file_id === data.file_id);
                 if (i === -1)

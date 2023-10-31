@@ -7,6 +7,11 @@ export default function EditorDiff({fileSrcCode, updateCode, theme}) {
     const [languages, setLanguages] = useState([])
     const [isDisabled, setIsDisabled] = useState(true)
     const monaco = useMonaco()
+    useEffect(() => {
+        setDefaultCode(fileSrcCode);
+    }, [fileSrcCode])
+    useEffect(() => {
+    },[defaultCode])
 
     return (
         <>
@@ -19,6 +24,7 @@ export default function EditorDiff({fileSrcCode, updateCode, theme}) {
                         defaultLanguage="sol"
                         theme={theme}
                         defaultValue={defaultCode}
+                        value={defaultCode}
                         onChange={(code) => {
                             updateCode(code);
                         }}

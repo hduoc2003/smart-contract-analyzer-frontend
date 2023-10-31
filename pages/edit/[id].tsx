@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useRouter } from 'next/router';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin, Segmented, Select, Button } from 'antd';
+import { Spin, Segmented, Select, Button, Popconfirm, message } from 'antd';
 
 import Layout from '../../components/Layout'
 import EditorDiff from '../../components/Edit/EditorDiff';
@@ -13,13 +13,15 @@ const bigSpinIcon = <LoadingOutlined className='' style={{fontSize: 36}} spin/>
 const Edit = () => {
     const router = useRouter();
     const id = router.query.id;
-    console.log(id)
+
     const [fileSrcCode, setFileSrcCode] = useState<string>("");
     const [fetchDone, setFetchDone] = useState(false)
-    const [editorCode, setEditorCode] = useState()
+    const [editorCode, setEditorCode] = useState<string>()
     const [showDiff, setShowDiff] = useState(false)
     const [showEditor, setShowEditor] = useState(true)
     const [theme, setTheme] = useState('MerbivoreSoft')
+    const [ableToRestore, setAbleToRestore] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = () => {
@@ -57,13 +59,27 @@ const Edit = () => {
     }, [id]);
 
     useEffect(() => {
-        console.log(editorCode);
+        if(editorCode !== fileSrcCode) {
+            setAbleToRestore(true);
+        }
+        else {
+            setAbleToRestore(false);
+        }
     }, [editorCode]);
+    useEffect(() => {
+    }, [loading, ableToRestore]);
 
     const handleReSubmit = () => {
-        console.log("❤️‍🔥 RESUBMIT", editorCode);
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000);
     }
 
+    const handleRestore = () => {
+        setEditorCode(fileSrcCode);
+    } 
+    
     return (
         <Layout title={`Edit | ${id !== undefined ? id : "loading.."}`}>
             <div className='h-auto min-h-screen'>
@@ -111,7 +127,34 @@ const Edit = () => {
                                     }}
                                 />
                             </div>
-                            <Button onClick={handleReSubmit} className='hover:text-white'>Re-submit</Button>
+                            <div>
+                                {
+                                    ableToRestore ? (
+                                        <Popconfirm
+                                            title="Restore code"
+                                            description="Are you sure to discard all changes?"
+                                            onConfirm={handleRestore}
+                                            okText="Yes"
+                                            cancelText="No"
+                                            okType='default'
+                                        >
+                                            <Button className='mr-2 hover:text-white'>Restore</Button>
+                                        </Popconfirm>
+                                    ) 
+                                    : 
+                                    (
+                                        <Button className='mr-2' disabled>Restore</Button>
+                                    )
+                                }
+                                {
+                                    <Button onClick={handleReSubmit} className='hover:text-white'
+                                    loading={loading}
+                                    >
+                                        Re-submit
+                                    </Button>
+                                }
+                                
+                            </div>
                         </div>
 
                         {showDiff && <EditorDiff initCode = {fileSrcCode} updatedCode={editorCode} updateCode={setEditorCode} theme={theme}/>}
