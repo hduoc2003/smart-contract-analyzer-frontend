@@ -19,6 +19,8 @@ export default function EditorMain({
 }) {
     const monaco = useMonaco()
     // console.log(fileSrcCode)
+    useEffect(() => {
+    }, [fileSrcCode])
 
     return (
         <>
@@ -30,6 +32,7 @@ export default function EditorMain({
                         // @ts-ignore
                         defaultLanguage="sol"
                         theme={theme}
+                        value={fileSrcCode}
                         defaultValue={fileSrcCode}
                         onChange={onChange}
                         options={{
