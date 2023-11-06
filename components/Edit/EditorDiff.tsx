@@ -7,6 +7,7 @@ export default function EditorDiff({initCode, updatedCode, updateCode, theme}) {
   const [languages, setLanguages] = useState([])
   const [isDisabled, setIsDisabled] = useState(true)
   const monaco = useMonaco()
+  useEffect(() => {}, [updatedCode])
 
   return (
     <>

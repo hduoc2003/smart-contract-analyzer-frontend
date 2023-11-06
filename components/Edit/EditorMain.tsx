@@ -8,7 +8,8 @@ export default function EditorMain({
     fileSrcCode,
     onChange,
     theme,
-    editorRef: ref
+    editorRef: ref,
+    updateCode
 } : {
     fileSrcCode: string
     onChange?: (value: string) => void
@@ -16,10 +17,11 @@ export default function EditorMain({
     editorRef?: {
         current: editor.IStandaloneCodeEditor
     }
+    updateCode: any
 }) {
     const monaco = useMonaco()
     // console.log(fileSrcCode)
-    useEffect(() => {
+        useEffect(() => {
     }, [fileSrcCode])
 
     return (
@@ -34,7 +36,10 @@ export default function EditorMain({
                         theme={theme}
                         value={fileSrcCode}
                         defaultValue={fileSrcCode}
-                        onChange={onChange}
+                        onChange={(code) => {
+                            onChange(code);
+                            updateCode(code);
+                        }}
                         options={{
                             minimap: {
                                 enabled: true,

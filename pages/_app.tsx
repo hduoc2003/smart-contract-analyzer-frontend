@@ -5,6 +5,7 @@ import 'animate.css';
 import "../styles/index.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  //@ts-ignore
   return <Component {...pageProps} />;
 }
 
