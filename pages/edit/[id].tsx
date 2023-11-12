@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin, Segmented, Select, Button } from 'antd';
+import { Spin, Segmented, Select, Button, Popconfirm, message } from 'antd';
 import Layout from '../../components/Layout'
 import EditorDiff from '../../components/Edit/EditorDiff';
 import EditorMain from '../../components/Edit/EditorMain';
@@ -22,6 +22,7 @@ const Edit = () => {
     const [fileSrcCode, setFileSrcCode] = useState<string>("");
     const [editorCode, setEditorCode] = useState<string>("")
     const [showDiff, setShowDiff] = useState(false)
+    const [ableToSubmit, setAbleToSubmit] = useState<boolean>(false)
     const [showEditor, setShowEditor] = useState(true)
     const [theme, setTheme] = useState('MerbivoreSoft')
     const editorRef = useRef<editor.IStandaloneCodeEditor>(null)
@@ -54,6 +55,22 @@ const Edit = () => {
         };
         fetchData();
     }, [fileId]);
+
+    const handleEditorChange = (newCode) => {
+        if(fileSrcCode !== newCode) {
+            setAbleToSubmit(true);
+        }
+        else {
+            setAbleToSubmit(false);
+        }
+    }
+
+    useEffect(() => {
+    }, [ableToSubmit, editorCode]);
+
+    const handleRestore = () => {
+        setEditorCode(fileSrcCode);
+    } 
 
     const handleReSubmit = async () => {
         ++cntResubmit;
@@ -114,12 +131,40 @@ const Edit = () => {
                                 }}
                             />
                         </div>
-                        <Button onClick={handleReSubmit} className='hover:text-white'>Re-submit</Button>
+                        <div>
+                            {
+                                ableToSubmit ? (
+                                    <Popconfirm
+                                        title="Restore code"
+                                        description="Are you sure to discard all changes?"
+                                        onConfirm={handleRestore}
+                                        okText="Yes"
+                                        cancelText="No"
+                                        okType='default'
+                                    >
+                                        <Button className='mr-2 hover:text-white'>Restore</Button>
+                                    </Popconfirm>
+                                ) 
+                                : 
+                                (
+                                    <Button className='mr-2' disabled>Restore</Button>
+                                )
+                            }
+                            {
+                                ableToSubmit ? (
+                                    <Button onClick={handleReSubmit} className='hover:text-white'>
+                                        Re-submit
+                                    </Button>
+                                ) : (
+                                    <Button onClick={handleReSubmit} disabled>Re-submit</Button>
+                                )
+                            }
+                        </div>
                     </div>
 
                     {/* //TODO: update lại EditorDiff, tránh mỗi lần đổi source_code lại re-render */}
                     {showDiff && <EditorDiff initCode={fileSrcCode} updatedCode={editorCode} updateCode={setEditorCode} theme={theme} />}
-                    {showEditor && <EditorMain fileSrcCode={editorCode} editorRef={editorRef} theme={theme} />}
+                    {showEditor && <EditorMain fileSrcCode={editorCode} editorRef={editorRef} theme={theme} onChange={handleEditorChange} updateCode={setEditorCode}/>}
                 </div>
             </div>
         </Layout>
