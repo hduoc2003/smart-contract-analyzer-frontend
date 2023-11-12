@@ -157,16 +157,16 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
     })}
 
     return (
-    <div className='mt-4'>
-        <Descriptions bordered>
-        {/* LINE 1 */}
-            <Descriptions.Item span={3}>
-                <pre>
-                {highlightCode()}
-                </pre>
-            </Descriptions.Item>
-        </Descriptions>
-    </div>
+        <div className='mt-4'>
+            <Descriptions bordered>
+            {/* LINE 1 */}
+                <Descriptions.Item span={3}>
+                    <pre>
+                    {highlightCode()}
+                    </pre>
+                </Descriptions.Item>
+            </Descriptions>
+        </div>
     )
 }
 

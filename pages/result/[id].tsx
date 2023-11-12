@@ -7,6 +7,8 @@ import type { ColumnsType } from 'antd/es/table';
 import { AnalysisIssue, AnalysisResult, ContractAnalysis } from '../../interfaces/analysisResult';
 
 import CodeModal from '../../components/Result/CodeModal';
+import IssuesDescription from '../../components/Result/IssuesDescription';
+import IssuesVisibility from '../../components/Result/IssuesVisibility';
 
 const spinIcon = <LoadingOutlined className='ml-2' style={{ fontSize: 12 }} spin />
 const bigSpinIcon = <LoadingOutlined className='' style={{ fontSize: 36 }} spin />
@@ -14,6 +16,7 @@ const bigSpinIcon = <LoadingOutlined className='' style={{ fontSize: 36 }} spin 
 const result: React.FC = () => {
     const router = useRouter();
     const id = router.query.id;
+    const [issuesData, setIssuesData] = useState<AnalysisIssue[] | undefined>(undefined);
     const [fileResult, setFileResult] = useState<ContractAnalysis | undefined>(undefined); // Specify the type for useState
 
     useEffect(() => {
@@ -25,6 +28,12 @@ const result: React.FC = () => {
                     .then(res => res.json())
                     .then((result: ContractAnalysis) => {
                         setFileResult(result)
+                        setIssuesData(result.analysis.issues);
+                        result.analysis.issues.forEach(issue => {
+                            console.log("Issue Title:", issue.issue_title);
+                            console.log("Severity:", issue.severity);
+                            console.log("\n"); // Adding a newline for better readability
+                        });
                     })
                     .catch((error) => {
                         console.error('Error:', error);
@@ -35,12 +44,6 @@ const result: React.FC = () => {
     }, [id]);
 
     const handleEdit = () => {
-        // router.push({
-        //     pathname: `/edit/${id}`,
-        //     query: {
-        //         submitId:
-        //     }
-        // })
         router.push(`/edit/${id}`)
     }
 
@@ -100,7 +103,11 @@ const result: React.FC = () => {
                                     <Descriptions.Item label={<h1 className='text-lg font-monobold'>Filename</h1>}>
                                         {fileResult.file_name}
                                     </Descriptions.Item>
-                                    <Descriptions.Item label={<h1 className='text-lg font-monobold'>Duration</h1>} span={2}>
+
+                                    <Descriptions.Item label={<h1 className='text-lg font-monobold'>Issues</h1>}>
+                                        <IssuesDescription />   
+                                    </Descriptions.Item>
+                                    <Descriptions.Item label={<h1 className='text-lg font-monobold'>Duration</h1>}>
                                         {fileResult.duration}s
                                     </Descriptions.Item>
                                     <Descriptions.Item label={<h1 className='text-lg font-monobold'>Solidity version</h1>}>
@@ -115,10 +122,19 @@ const result: React.FC = () => {
                                 </Descriptions>
                                 <div>
                                     <div className='w-full'>
+                                        <h1 className='mt-4 font-semibold'>Code submitted</h1>
                                         <div className='flex justify-between mt-4'>
-                                            <h1 className='font-monobold'>Code submitted</h1>
-                                            <Button onClick={() => handleEdit()}>Edit</Button>
+                                            <div>
+                                                <IssuesVisibility/>
+                                            </div>
+                                            <div>
+                                                <Button onClick={() => handleEdit()}>Edit</Button>
+                                            </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className='w-full'>
                                         <CodeModal IssuesData={fileResult.analysis.issues} parsedData={fileResult.source_code} />
                                     </div>
                                 </div>
