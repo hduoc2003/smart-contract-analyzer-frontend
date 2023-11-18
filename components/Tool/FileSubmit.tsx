@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Dispatch } from 'redux';
 import { useDispatch } from 'react-redux';
@@ -16,7 +16,7 @@ interface SubmitResponse {
     }[]
 }
 
-const FileSubmit : React.FC = () => {
+const FileSubmit: React.FC = () => {
     const dispatch: Dispatch = useDispatch();
     const router = useRouter();
     const [messageApi, contextHolder] = message.useMessage();
@@ -37,9 +37,9 @@ const FileSubmit : React.FC = () => {
                 duration: 0, // Set duration to 0 to keep it open until explicitly closed
             });
         axios
-            .post('http://127.0.0.1:5000/api/v1/client/tool/submit', formData, {
+            .post(`${process.env.SERVER_BASE_API}/client/tool/submit`, formData, {
                 headers: {
-                'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'multipart/form-data',
                 },
                 withCredentials: true,
             })
@@ -47,14 +47,12 @@ const FileSubmit : React.FC = () => {
                 const data: SubmitResponse = JSON.parse(response.data)
                 console.log(data);
                 messageApi.success('Loading finished', 0.5);
-                router.push(
-                    {
-                        pathname: '/submit/' + data.submit_id,
-                        query: {
-                            id: data.submit_id,
-                        }
-                    }, '/submit/' + data.submit_id
-                );
+                router.push({
+                    pathname: '/submit',
+                    query: {
+                        id: data.submit_id,
+                    }
+                });
             })
             .catch((error) => {
                 messageApi.error('Error occurred', 0.5);

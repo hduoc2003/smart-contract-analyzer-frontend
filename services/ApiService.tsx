@@ -1,7 +1,10 @@
+const SERVER_BASE_API = process.env.SERVER_BASE_API;
+const CLIENT_APT = `${SERVER_BASE_API}/client`
+const ADMIN_API = `${SERVER_BASE_API}/admin`
 
-export const urlLogin = "http://127.0.0.1:5000/login"
-export const urlSignup = "http://127.0.0.1:5000/signup"
+export const urlLogin = `${CLIENT_APT}/auth/login`
+export const urlSignup = `${CLIENT_APT}/auth/signup`
 
-export const urlGetUser = "http://127.0.0.1:5000/user/"
-export const urlUpdateUser = "http://127.0.0.1:5000/user/update/"
-export const urlDeleteUser = "http://127.0.0.1:5000/user/delete/"
+export const urlGetUser = `${ADMIN_API}/user`
+export const urlUpdateUser = `${ADMIN_API}/user/update`
+export const urlDeleteUser = `${ADMIN_API}/user/delete`

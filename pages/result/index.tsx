@@ -22,7 +22,7 @@ const result: React.FC = () => {
     useEffect(() => {
         const fetchData = () => {
             if (id) {
-                const serverBaseURL = `${process.env.SERVER_BASE_URL}/client/tool/file/get-analyze-result?id=${id}`;
+                const serverBaseURL = `${process.env.SERVER_BASE_API}/client/tool/file/get-analyze-result?id=${id}`;
                 console.log(serverBaseURL);
                 fetch(serverBaseURL)
                     .then(res => res.json())
@@ -44,7 +44,13 @@ const result: React.FC = () => {
     }, [id]);
 
     const handleEdit = () => {
-        router.push(`/edit/${id}`)
+        console.log('editS')
+        router.push({
+            pathname: '/edit',
+            query: {
+                id
+            }
+        })
     }
 
     return (
@@ -105,7 +111,7 @@ const result: React.FC = () => {
                                     </Descriptions.Item>
 
                                     <Descriptions.Item label={<h1 className='text-lg font-monobold'>Issues</h1>}>
-                                        <IssuesDescription />   
+                                        <IssuesDescription />
                                     </Descriptions.Item>
                                     <Descriptions.Item label={<h1 className='text-lg font-monobold'>Duration</h1>}>
                                         {fileResult.duration}s

@@ -4,6 +4,7 @@ module.exports = {
     unoptimized: true,
   },
   env: {
-    SERVER_BASE_URL: "http://127.0.0.1:5000/api/v1",
+    SERVER_BASE_API: process.env.SERVER_BASE_API,
+    SERVER_BASE_URL: process.env.SERVER_BASE_URL
   },
 };
