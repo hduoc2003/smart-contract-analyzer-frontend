@@ -78,6 +78,7 @@ const FileSubmit: React.FC = () => {
             }
             return isSol || Upload.LIST_IGNORE;
         },
+        action: `${process.env.SERVER_BASE_API}/client/tool/submit/before-submit`,
         onChange(info) {
             // AFTER UPLOAD
             const { status } = info.file;
