@@ -33,7 +33,7 @@ const Edit = () => {
         const fetchData = () => {
             if (fileId) {
                 // console.log('fetching')
-                const serverBaseURL = `${process.env.SERVER_BASE_URL}/client/tool/file/get-analyze-result?id=${fileId}`;
+                const serverBaseURL = `${process.env.SERVER_BASE_API}/client/tool/file/get-analyze-result?id=${fileId}`;
                 // console.log(serverBaseURL);
                 fetch(serverBaseURL, { credentials: 'include' })
                     .then(async (response) => {
@@ -70,19 +70,23 @@ const Edit = () => {
 
     const handleRestore = () => {
         setEditorCode(fileSrcCode);
-    } 
+    }
 
     const handleReSubmit = async () => {
         ++cntResubmit;
         const {data, status}: {data: ResubmitResponse, status: number} =
-        await axios.post(`${process.env.SERVER_BASE_URL}/client/tool/submit/resubmit`, {
+        await axios.post(`${process.env.SERVER_BASE_API}/client/tool/submit/resubmit`, {
             old_file_id: fileId,
             new_file_name: `${fileName.current} (${cntResubmit})`,
             source_code: editorRef.current.getValue(),
             user_id: '@@@@duoc'
         })
-        // console.log(data)
-        router.push(`/submit/${data.submit_id}`)
+        router.push({
+            pathname: '/submit',
+            query: {
+                id: data.submit_id,
+            }
+        });
     }
 
     return (
@@ -144,8 +148,8 @@ const Edit = () => {
                                     >
                                         <Button className='mr-2 hover:text-white'>Restore</Button>
                                     </Popconfirm>
-                                ) 
-                                : 
+                                )
+                                :
                                 (
                                     <Button className='mr-2' disabled>Restore</Button>
                                 )
