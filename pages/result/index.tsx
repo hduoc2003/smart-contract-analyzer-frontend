@@ -22,7 +22,7 @@ const result: React.FC = () => {
     useEffect(() => {
         const fetchData = () => {
             if (id) {
-                const serverBaseURL = `${process.env.SERVER_BASE_API}/client/tool/file/get-analyze-result?id=${id}`;
+             	const serverBaseURL = `${process.env.SERVER_BASE_API}/client/tool/file/get-analyze-result?id=${id}`;
                 console.log(serverBaseURL);
                 fetch(serverBaseURL)
                     .then(res => res.json())
@@ -111,7 +111,7 @@ const result: React.FC = () => {
                                     </Descriptions.Item>
 
                                     <Descriptions.Item label={<h1 className='text-lg font-monobold'>Issues</h1>}>
-                                        <IssuesDescription />
+                                        <IssuesDescription IssuesData={fileResult.analysis.issues}/>   
                                     </Descriptions.Item>
                                     <Descriptions.Item label={<h1 className='text-lg font-monobold'>Duration</h1>}>
                                         {fileResult.duration}s
@@ -119,12 +119,6 @@ const result: React.FC = () => {
                                     <Descriptions.Item label={<h1 className='text-lg font-monobold'>Solidity version</h1>}>
                                         {fileResult.solc}
                                     </Descriptions.Item>
-
-                                    {/* <Descriptions.Item label="Status" span={1}>
-                                        {
-                                            fetchDone && (<Badge status="success" text="Done" />)
-                                        }
-                                    </Descriptions.Item> */}
                                 </Descriptions>
                                 <div>
                                     <div className='w-full'>

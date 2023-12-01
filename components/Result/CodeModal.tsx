@@ -4,6 +4,7 @@ import { Tag, Descriptions, Popover } from 'antd';
 import { InfoCircleOutlined, WarningOutlined, RiseOutlined } from '@ant-design/icons';
 import hljs from 'highlight.js';
 import IssuesTable from './IssuesTable';
+import { AnalysisIssue } from '../../interfaces/analysisResult';
 
 // import mockSourceCode from './mockSrcCode.json'
 // import mockIssueData from './mockIssueData.json'
@@ -11,7 +12,7 @@ import IssuesTable from './IssuesTable';
 import Highlighter from '../../utils/Highlighter';
 interface CodeModalProps {
     parsedData: String; // Replace 'any' with the actual type of 'modalData' if possible
-    IssuesData: any;
+    IssuesData: AnalysisIssue[];
 }
 
 
