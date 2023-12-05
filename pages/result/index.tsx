@@ -14,6 +14,7 @@ const spinIcon = <LoadingOutlined className='ml-2' style={{ fontSize: 12 }} spin
 const bigSpinIcon = <LoadingOutlined className='' style={{ fontSize: 36 }} spin />
 
 const result: React.FC = () => {
+    const [checkedList, setCheckedList] = useState(['High', 'Medium', 'Low', 'Informational', 'Optimization']);
     const router = useRouter();
     const id = router.query.id;
     const [issuesData, setIssuesData] = useState<AnalysisIssue[] | undefined>(undefined);
@@ -53,6 +54,11 @@ const result: React.FC = () => {
         })
     }
 
+    const handleIssuesVisibilityChange = (list) => {
+        setCheckedList(list);
+        // Do something with the updated checkedList in the parent component
+      };
+
     return (
         <Layout title={`Result | ${id !== undefined ? id : "loading.."}`}>
             {fileResult && (
@@ -90,11 +96,6 @@ const result: React.FC = () => {
                                             </Tag>
                                         )
                                     })()
-                                    // : (
-                                    //     <Tag className='flex justify-center w-auto h-auto pb-2 text-xl' icon={<SyncOutlined className='mt-2' spin />} color="processing">
-                                    //         Analyzing
-                                    //     </Tag>
-                                    // )
                                 }
                             </div>
                         </div>
@@ -125,7 +126,7 @@ const result: React.FC = () => {
                                         <h1 className='mt-4 font-semibold'>Code submitted</h1>
                                         <div className='flex justify-between mt-4'>
                                             <div>
-                                                <IssuesVisibility/>
+                                                <IssuesVisibility checkedList={checkedList} onChange={handleIssuesVisibilityChange} />
                                             </div>
                                             <div>
                                                 <Button onClick={() => handleEdit()}>Edit</Button>
@@ -135,7 +136,11 @@ const result: React.FC = () => {
                                 </div>
                                 <div>
                                     <div className='w-full'>
-                                        <CodeModal IssuesData={fileResult.analysis.issues} parsedData={fileResult.source_code} />
+                                        <CodeModal
+                                            IssuesData={fileResult.analysis.issues}
+                                            parsedData={fileResult.source_code}
+                                            checkedList={checkedList}
+                                        />
                                     </div>
                                 </div>
                             </div>
