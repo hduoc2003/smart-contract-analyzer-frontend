@@ -3,14 +3,17 @@ import { ResultType } from '../../interfaces/results';
 import { Tag, Descriptions, Popover } from 'antd';
 import { InfoCircleOutlined, WarningOutlined, RiseOutlined } from '@ant-design/icons';
 import hljs from 'highlight.js';
-import IssuesTable from './IssuesTable';
 import { AnalysisIssue } from '../../interfaces/analysisResult';
+import { AnalysisError, AnalysisErrorMsg } from '../../interfaces/analysisError';
 
 // import mockSourceCode from './mockSrcCode.json'
 // import mockIssueData from './mockIssueData.json'
 
 import Highlighter from '../../utils/Highlighter';
+import IssuesTable from './IssuesTable';
+import ErrorTable from './ErrorTable';
 interface CodeModalProps {
+    ErrorsData: AnalysisErrorMsg[] | [];
     parsedData: String; // Replace 'any' with the actual type of 'modalData' if possible
     IssuesData: AnalysisIssue[];
     checkedList: any;
@@ -18,38 +21,74 @@ interface CodeModalProps {
 
 
 const CodeModal : React.FC<CodeModalProps> = (props) => {
-    const { IssuesData, parsedData, checkedList } = props;
-    const normalizeErrors = () => {
+    const { ErrorsData, IssuesData, parsedData, checkedList } = props;
+    console.log("🚀 ~ file: CodeModal.tsx:24 ~ ErrorsData:", ErrorsData)
+    console.log("🚀 ~ file: CodeModal.tsx:24 ~ IssuesData:", IssuesData)
+
+    const normalizeIssues = () => {
         // Create a map to store errors by line number
-        const issuesMap = new Map();
+        const tempIssuesMap = new Map();
         
-        // Iterate through the IssuesData and populate the issuesMap
+        // Iterate through the IssuesData and populate the tempIssuesMap
         IssuesData.forEach((error) => {
             if (Array.isArray(error.line_no)) {
                 error.line_no.forEach((lineNumber) => {
                     const adjustedLineNumber = lineNumber - 1; // Subtract 1 from the line number
-                    if (!issuesMap.has(adjustedLineNumber)) {
-                        issuesMap.set(adjustedLineNumber, []);
+                    if (!tempIssuesMap.has(adjustedLineNumber)) {
+                        tempIssuesMap.set(adjustedLineNumber, []);
                     }
-                    issuesMap.get(adjustedLineNumber).push(error);
+                    tempIssuesMap.get(adjustedLineNumber).push(error);
                 });
             } else if (Number.isInteger(error.line_no)) {
                 const adjustedLineNumber = error.line_no - 1; // Subtract 1 from the line number
-                if (!issuesMap.has(adjustedLineNumber)) {
-                    issuesMap.set(adjustedLineNumber, []);
+                if (!tempIssuesMap.has(adjustedLineNumber)) {
+                    tempIssuesMap.set(adjustedLineNumber, []);
                 }
-                issuesMap.get(adjustedLineNumber).push(error);
+                tempIssuesMap.get(adjustedLineNumber).push(error);
             }
         });
         
-        const IssuesIndexes = Array.from(issuesMap.keys()); // Extract adjusted line numbers as IssuesIndexes
-        const ErrorMap = Object.fromEntries(issuesMap); // Convert the Map to an object
-        // Return an object containing both IssuesIndexes and ErrorMap
+        const IssuesIndexes = Array.from(tempIssuesMap.keys()); // Extract adjusted line numbers as IssuesIndexes
+        const IssuesMap = Object.fromEntries(tempIssuesMap); // Convert the Map to an object
+        // Return an object containing both IssuesIndexes and IssuesMap
         return {
             IssuesIndexes,
-            ErrorMap,
+            IssuesMap,
         };
     };
+
+    const normalizeErrors = () => {
+        // Create a map to store errors by line number
+        const tempErrorsMap = new Map;
+      
+        // Iterate through the ErrorsData and populate the tempErrorsMap
+        ErrorsData.forEach((error) => {
+          if (Array.isArray(error.line_no)) {
+            error.line_no.forEach((lineNumber) => {
+              const adjustedLineNumber = lineNumber - 1; // Subtract 1 from the line number
+              if (!tempErrorsMap.has(adjustedLineNumber)) {
+                tempErrorsMap.set(adjustedLineNumber, []);
+              }
+              tempErrorsMap.get(adjustedLineNumber)!.push(error); // Use non-null assertion (!) to tell TypeScript that tempErrorsMap.get(adjustedLineNumber) will never be undefined
+            });
+          } else if (Number.isInteger(error.line_no)) {
+            const adjustedLineNumber = error.line_no - 1; // Subtract 1 from the line number
+            if (!tempErrorsMap.has(adjustedLineNumber)) {
+              tempErrorsMap.set(adjustedLineNumber, []);
+            }
+            tempErrorsMap.get(adjustedLineNumber)!.push(error);
+          }
+        });
+      
+        const ErrorsIndexes = Array.from(tempErrorsMap.keys()); // Extract adjusted line numbers as ErrorsIndexes
+        const ErrorsMap = Object.fromEntries(tempErrorsMap); // Convert the Map to an object
+        // Return an object containing both ErrorsIndexes and ErrorsMap
+        return {
+          ErrorsIndexes,
+          ErrorsMap,
+        };
+      };
+      
 
     useEffect(() => {
         console.log("🐲🐲 ~ file: CodeModal.tsx:57 ~ checkedList:", checkedList)
@@ -57,17 +96,29 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
 
     
     // Call the function to get the results
-    const { IssuesIndexes, ErrorMap } = normalizeErrors();
+    const { IssuesIndexes, IssuesMap } = normalizeIssues();
+    const { ErrorsIndexes, ErrorsMap } = normalizeErrors();
+    console.log("ErrorsIndexes:", ErrorsIndexes);
+    console.log("ErrorsMap:", ErrorsMap);
+
     
     const generateIssueContent = (index, severity) => (
         <div>
-            {console.log(index)}
             <IssuesTable 
                 className=""
-                IssuesData={ErrorMap[index] && ErrorMap[index].filter((item) => item.severity === severity)} 
+                IssuesData={IssuesMap[index] && IssuesMap[index].filter((item) => item.severity === severity)} 
             />
         </div>
     );
+
+    const generateErrorContent = (index, typeDetect) => (
+        <div>
+            <ErrorTable 
+                className=""
+                IssuesData={ErrorsMap[index] && ErrorsMap[index].filter((item) => item.typeDetect === typeDetect)} 
+            />
+        </div>
+    )
 
     const highlightCode = () => {
         const code = (parsedData as string);
@@ -76,7 +127,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
         const lines = highlightedCode.split('\n');
 
         return lines.map((line, index) => {
-            let isErrorLine = false;
+            let isHighLine = false;
             let isMediumLine = false;
             let isInfoLine = false;
             let isLowLine = false;
@@ -85,7 +136,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                 <>
                     <span className='inline-flex items-center w-24 align-middle'>
                         <span className='inline-flex items-center w-20 space-x-1 align-middle'>
-                            {checkedList.includes('Optimization') && ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Optimization") && (
+                            {checkedList.includes('Optimization') && IssuesMap[index] && IssuesMap[index].some(item => item.severity === "Optimization") && (
                                 (() => {
                                     isInfoLine = true;
                                     return (
@@ -96,7 +147,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                 })()
                             )}
 
-                            {checkedList.includes('Informational') && ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Informational") && (
+                            {checkedList.includes('Informational') && IssuesMap[index] && IssuesMap[index].some(item => item.severity === "Informational") && (
                                 (() => {
                                     isInfoLine = true;
                                     return (
@@ -107,7 +158,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                 })()
                             )}
 
-                            {checkedList.includes('Low') && ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Low") && (
+                            {checkedList.includes('Low') && IssuesMap[index] && IssuesMap[index].some(item => item.severity === "Low") && (
                                 (() => {
                                     isLowLine = true;
                                     return (
@@ -118,7 +169,7 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                 })()
                             )}
 
-                            {checkedList.includes('Medium') && ErrorMap[index] && ErrorMap[index].some(item => item.severity === "Medium") && (
+                            {checkedList.includes('Medium') && IssuesMap[index] && IssuesMap[index].some(item => item.severity === "Medium") && (
                                 (() => {
                                     isMediumLine = true;
                                     return (
@@ -129,11 +180,32 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                 })()
                             )}
 
-                            {checkedList.includes('High') && ErrorMap[index] && ErrorMap[index].some(item => item.severity === "High") && (
+                            {checkedList.includes('High') && IssuesMap[index] && IssuesMap[index].some(item => item.severity === "High") && (
                                 (() => {
-                                    isErrorLine = true;
+                                    isHighLine = true;
                                     return (
                                         <Popover placement="bottomLeft" title={"High risk"} content={generateIssueContent(index, "High")}>
+                                            <WarningOutlined className='text-red-600 hover:cursor-pointer animate__animated animate__fadeIn hover:text-red-700 focus:bg-red-100'/>
+                                        </Popover>
+                                    );
+                                })()
+                            )}
+
+                            {ErrorsMap[index] && ErrorsMap[index].some(item => item.typeDetect === "Warning") && (
+                                (() => {
+                                    isMediumLine = true;
+                                    return (
+                                        <Popover placement="bottomLeft" title={ErrorsMap[index].error_title} content={generateErrorContent(index, "Warning")}>
+                                            <WarningOutlined className='text-orange-600 hover:cursor-pointer animate__animated animate__fadeIn hover:text-orange-700'/>
+                                        </Popover>
+                                    );
+                                })()
+                            )}
+                            {ErrorsMap[index] && ErrorsMap[index].some(item => item.typeDetect === "Error") && (
+                                (() => {
+                                    isHighLine = true;
+                                    return (
+                                        <Popover placement="bottomLeft" title={ErrorsMap[index].error_title} content={generateErrorContent(index, "Error")}>
                                             <WarningOutlined className='text-red-600 hover:cursor-pointer animate__animated animate__fadeIn hover:text-red-700 focus:bg-red-100'/>
                                         </Popover>
                                     );
@@ -147,13 +219,13 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                     <span
                         key={index}
                         className={`    
-                            ${isErrorLine ? "bg-red-200 rounded hover:bg-red-300 hover:cursor-pointer animate__animated animate__fadeIn" : 
+                            ${isHighLine ? "bg-red-200 rounded hover:bg-red-300 hover:cursor-pointer animate__animated animate__fadeIn" : 
                                 isMediumLine ? "bg-orange-200 rounded hover:bg-orange-300 hover:cursor-pointer animate__animated animate__fadeIn" :
                                 isLowLine ? "bg-yellow-200 rounded hover:bg-yellow-300 hover:cursor-pointer animate__animated animate__fadeIn" :
                                 isInfoLine ? "bg-blue-200 rounded hover:bg-blue-300 hover:cursor-pointer animate__animated animate__fadeIn" : ""}
                             `}
                         onClick={() => {
-                            // console.log(ErrorMap[index]);
+                            // console.log(IssuesMap[index]);
                         }}
                         dangerouslySetInnerHTML={{ __html: line+"\n" }}
                     ></span>

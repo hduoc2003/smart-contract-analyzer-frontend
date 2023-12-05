@@ -4,6 +4,7 @@ import Layout from "../../components/Layout";
 import { LoadingOutlined, CheckCircleOutlined, SyncOutlined, CloseCircleOutlined } from '@ant-design/icons'
 import { Badge, Descriptions, Space, Button, Modal, Spin, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { AnalysisError, AnalysisErrorMsg } from '../../interfaces/analysisError';
 import { AnalysisIssue, AnalysisResult, ContractAnalysis } from '../../interfaces/analysisResult';
 
 import CodeModal from '../../components/Result/CodeModal';
@@ -17,6 +18,8 @@ const result: React.FC = () => {
     const [checkedList, setCheckedList] = useState(['High', 'Medium', 'Low', 'Informational', 'Optimization']);
     const router = useRouter();
     const id = router.query.id;
+
+    const [errorsData, setErrorsData] = useState<AnalysisErrorMsg[] | undefined>(undefined);
     const [issuesData, setIssuesData] = useState<AnalysisIssue[] | undefined>(undefined);
     const [fileResult, setFileResult] = useState<ContractAnalysis | undefined>(undefined); // Specify the type for useState
 
@@ -29,6 +32,9 @@ const result: React.FC = () => {
                     .then(res => res.json())
                     .then((result: ContractAnalysis) => {
                         setFileResult(result)
+                        console.log(result.analysis.errors[0].msg);
+                        //@ts-ignore
+                        setErrorsData(result.analysis.errors[0].msg);
                         setIssuesData(result.analysis.issues);
                         result.analysis.issues.forEach(issue => {
                             console.log("Issue Title:", issue.issue_title);
@@ -137,6 +143,8 @@ const result: React.FC = () => {
                                 <div>
                                     <div className='w-full'>
                                         <CodeModal
+                                            //@ts-ignore
+                                            ErrorsData={fileResult.analysis.errors[0] ? fileResult.analysis.errors[0].msg : []}
                                             IssuesData={fileResult.analysis.issues}
                                             parsedData={fileResult.source_code}
                                             checkedList={checkedList}

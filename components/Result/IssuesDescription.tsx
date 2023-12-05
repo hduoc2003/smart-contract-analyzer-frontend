@@ -17,10 +17,10 @@ const IssuesDescription : React.FC<IssuesDescriptionProps> = (props) => {
 
   return (
     <Space>
-      <Badge count={counts.HIGH || 0} showZero/>
-      <Badge count={counts.MEDIUM || 0} showZero color='#faad14' />
-      <Badge count={counts.LOW || 0} showZero color='#fdd835' />
-      <Badge count={(counts.OPTIMIZATION || 0 + counts.INFORMATIONAL || 0)} showZero color='blue' />
+      <Badge count={counts.HIGH || 0} color='#dc2626'/>
+      <Badge count={counts.MEDIUM || 0} color='#ea580c' />
+      <Badge count={counts.LOW || 0} color='#d97706' />
+      <Badge count={(counts.OPTIMIZATION || 0 + counts.INFORMATIONAL || 0)} color='#2563eb' />
     </Space>
   )
 }

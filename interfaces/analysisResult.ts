@@ -13,7 +13,7 @@ export interface AnalysisIssue {
 }
 
 export interface AnalysisResult {
-  error: {
+  errors: {
     error: "runtime out" | "compile error" | "unsupported solc" | "undefined solc" | "unknown error",
     msg: string
   }[];
