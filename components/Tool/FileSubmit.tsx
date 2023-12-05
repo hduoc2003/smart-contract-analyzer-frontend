@@ -3,9 +3,9 @@ import axios from "axios";
 import { Dispatch } from 'redux';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/dist/client/router';
-import { InboxOutlined } from '@ant-design/icons';
+import { InboxOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { UploadProps, UploadFile } from 'antd';
-import { message, Upload } from 'antd';
+import { message, Upload, Popover, Button } from 'antd';
 const { Dragger } = Upload;
 
 interface SubmitResponse {
@@ -96,13 +96,22 @@ const FileSubmit: React.FC = () => {
         },
     };
 
+    const content = (
+        <div>
+          <p>We accept flatten contracts</p>
+          <p>Content</p>
+        </div>
+      );
 
     return (
         <div className="h-auto p-8 border border-gray-200 rounded shadow-md md:mx-20 animate__animated animate__delay-fast animate__fadeInUp">
-            <div className='grid grid-cols-2'>
+            <div className='flex justify-between'>
                 <h2 className='mb-8 text-xl font-bold '>
                     Upload files
                 </h2>
+                <Popover content={content} title="What can be analyze?">
+                    <QuestionCircleOutlined className="m-2 hover:cursor-pointer"/>
+                </Popover>
             </div>
             <div className="h-auto min-w-full mb-8">
                 <Dragger {...props}>
