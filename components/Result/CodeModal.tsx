@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { ResultType } from '../../interfaces/results';
 import { Tag, Descriptions, Popover } from 'antd';
 import { InfoCircleOutlined, WarningOutlined, RiseOutlined } from '@ant-design/icons';
@@ -22,6 +22,7 @@ interface CodeModalProps {
 
 const CodeModal : React.FC<CodeModalProps> = (props) => {
     const { ErrorsData, IssuesData, parsedData, checkedList } = props;
+    const [showErrorMsg, setShowErrorMsg] = useState<Boolean>(false);
     console.log("🚀 ~ file: CodeModal.tsx:24 ~ ErrorsData:", ErrorsData)
     console.log("🚀 ~ file: CodeModal.tsx:24 ~ IssuesData:", IssuesData)
 
@@ -60,35 +61,32 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
     const normalizeErrors = () => {
         // Create a map to store errors by line number
         const tempErrorsMap = new Map;
-      
         // Iterate through the ErrorsData and populate the tempErrorsMap
-        ErrorsData.forEach((error) => {
-          if (Array.isArray(error.line_no)) {
-            error.line_no.forEach((lineNumber) => {
-              const adjustedLineNumber = lineNumber - 1; // Subtract 1 from the line number
-              if (!tempErrorsMap.has(adjustedLineNumber)) {
+        Array.isArray(ErrorsData) && ErrorsData.forEach((error) => {
+            if (Array.isArray(error.line_no)) {
+                error.line_no.forEach((lineNumber) => {
+                const adjustedLineNumber = lineNumber - 1; // Subtract 1 from the line number
+                if (!tempErrorsMap.has(adjustedLineNumber)) {
+                    tempErrorsMap.set(adjustedLineNumber, []);
+                }
+                tempErrorsMap.get(adjustedLineNumber)!.push(error); // Use non-null assertion (!) to tell TypeScript that tempErrorsMap.get(adjustedLineNumber) will never be undefined
+                });
+            } else if (Number.isInteger(error.line_no)) {
+                const adjustedLineNumber = error.line_no - 1; // Subtract 1 from the line number
+                if (!tempErrorsMap.has(adjustedLineNumber)) {
                 tempErrorsMap.set(adjustedLineNumber, []);
-              }
-              tempErrorsMap.get(adjustedLineNumber)!.push(error); // Use non-null assertion (!) to tell TypeScript that tempErrorsMap.get(adjustedLineNumber) will never be undefined
-            });
-          } else if (Number.isInteger(error.line_no)) {
-            const adjustedLineNumber = error.line_no - 1; // Subtract 1 from the line number
-            if (!tempErrorsMap.has(adjustedLineNumber)) {
-              tempErrorsMap.set(adjustedLineNumber, []);
+                }
+                tempErrorsMap.get(adjustedLineNumber)!.push(error);
             }
-            tempErrorsMap.get(adjustedLineNumber)!.push(error);
-          }
         });
-      
         const ErrorsIndexes = Array.from(tempErrorsMap.keys()); // Extract adjusted line numbers as ErrorsIndexes
         const ErrorsMap = Object.fromEntries(tempErrorsMap); // Convert the Map to an object
         // Return an object containing both ErrorsIndexes and ErrorsMap
         return {
-          ErrorsIndexes,
-          ErrorsMap,
+            ErrorsIndexes,
+            ErrorsMap,
         };
-      };
-      
+    };
 
     useEffect(() => {
         console.log("🐲🐲 ~ file: CodeModal.tsx:57 ~ checkedList:", checkedList)
@@ -191,7 +189,8 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                 })()
                             )}
 
-                            {ErrorsMap[index] && ErrorsMap[index].some(item => item.typeDetect === "Warning") && (
+                            {ErrorsMap[index] && 
+                                ErrorsMap[index].some(item => item.typeDetect === "Warning") && (
                                 (() => {
                                     isMediumLine = true;
                                     return (
@@ -201,7 +200,8 @@ const CodeModal : React.FC<CodeModalProps> = (props) => {
                                     );
                                 })()
                             )}
-                            {ErrorsMap[index] && ErrorsMap[index].some(item => item.typeDetect === "Error") && (
+                            {ErrorsMap[index] && 
+                                ErrorsMap[index].some(item => item.typeDetect === "Error") && (
                                 (() => {
                                     isHighLine = true;
                                     return (

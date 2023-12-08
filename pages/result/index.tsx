@@ -8,6 +8,7 @@ import { AnalysisError, AnalysisErrorMsg } from '../../interfaces/analysisError'
 import { AnalysisIssue, AnalysisResult, ContractAnalysis } from '../../interfaces/analysisResult';
 
 import CodeModal from '../../components/Result/CodeModal';
+import ErrorMessage from '../../components/Result/ErrorMessage';
 import IssuesDescription from '../../components/Result/IssuesDescription';
 import IssuesVisibility from '../../components/Result/IssuesVisibility';
 
@@ -142,13 +143,20 @@ const result: React.FC = () => {
                                 </div>
                                 <div>
                                     <div className='w-full'>
-                                        <CodeModal
-                                            //@ts-ignore
-                                            ErrorsData={fileResult.analysis.errors[0] ? fileResult.analysis.errors[0].msg : []}
-                                            IssuesData={fileResult.analysis.issues}
-                                            parsedData={fileResult.source_code}
-                                            checkedList={checkedList}
-                                        />
+                                        {
+                                            <>
+                                                <ErrorMessage 
+                                                    ErrorsData={fileResult.status != "Analyzing" ? (fileResult.analysis.errors[0] ? fileResult.analysis.errors[0].msg : []) : []}
+                                                />
+                                                <CodeModal
+                                                    //@ts-ignore
+                                                    ErrorsData={fileResult.status != "Analyzing" ? (fileResult.analysis.errors[0] ? fileResult.analysis.errors[0].msg : []) : []}
+                                                    IssuesData={fileResult.analysis.issues}
+                                                    parsedData={fileResult.source_code}
+                                                    checkedList={checkedList}
+                                                />
+                                            </>
+                                        }
                                     </div>
                                 </div>
                             </div>
